@@ -1,0 +1,191 @@
+c:\users\it4w\documents\visual studio 2015\Projects\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe.config
+c:\users\it4w\documents\visual studio 2015\Projects\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe
+c:\users\it4w\documents\visual studio 2015\Projects\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.pdb
+c:\users\it4w\documents\visual studio 2015\Projects\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csprojResolveAssemblyReference.cache
+c:\users\it4w\documents\visual studio 2015\Projects\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Form1.resources
+c:\users\it4w\documents\visual studio 2015\Projects\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Properties.Resources.resources
+c:\users\it4w\documents\visual studio 2015\Projects\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.GenerateResource.Cache
+c:\users\it4w\documents\visual studio 2015\Projects\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.exe
+c:\users\it4w\documents\visual studio 2015\Projects\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.pdb
+C:\Users\It4w\documents\visual studio 2015\Projects\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.FormVer.resources
+C:\Users\It4w\documents\visual studio 2015\Projects\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.MostrarRegistro.resources
+C:\Users\It4w\Documents\Visual Studio 2015\Projects\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.DirectShow.dll
+C:\Users\It4w\Documents\Visual Studio 2015\Projects\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.dll
+C:\Users\It4w\Documents\Visual Studio 2015\Projects\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.dll
+C:\Users\It4w\Documents\Visual Studio 2015\Projects\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.xml
+C:\Users\It4w\Documents\Visual Studio 2015\Projects\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.DirectShow.xml
+C:\Users\It4w\Documents\Visual Studio 2015\Projects\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.xml
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe.config
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.exe
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.pdb
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.pdb
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.dll
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.xml
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.DirectShow.xml
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.xml
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csprojResolveAssemblyReference.cache
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Form1.resources
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.FormVer.resources
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.MostrarRegistro.resources
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Properties.Resources.resources
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.GenerateResource.Cache
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\UltimoProyecto\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe.config
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\UltimoProyecto\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.exe
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\UltimoProyecto\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.pdb
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\UltimoProyecto\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\UltimoProyecto\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.pdb
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\UltimoProyecto\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.dll
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\UltimoProyecto\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.xml
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\UltimoProyecto\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.DirectShow.xml
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\UltimoProyecto\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.xml
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\UltimoProyecto\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Form1.resources
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\UltimoProyecto\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.FormVer.resources
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\UltimoProyecto\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.MostrarRegistro.resources
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\UltimoProyecto\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Properties.Resources.resources
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\UltimoProyecto\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.GenerateResource.Cache
+C:\Users\It4w\Desktop\facultad\Tesis\NEUROSKY\Proyectos Final\UltimoProyecto\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csprojResolveAssemblyReference.cache
+C:\Cosas de la facultad\Tesis\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe.config
+C:\Cosas de la facultad\Tesis\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe
+C:\Cosas de la facultad\Tesis\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.pdb
+C:\Cosas de la facultad\Tesis\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.dll
+C:\Cosas de la facultad\Tesis\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.xml
+C:\Cosas de la facultad\Tesis\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.DirectShow.xml
+C:\Cosas de la facultad\Tesis\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.xml
+C:\Cosas de la facultad\Tesis\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csprojAssemblyReference.cache
+C:\Cosas de la facultad\Tesis\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Form1.resources
+C:\Cosas de la facultad\Tesis\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.FormVer.resources
+C:\Cosas de la facultad\Tesis\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.MostrarRegistro.resources
+C:\Cosas de la facultad\Tesis\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Properties.Resources.resources
+C:\Cosas de la facultad\Tesis\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.GenerateResource.cache
+C:\Cosas de la facultad\Tesis\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.CoreCompileInputs.cache
+C:\Cosas de la facultad\Tesis\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.CopyComplete
+C:\Cosas de la facultad\Tesis\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.exe
+C:\Cosas de la facultad\Tesis\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.pdb
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe.config
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.pdb
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.dll
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.xml
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.DirectShow.xml
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.xml
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csprojAssemblyReference.cache
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Form1.resources
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Properties.Resources.resources
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.GenerateResource.cache
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.CoreCompileInputs.cache
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.CopyComplete
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.exe
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.pdb
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe.config
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.pdb
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.dll
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.xml
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.DirectShow.xml
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.xml
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csprojAssemblyReference.cache
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Form1.resources
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Properties.Resources.resources
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Pulsador.resources
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.GenerateResource.cache
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.CoreCompileInputs.cache
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.CopyComplete
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.exe
+C:\Cosas de la facultad\Tesis\Proyecto Final\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.pdb
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 10-4-2019 18.32\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe.config
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 10-4-2019 18.32\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 10-4-2019 18.32\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.pdb
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 10-4-2019 18.32\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.dll
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 10-4-2019 18.32\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.xml
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 10-4-2019 18.32\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.DirectShow.xml
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 10-4-2019 18.32\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.xml
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 10-4-2019 18.32\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csprojAssemblyReference.cache
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 10-4-2019 18.32\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Form1.resources
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 10-4-2019 18.32\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Properties.Resources.resources
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 10-4-2019 18.32\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Pulsador.resources
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 10-4-2019 18.32\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.GenerateResource.cache
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 10-4-2019 18.32\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 10-4-2019 18.32\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.CopyComplete
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 10-4-2019 18.32\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.exe
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 10-4-2019 18.32\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.pdb
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 17-4-2019 17.42\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe.config
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 17-4-2019 17.42\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 17-4-2019 17.42\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.pdb
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 17-4-2019 17.42\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.dll
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 17-4-2019 17.42\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.xml
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 17-4-2019 17.42\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.DirectShow.xml
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 17-4-2019 17.42\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.xml
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 17-4-2019 17.42\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csprojAssemblyReference.cache
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 17-4-2019 17.42\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Form1.resources
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 17-4-2019 17.42\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Properties.Resources.resources
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 17-4-2019 17.42\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Pulsador.resources
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 17-4-2019 17.42\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.GenerateResource.cache
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 17-4-2019 17.42\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 17-4-2019 17.42\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.CopyComplete
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 17-4-2019 17.42\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.exe
+C:\Users\User\Desktop\Tesis - NeuroSky\VERSION4 17-4-2019 17.42\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.pdb
+C:\Cosas de la facultad\Tesis\29-04-2019\VERSION5 17-4-2019 17.42\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe.config
+C:\Cosas de la facultad\Tesis\29-04-2019\VERSION5 17-4-2019 17.42\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe
+C:\Cosas de la facultad\Tesis\29-04-2019\VERSION5 17-4-2019 17.42\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.pdb
+C:\Cosas de la facultad\Tesis\29-04-2019\VERSION5 17-4-2019 17.42\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.dll
+C:\Cosas de la facultad\Tesis\29-04-2019\VERSION5 17-4-2019 17.42\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.xml
+C:\Cosas de la facultad\Tesis\29-04-2019\VERSION5 17-4-2019 17.42\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.DirectShow.xml
+C:\Cosas de la facultad\Tesis\29-04-2019\VERSION5 17-4-2019 17.42\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.xml
+C:\Cosas de la facultad\Tesis\29-04-2019\VERSION5 17-4-2019 17.42\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csprojAssemblyReference.cache
+C:\Cosas de la facultad\Tesis\29-04-2019\VERSION5 17-4-2019 17.42\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Form1.resources
+C:\Cosas de la facultad\Tesis\29-04-2019\VERSION5 17-4-2019 17.42\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Properties.Resources.resources
+C:\Cosas de la facultad\Tesis\29-04-2019\VERSION5 17-4-2019 17.42\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Pulsador.resources
+C:\Cosas de la facultad\Tesis\29-04-2019\VERSION5 17-4-2019 17.42\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.GenerateResource.cache
+C:\Cosas de la facultad\Tesis\29-04-2019\VERSION5 17-4-2019 17.42\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.CoreCompileInputs.cache
+C:\Cosas de la facultad\Tesis\29-04-2019\VERSION5 17-4-2019 17.42\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.CopyComplete
+C:\Cosas de la facultad\Tesis\29-04-2019\VERSION5 17-4-2019 17.42\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.exe
+C:\Cosas de la facultad\Tesis\29-04-2019\VERSION5 17-4-2019 17.42\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.pdb
+C:\Cosas de la facultad\Tesis\12-05-2019\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe.config
+C:\Cosas de la facultad\Tesis\12-05-2019\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe
+C:\Cosas de la facultad\Tesis\12-05-2019\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.pdb
+C:\Cosas de la facultad\Tesis\12-05-2019\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.dll
+C:\Cosas de la facultad\Tesis\12-05-2019\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.xml
+C:\Cosas de la facultad\Tesis\12-05-2019\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.DirectShow.xml
+C:\Cosas de la facultad\Tesis\12-05-2019\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\bin\Debug\AForge.xml
+C:\Cosas de la facultad\Tesis\12-05-2019\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csprojAssemblyReference.cache
+C:\Cosas de la facultad\Tesis\12-05-2019\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Form1.resources
+C:\Cosas de la facultad\Tesis\12-05-2019\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Properties.Resources.resources
+C:\Cosas de la facultad\Tesis\12-05-2019\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Pulsador.resources
+C:\Cosas de la facultad\Tesis\12-05-2019\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.GenerateResource.cache
+C:\Cosas de la facultad\Tesis\12-05-2019\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.CoreCompileInputs.cache
+C:\Cosas de la facultad\Tesis\12-05-2019\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.CopyComplete
+C:\Cosas de la facultad\Tesis\12-05-2019\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.exe
+C:\Cosas de la facultad\Tesis\12-05-2019\ProyectoCapturaDePantalla 17-04-2019\ProyectoCapturaDePantalla 09-04-2019\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.pdb
+C:\Cosas de la facultad\Tesis\15-05-2019\ProyectoCapturaDePantalla 15-05-2019\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe.config
+C:\Cosas de la facultad\Tesis\15-05-2019\ProyectoCapturaDePantalla 15-05-2019\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe
+C:\Cosas de la facultad\Tesis\15-05-2019\ProyectoCapturaDePantalla 15-05-2019\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.pdb
+C:\Cosas de la facultad\Tesis\15-05-2019\ProyectoCapturaDePantalla 15-05-2019\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.dll
+C:\Cosas de la facultad\Tesis\15-05-2019\ProyectoCapturaDePantalla 15-05-2019\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.xml
+C:\Cosas de la facultad\Tesis\15-05-2019\ProyectoCapturaDePantalla 15-05-2019\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.DirectShow.xml
+C:\Cosas de la facultad\Tesis\15-05-2019\ProyectoCapturaDePantalla 15-05-2019\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.xml
+C:\Cosas de la facultad\Tesis\15-05-2019\ProyectoCapturaDePantalla 15-05-2019\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csprojAssemblyReference.cache
+C:\Cosas de la facultad\Tesis\15-05-2019\ProyectoCapturaDePantalla 15-05-2019\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Form1.resources
+C:\Cosas de la facultad\Tesis\15-05-2019\ProyectoCapturaDePantalla 15-05-2019\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Properties.Resources.resources
+C:\Cosas de la facultad\Tesis\15-05-2019\ProyectoCapturaDePantalla 15-05-2019\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Pulsador.resources
+C:\Cosas de la facultad\Tesis\15-05-2019\ProyectoCapturaDePantalla 15-05-2019\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.GenerateResource.cache
+C:\Cosas de la facultad\Tesis\15-05-2019\ProyectoCapturaDePantalla 15-05-2019\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.CoreCompileInputs.cache
+C:\Cosas de la facultad\Tesis\15-05-2019\ProyectoCapturaDePantalla 15-05-2019\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.CopyComplete
+C:\Cosas de la facultad\Tesis\15-05-2019\ProyectoCapturaDePantalla 15-05-2019\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.exe
+C:\Cosas de la facultad\Tesis\15-05-2019\ProyectoCapturaDePantalla 15-05-2019\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.pdb
+Z:\TESIS RAMIRO Y GONZALO\TESIS - ANEXO DIGITAL\SISTEMA DE CAPTURA DE ROSTRO DE IMAGENES\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe.config
+Z:\TESIS RAMIRO Y GONZALO\TESIS - ANEXO DIGITAL\SISTEMA DE CAPTURA DE ROSTRO DE IMAGENES\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.exe
+Z:\TESIS RAMIRO Y GONZALO\TESIS - ANEXO DIGITAL\SISTEMA DE CAPTURA DE ROSTRO DE IMAGENES\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\ProyectoCapturaDePantalla.pdb
+Z:\TESIS RAMIRO Y GONZALO\TESIS - ANEXO DIGITAL\SISTEMA DE CAPTURA DE ROSTRO DE IMAGENES\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.dll
+Z:\TESIS RAMIRO Y GONZALO\TESIS - ANEXO DIGITAL\SISTEMA DE CAPTURA DE ROSTRO DE IMAGENES\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.xml
+Z:\TESIS RAMIRO Y GONZALO\TESIS - ANEXO DIGITAL\SISTEMA DE CAPTURA DE ROSTRO DE IMAGENES\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.Video.DirectShow.xml
+Z:\TESIS RAMIRO Y GONZALO\TESIS - ANEXO DIGITAL\SISTEMA DE CAPTURA DE ROSTRO DE IMAGENES\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\bin\Debug\AForge.xml
+Z:\TESIS RAMIRO Y GONZALO\TESIS - ANEXO DIGITAL\SISTEMA DE CAPTURA DE ROSTRO DE IMAGENES\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csprojAssemblyReference.cache
+Z:\TESIS RAMIRO Y GONZALO\TESIS - ANEXO DIGITAL\SISTEMA DE CAPTURA DE ROSTRO DE IMAGENES\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Form1.resources
+Z:\TESIS RAMIRO Y GONZALO\TESIS - ANEXO DIGITAL\SISTEMA DE CAPTURA DE ROSTRO DE IMAGENES\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Properties.Resources.resources
+Z:\TESIS RAMIRO Y GONZALO\TESIS - ANEXO DIGITAL\SISTEMA DE CAPTURA DE ROSTRO DE IMAGENES\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.Pulsador.resources
+Z:\TESIS RAMIRO Y GONZALO\TESIS - ANEXO DIGITAL\SISTEMA DE CAPTURA DE ROSTRO DE IMAGENES\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.GenerateResource.cache
+Z:\TESIS RAMIRO Y GONZALO\TESIS - ANEXO DIGITAL\SISTEMA DE CAPTURA DE ROSTRO DE IMAGENES\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.CoreCompileInputs.cache
+Z:\TESIS RAMIRO Y GONZALO\TESIS - ANEXO DIGITAL\SISTEMA DE CAPTURA DE ROSTRO DE IMAGENES\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.csproj.CopyComplete
+Z:\TESIS RAMIRO Y GONZALO\TESIS - ANEXO DIGITAL\SISTEMA DE CAPTURA DE ROSTRO DE IMAGENES\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.exe
+Z:\TESIS RAMIRO Y GONZALO\TESIS - ANEXO DIGITAL\SISTEMA DE CAPTURA DE ROSTRO DE IMAGENES\ProyectoCapturaDePantalla\ProyectoCapturaDePantalla\obj\Debug\ProyectoCapturaDePantalla.pdb
