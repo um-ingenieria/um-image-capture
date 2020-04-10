@@ -19,17 +19,14 @@ namespace ProyectoCapturaDePantalla
     {
         /*CAMBIAR EL SQLCONNECTION */
        // SqlConnection Conexion = new SqlConnection("Data Source=(localdb)\\ServidorSqlGonzalo;Initial Catalog=UM_TESIS;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-        SqlConnection Conexion = new SqlConnection("Data Source=DESKTOP-63P1QPG;Initial Catalog=UM_NEUROSKY;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        SqlConnection Conexion = new SqlConnection("Data Source=DESKTOP-NOT0VVD\\SQLEXPRESS;Initial Catalog=UM_NEUROSKY;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
        
-        string Directorio = "C:\\xampp\\htdocs\\imagenes\\public\\imagen";
-       
-
+        string Directorio = "C:\\imagenes";
         
         SqlCommand cmd;
 
         int ValorExcitacion = 0;
         int ValorValencia = 0;
-
 
         int contador = 0;
         int LapsoDeTiempo = 0;
@@ -50,19 +47,13 @@ namespace ProyectoCapturaDePantalla
 
         Screen[] screens2;
 
-
-        
-
-
         public Form1()
         {
+            Console.WriteLine("Inicializando");
             InitializeComponent();
             timerLapso.Stop();
             timerCaptura.Stop();
-           
             buttonEmpezar.Focus();
-            
-
 
             VideoSources = new AForge.Video.DirectShow.FilterInfoCollection(AForge.Video.DirectShow.FilterCategory.VideoInputDevice);
             if (VideoSources != null)
@@ -81,11 +72,14 @@ namespace ProyectoCapturaDePantalla
                     comboBoxWebCam.Items.Add(VideoSource.Name);
                 }
 
-                
-
                 VideoSource = new AForge.Video.DirectShow.VideoCaptureDevice(VideoSources[0].MonikerString);
                 VideoSource.NewFrame +=  new NewFrameEventHandler(FinalFrame_NewFrame); 
                 VideoSource.Start();
+
+                if (comboBoxWebCam.Items.Count > 0)
+                {
+                    comboBoxWebCam.SelectedIndex = 0;
+                }
             }
             
 
@@ -93,21 +87,25 @@ namespace ProyectoCapturaDePantalla
 
             buttonTerminar.Enabled = false;
 
-            Conexion.Open();
+            try {
+                Conexion.Open();
 
-            SqlCommand cmd = new SqlCommand("select max(SECCION) AS SECCION from [NEUROSKY_IMAGENES]", Conexion);
-            SqlDataReader dr = cmd.ExecuteReader();
+                SqlCommand cmd = new SqlCommand("select max(SECCION) AS SECCION from [NEUROSKY_IMAGENES]", Conexion);
+                SqlDataReader dr = cmd.ExecuteReader();
 
-            if (dr.Read())
-            {
-                Int32.TryParse(Convert.ToString(dr["SECCION"]), out this.Seccion);
-                Seccion++;
-            }
-            Conexion.Close();
+                if (dr.Read())
+                {
+                    Int32.TryParse(Convert.ToString(dr["SECCION"]), out this.Seccion);
+                    Seccion++;
+                }
+                Conexion.Close();
+            } catch(Exception e) {
+                Console.WriteLine("Fallo la conexion a la base");
+                Console.WriteLine(e.Message);
+                MessageBox.Show("Inserte un nombre antes de empezar la prueba");
+            }           
+
         }
-
-
-        
 
         private void buttonEmpezar_Click(object sender, EventArgs e)
         {
@@ -154,7 +152,6 @@ namespace ProyectoCapturaDePantalla
             }
         }
 
-
         private void timerLapso_Tick(object sender, EventArgs e)
         {
             this.buttonCapturar_Click(sender, e);
@@ -162,8 +159,6 @@ namespace ProyectoCapturaDePantalla
             timerLapso.Start();
            
         }
-
-
 
         private void buttonCapturar_Click(object sender, EventArgs e)
         {
@@ -180,8 +175,6 @@ namespace ProyectoCapturaDePantalla
             {
                 arranco = true;
 
-               
-
                 this.Identificador++;
                 
                 Bitmap Imgb = new Bitmap(screens2[comboBoxPantallas.SelectedIndex].WorkingArea.Width, screens2[comboBoxPantallas.SelectedIndex].WorkingArea.Height, PixelFormat.Format32bppArgb);
@@ -191,6 +184,11 @@ namespace ProyectoCapturaDePantalla
                 
                 pictureBoxImg.Image = Imgb;
 
+                if (!Directory.Exists(Directorio))
+                {
+                    Directory.CreateDirectory(Directorio);
+                }
+
                 TiempoCaptura = (long)DateTime.UtcNow.Ticks;
 
                 ImagenDirectorioEscritorio = String.Format(@"{0}\Escritorio-{1}.jpg", Directorio, TiempoCaptura);
@@ -198,10 +196,6 @@ namespace ProyectoCapturaDePantalla
 
                 ImagenDirectorioWebcam = String.Format(@"{0}\WebCam-{1}.jpg", Directorio, TiempoCaptura);
                 pictureBoxWebCam.Image.Save(ImagenDirectorioWebcam, System.Drawing.Imaging.ImageFormat.Png);
-
-
-                
-
 
                 Conexion.Open();
                 string SqlQuery = "INSERT INTO NEUROSKY_IMAGENES (NOMBREPRUEBA,SECCION,IDENTIFICADOR,DATE,IMAGENESCRITORIO,IMAGENWEBCAM)VALUES('" + this.NombrePrueba + "'," + this.Seccion + "," + this.Identificador + ",'" + DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss.fff tt") + "','" + ImagenDirectorioEscritorio + "', '" + ImagenDirectorioWebcam + "')";
@@ -211,14 +205,10 @@ namespace ProyectoCapturaDePantalla
                 int N = cmd.ExecuteNonQuery();
                 Conexion.Close();
 
-
-                
                 timerCaptura.Stop();
             }
             contador++;
         }
-
-
 
         private void CerrarSeccion()
         {
@@ -239,7 +229,6 @@ namespace ProyectoCapturaDePantalla
 
         }
 
-
         public int CallSP(string SP)
         {
             string NombreQuery;
@@ -259,7 +248,6 @@ namespace ProyectoCapturaDePantalla
 
             return resultado;
         }
-        
 
         public void FinalizarCapturas()
         {
@@ -301,10 +289,7 @@ namespace ProyectoCapturaDePantalla
             }
         }
 
-
-
-        
-       private void comboBoxWebCam_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxWebCam_SelectedIndexChanged(object sender, EventArgs e)
         {
 
             if (VideoSources != null)
@@ -322,7 +307,6 @@ namespace ProyectoCapturaDePantalla
             pictureBoxWebCam.Image = (Bitmap)eventArgs.Frame.Clone();
         }
 
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (VideoSource.IsRunning == true)
@@ -336,7 +320,6 @@ namespace ProyectoCapturaDePantalla
             MessageBox.Show("El numero de registros afectados en la tabla general fueron: " + this.CallSP("SP_CargarDatos"));
             MessageBox.Show("El numero de registros afectados en la tabla Excitacion-Valencia fueron: " + this.CallSP("SP_CargarDatos_Excitacion_Valencia"));
         }
-
 
         private void Insert_Excitacion_Valencia(string name,string periodicidad, int Excitacion, int valencia)
         {
