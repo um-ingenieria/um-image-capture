@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,17 +40,26 @@ namespace ProyectoCapturaDePantalla.face
             Console.WriteLine();
 
             // Create a list of images
-            List<string> imageFileNames = new List<string>
-                    {
-                        "https://gutenberg.rocks/wp-content/uploads/2018/07/mujer-feliz.jpg"
-                    };
+            List<string> imageFileNames = Directory.GetFiles("C:\\imagenes", "*.*", SearchOption.AllDirectories).ToList();
+
+            imageFileNames = imageFileNames.Where(item => item.Contains("WebCam")).ToList();
+
+            if (imageFileNames.Count >= 10)
+            {
+                // Intente tirar directamentela excepción, pero no te muestra el message en la consola....
+                string message = "Límite de imágenes excedido, no se puede mandar más de 10 imágenes";
+                Console.WriteLine("ERROR: " + message);
+                throw new Exception(message);
+            }
 
             foreach (var imageFileName in imageFileNames)
             {
                 IList<DetectedFace> detectedFaces;
 
                 // Detect faces with all attributes from image url.
-                detectedFaces = await client.Face.DetectWithUrlAsync($"{imageFileName}",
+                FileStream file = new FileStream(imageFileName, FileMode.Open);
+                detectedFaces = await client.Face.DetectWithStreamAsync(
+                file,
                 returnFaceLandmarks: true,
                 returnFaceAttributes: new List<FaceAttributeType> { FaceAttributeType.Accessories, FaceAttributeType.Age,
                 FaceAttributeType.Blur, FaceAttributeType.Emotion, FaceAttributeType.Exposure, FaceAttributeType.FacialHair,
