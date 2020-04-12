@@ -23,7 +23,7 @@ namespace ProyectoCapturaDePantalla
         //SqlConnection Conexion = new SqlConnection("Data Source=DESKTOP-NOT0VVD\\SQLEXPRESS;Initial Catalog=UM_NEUROSKY;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         SqlConnection Conexion = new SqlConnection("Data Source=DESKTOP-KQBRIL0\\SQLEXPRESS;Initial Catalog=UM_NEUROSKY;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
-        string Directorio = "C:\\imagenes";
+        public static string Directorio = "C:\\imagenes";
         
         SqlCommand cmd;
 
@@ -53,6 +53,7 @@ namespace ProyectoCapturaDePantalla
         {
             Console.WriteLine("Inicializando");
             FaceService faceService = new FaceService();
+            faceService.DetectFacesEmotionByBulk();
             InitializeComponent();
             timerLapso.Stop();
             timerCaptura.Stop();

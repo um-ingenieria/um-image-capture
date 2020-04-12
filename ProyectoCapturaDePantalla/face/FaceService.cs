@@ -11,22 +11,30 @@ namespace ProyectoCapturaDePantalla.face
 {
     public class FaceService
     {
+        public static string BASE_PATH = "C:\\imagenes";
+        public static int BULK_LIMIT = 10;
+        public static string SUBSCRIPTION_KEY = "968cb12edb324b7b87678753e6537f03";
+        public static string SUBSCRIPTION_ENDPOINT = "https://emotion-recognition-api.cognitiveservices.azure.com/";
+        public static int NO_BULK_LMIT = 0;
+
+        IFaceClient client;
+
         public FaceService()
         {
-            string subscriptionKey = "968cb12edb324b7b87678753e6537f03";
-            string cognitiveEndpoint = "https://emotion-recognition-api.cognitiveservices.azure.com/";
-
             Console.WriteLine("Servicio creado, no soy un singleton");
 
             // Authenticate.
-            IFaceClient client = Authenticate(cognitiveEndpoint, subscriptionKey);
-
-            detectFaces(client);
+            client = Authenticate(SUBSCRIPTION_ENDPOINT, SUBSCRIPTION_KEY);
         }
 
-        private async Task detectFaces(IFaceClient client)
+        public async Task DetectFacesEmotionByBulk()
         {
-            await DetectFaceExtract(client, "https://csdx.blob.core.windows.net/resources/Face/Images/", RecognitionModel.Recognition01);
+            await DetectFaceEmotionsByBulk(client, BASE_PATH, RecognitionModel.Recognition01, BULK_LIMIT);
+        }
+
+        public async Task DetectFacesEmotion()
+        {
+            await DetectFaceEmotions(client, BASE_PATH, RecognitionModel.Recognition01);
         }
 
         public static IFaceClient Authenticate(string endpoint, string key)
@@ -34,7 +42,7 @@ namespace ProyectoCapturaDePantalla.face
             return new FaceClient(new ApiKeyServiceClientCredentials(key)) { Endpoint = endpoint };
         }
 
-        public static async Task DetectFaceExtract(IFaceClient client, string url, string recognitionModel)
+        public static async Task DetectAllFaceAtributes (IFaceClient client, string url, string recognitionModel)
         {
             Console.WriteLine("========DETECT FACES========");
             Console.WriteLine();
@@ -138,5 +146,75 @@ namespace ProyectoCapturaDePantalla.face
             }
         }
 
+        private static async Task DetectFaceEmotionsByBulk (IFaceClient client, string path, string recognitionModel, int bulkLimit)
+        {
+            Console.WriteLine("========DETECT FACES========");
+            Console.WriteLine();
+
+            List<string> imageFileNames = GetImages(path, bulkLimit);
+            await GetFaceEmotionsAndSave(client, recognitionModel, imageFileNames);
+        }
+
+        private static async Task DetectFaceEmotions(IFaceClient client, string path, string recognitionModel)
+        {
+            Console.WriteLine("========DETECT FACES========");
+            Console.WriteLine();
+
+            List<string> imageFileNames = GetImages(path, NO_BULK_LMIT);
+            await GetFaceEmotionsAndSave(client, recognitionModel, imageFileNames);
+        }
+
+        //If bulkLimit is 0, get all images
+        private static List<string> GetImages(string path, int bulkLimit)
+        {
+            List<string> imageFileNames = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories).ToList();
+            imageFileNames = imageFileNames.Where(item => item.Contains("WebCam")).ToList();
+            if(bulkLimit > 0 && imageFileNames.Count > bulkLimit)
+            {
+                return imageFileNames.GetRange(0, bulkLimit);
+
+            }
+            return imageFileNames;
+        }
+
+        private static async Task GetFaceEmotionsAndSave(IFaceClient client, string recognitionModel, List<string> imageFileNamesLimited)
+        {
+            foreach (var imageFileName in imageFileNamesLimited)
+            {
+                IList<DetectedFace> detectedFaces;
+
+                // Detect faces with all attributes from image url.
+                FileStream file = new FileStream(imageFileName, FileMode.Open);
+                detectedFaces = await client.Face.DetectWithStreamAsync(file, returnFaceLandmarks: true,
+                                        returnFaceAttributes: new List<FaceAttributeType> { FaceAttributeType.Emotion, },
+                                        recognitionModel: recognitionModel);
+
+                Console.WriteLine($"{detectedFaces.Count} face(s) detected from image `{imageFileName}`.");
+
+                foreach (var face in detectedFaces)
+                {
+                    // Get emotion on the face
+                    Emotion emotion = face.FaceAttributes.Emotion;
+                    string emotionType = GetEmotionType(emotion);
+                    //SaveRecord
+                }
+            }
+        }
+
+        private static string GetEmotionType(Emotion emotion)
+        {
+            string emotionType = string.Empty;
+            double emotionValue = 0.0;
+            if (emotion.Anger > emotionValue) { emotionValue = emotion.Anger; emotionType = "Anger"; }
+            if (emotion.Contempt > emotionValue) { emotionValue = emotion.Contempt; emotionType = "Contempt"; }
+            if (emotion.Disgust > emotionValue) { emotionValue = emotion.Disgust; emotionType = "Disgust"; }
+            if (emotion.Fear > emotionValue) { emotionValue = emotion.Fear; emotionType = "Fear"; }
+            if (emotion.Happiness > emotionValue) { emotionValue = emotion.Happiness; emotionType = "Happiness"; }
+            if (emotion.Neutral > emotionValue) { emotionValue = emotion.Neutral; emotionType = "Neutral"; }
+            if (emotion.Sadness > emotionValue) { emotionValue = emotion.Sadness; emotionType = "Sadness"; }
+            if (emotion.Surprise > emotionValue) { emotionType = "Surprise"; }
+            Console.WriteLine($"Emotion : {emotionType}");
+            return emotionType;
+        }
     }
 }
