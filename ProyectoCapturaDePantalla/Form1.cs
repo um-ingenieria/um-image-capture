@@ -20,8 +20,8 @@ namespace ProyectoCapturaDePantalla
     {
         /*CAMBIAR EL SQLCONNECTION */
        // SqlConnection Conexion = new SqlConnection("Data Source=(localdb)\\ServidorSqlGonzalo;Initial Catalog=UM_TESIS;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-        //SqlConnection Conexion = new SqlConnection("Data Source=DESKTOP-NOT0VVD\\SQLEXPRESS;Initial Catalog=UM_NEUROSKY;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-        SqlConnection Conexion = new SqlConnection("Data Source=DESKTOP-KQBRIL0\\SQLEXPRESS;Initial Catalog=UM_NEUROSKY;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        SqlConnection Conexion = new SqlConnection("Data Source=192.168.0.3;User ID=sa;Password=Polopolo9;Initial Catalog=UM_NEUROSKY;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        // SqlConnection Conexion = new SqlConnection("Data Source=DESKTOP-KQBRIL0\\SQLEXPRESS;Initial Catalog=UM_NEUROSKY;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
         string Directorio = "C:\\imagenes";
         
