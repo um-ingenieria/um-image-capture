@@ -209,10 +209,16 @@ namespace ProyectoCapturaDePantalla
             contador++;
         }
 
-        private void CerrarSeccion()
+        private async void CerrarSeccion()
         {
             if (arranco == true)
             {
+                DialogResult dialogResult = MessageBox.Show("Desea iniciar el proceso de reconocimiento facial ahora?", "Confirmación", MessageBoxButtons.YesNo);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    await InitFaceRecognition(Seccion);
+                }
                 Seccion++;
                 Identificador = 0;
 
@@ -333,14 +339,49 @@ namespace ProyectoCapturaDePantalla
             Conexion.Close();
         }
 
+        //Extract to form
+        public string showPrompt (string text, string caption)
+        {
+            Form prompt = new Form()
+            {
+                Width = 500,
+                Height = 150,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                Text = caption,
+                StartPosition = FormStartPosition.CenterScreen
+            };
+            Label textLabel = new Label() { Left = 50, Top = 20, Text = text };
+            TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 400 };
+            Button confirmation = new Button() { Text = "Ok", Left = 350, Width = 100, Top = 70, DialogResult = DialogResult.OK };
+            confirmation.Click += (sender, e) => { prompt.Close(); };
+            prompt.Controls.Add(textBox);
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(textLabel);
+            prompt.AcceptButton = confirmation;
+
+            return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
+        }
+
         private async Task emotionButton_ClickAsync(object sender, EventArgs e)
+        {
+            string promptValue = showPrompt("Ingrese el número de sección de la prueba de la que desea hacer el reconocimiento", "Reconocimiento facial");
+            int section;
+            if (int.TryParse(promptValue, out section))
+            {
+                await InitFaceRecognition(section);
+
+            }
+        }
+
+        private async Task InitFaceRecognition(int section)
         {
             FaceService faceService = new FaceService();
             try
             {
-                await faceService.DetectFacesEmotionByBulk( this.GetImages(Directorio, 1));
+                await faceService.DetectFacesEmotionByBulk(this.GetImages(section, 1));
                 MessageBox.Show("El proceso de detección de imagenes finalizó!");
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine("Error procesando las emociones!");
                 Console.WriteLine(ex.Message);
@@ -349,21 +390,39 @@ namespace ProyectoCapturaDePantalla
         }
 
         //If bulkLimit is 0, get all images
-        private List<FaceImage> GetImages(string path, int bulkLimit)
+        private List<FaceImage> GetImages(int section, int bulkLimit)
         {
-            //TODO: ARREGLAR ESTE DESASTRE
-            List<string> imageFilePath = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories).ToList();
-            imageFilePath = imageFilePath.Where(item => item.Contains("WebCam")).ToList();
-            FaceImage image;
-            if (bulkLimit > 0 && imageFilePath.Count > bulkLimit)
-            {
-                imageFilePath.GetRange(0, bulkLimit);
-                image = new FaceImage(1, this.Seccion, "", imageFilePath.First());
-                return new List<FaceImage>() { image };
+            List<FaceImage> images = new List<FaceImage>();
 
+            try
+            {
+                Conexion.Open();
+                SqlCommand cmd = new SqlCommand($"SELECT [SECCION], [IDENTIFICADOR], [IMAGENWEBCAM] FROM NEUROSKY_IMAGENES WHERE SECCION = {section}", Conexion);
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    FaceImage img = new FaceImage();
+                    img.Id = int.Parse(Convert.ToString(dr["IDENTIFICADOR"]));
+                    img.Section = int.Parse(Convert.ToString(dr["SECCION"]));
+                    img.Path = Convert.ToString(dr["IMAGENWEBCAM"]);
+                    images.Add(img);
+                }
+
+                Conexion.Close();
+            } catch (Exception e)
+            {
+                string message = "Error recuperando imagenes de la base de datos";
+                Console.WriteLine(message + e.Message);
+                MessageBox.Show(message);
             }
-            image = new FaceImage(1, this.Seccion, "", imageFilePath.First());
-            return new List<FaceImage>() { image };
+
+            if (images.Count > 0 && bulkLimit > 0)
+            {
+                return images.GetRange(0, bulkLimit);
+            }
+
+            return images;
         }
     }
 
