@@ -31,14 +31,14 @@ namespace ProyectoCapturaDePantalla.face
             emotionDao = new EmotionsDao();
         }
 
-        public async Task DetectFacesEmotionByBulk(List<FaceImage> imagesFiles)
+        public async Task DetectFacesEmotionByBulk(List<FaceImage> images)
         {
-            await DetectFaceEmotionsByBulk(client, imagesFiles, RecognitionModel.Recognition01, BULK_LIMIT);
+            await DetectFaceEmotionsByBulk(client, images, RecognitionModel.Recognition01, BULK_LIMIT);
         }
 
-        public async Task DetectFacesEmotion(List<FaceImage> imagesFiles)
+        public async Task DetectFacesEmotion(List<FaceImage> images)
         {
-            await DetectFaceEmotions(client, imagesFiles, RecognitionModel.Recognition01);
+            await DetectFaceEmotions(client, images, RecognitionModel.Recognition01);
         }
 
         public static IFaceClient Authenticate(string endpoint, string key)
@@ -150,30 +150,30 @@ namespace ProyectoCapturaDePantalla.face
             }
         }
 
-        private async Task DetectFaceEmotionsByBulk (IFaceClient client, List<FaceImage> imagesFiles, string recognitionModel, int bulkLimit)
+        private async Task DetectFaceEmotionsByBulk (IFaceClient client, List<FaceImage> images, string recognitionModel, int bulkLimit)
         {
             //TODO: VALIDATE BULK
-            await this.GetFaceEmotionsAndSave(client, recognitionModel, imagesFiles);
+            await this.GetFaceEmotionsAndSave(client, recognitionModel, images);
         }
 
-        private async Task DetectFaceEmotions(IFaceClient client, List<FaceImage> imagesFiles, string recognitionModel)
+        private async Task DetectFaceEmotions(IFaceClient client, List<FaceImage> images, string recognitionModel)
         {
-            await this.GetFaceEmotionsAndSave(client, recognitionModel, imagesFiles);
+            await this.GetFaceEmotionsAndSave(client, recognitionModel, images);
         }
 
-        private async Task GetFaceEmotionsAndSave(IFaceClient client, string recognitionModel, List<FaceImage> imageFileNamesLimited)
+        private async Task GetFaceEmotionsAndSave(IFaceClient client, string recognitionModel, List<FaceImage> images)
         {
-            foreach (var imageFileName in imageFileNamesLimited)
+            foreach (FaceImage image in images)
             {
                 IList<DetectedFace> detectedFaces;
 
                 // Detect faces with all attributes from image url.
-                FileStream file = new FileStream(imageFileName.Path, FileMode.Open);
+                FileStream file = new FileStream(image.Path, FileMode.Open);
                 detectedFaces = await client.Face.DetectWithStreamAsync(file, returnFaceLandmarks: true,
                                         returnFaceAttributes: new List<FaceAttributeType> { FaceAttributeType.Emotion, },
                                         recognitionModel: recognitionModel);
 
-                Console.WriteLine($"{detectedFaces.Count} face(s) detected from image `{imageFileName}`.");
+                Console.WriteLine($"{detectedFaces.Count} face(s) detected from image `{image.Path}`.");
 
                 foreach (var face in detectedFaces)
                 {
@@ -181,7 +181,7 @@ namespace ProyectoCapturaDePantalla.face
                     Emotion emotion = face.FaceAttributes.Emotion;
                     string emotionType = GetEmotionType(emotion);
                     //TODO: pasar id y section
-                    emotionDao.SaveEmotion(emotion, imageFileName.Section, imageFileName.Id);
+                    emotionDao.SaveEmotion(emotion, image.Section, image.Id);
                 }
             }
         }

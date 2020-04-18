@@ -13,6 +13,8 @@ namespace ProyectoCapturaDePantalla.Images
         private string name;
         private string path;
 
+        public FaceImage() {}
+
         public FaceImage(int id, int section, string name, string path)
         {
             this.id = id;
