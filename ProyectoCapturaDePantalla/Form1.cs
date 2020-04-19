@@ -15,6 +15,7 @@ using AForge.Video.DirectShow;
 using ProyectoCapturaDePantalla.face;
 using ProyectoCapturaDePantalla.dao;
 using ProyectoCapturaDePantalla.Images;
+using System.Threading;
 
 namespace ProyectoCapturaDePantalla
 {
@@ -339,38 +340,30 @@ namespace ProyectoCapturaDePantalla
             Conexion.Close();
         }
 
-        //Extract to form
-        public string showPrompt (string text, string caption)
+        async void propmtSectionAndDoRecognition()
         {
-            Form prompt = new Form()
-            {
-                Width = 500,
-                Height = 150,
-                FormBorderStyle = FormBorderStyle.FixedDialog,
-                Text = caption,
-                StartPosition = FormStartPosition.CenterScreen
-            };
-            Label textLabel = new Label() { Left = 50, Top = 20, Text = text };
-            TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 400 };
-            Button confirmation = new Button() { Text = "Ok", Left = 350, Width = 100, Top = 70, DialogResult = DialogResult.OK };
-            confirmation.Click += (sender, e) => { prompt.Close(); };
-            prompt.Controls.Add(textBox);
-            prompt.Controls.Add(confirmation);
-            prompt.Controls.Add(textLabel);
-            prompt.AcceptButton = confirmation;
-
-            return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
-        }
-
-        private async Task emotionButton_ClickAsync(object sender, EventArgs e)
-        {
-            string promptValue = showPrompt("Ingrese el número de sección de la prueba de la que desea hacer el reconocimiento", "Reconocimiento facial");
+            string promptValue = new Prompt("Ingrese el número de sección de la prueba de la que desea hacer el reconocimiento", "Reconocimiento facial").show();
             int section;
             if (int.TryParse(promptValue, out section))
             {
                 await InitFaceRecognition(section);
 
             }
+        }
+
+        private async Task emotionButton_ClickAsync(object sender, EventArgs e)
+        {
+            string promptValue = new Prompt("Ingrese el número de sección de la prueba de la que desea hacer el reconocimiento", "Reconocimiento facial").show();
+            if (int.TryParse(promptValue, out int section))
+                await InitFaceRecognition(section);
+
+            //if (int.TryParse(promptValue, out section))
+            //    {
+            //    using (LoadingView loadingView = new LoadingView(async () => { await InitFaceRecognition(section); }))
+            //    {
+            //        loadingView.ShowDialog(this);
+            //    }
+            //}
         }
 
         private async Task InitFaceRecognition(int section)
