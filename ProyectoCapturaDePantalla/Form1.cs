@@ -342,7 +342,7 @@ namespace ProyectoCapturaDePantalla
 
         private async Task emotionButton_ClickAsync(object sender, EventArgs e)
         {
-            string promptValue = new Prompt("Ingrese el número de sección de la prueba de la que desea hacer el reconocimiento", "Reconocimiento facial").show();
+            string promptValue = new Prompt("Reconocimiento facial", "Ingrese el número de sección de la prueba de la que desea hacer el reconocimiento").show();
             if (int.TryParse(promptValue, out int section))
                 await InitFaceRecognition(section);
 
