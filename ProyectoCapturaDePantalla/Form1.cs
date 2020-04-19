@@ -340,17 +340,6 @@ namespace ProyectoCapturaDePantalla
             Conexion.Close();
         }
 
-        async void propmtSectionAndDoRecognition()
-        {
-            string promptValue = new Prompt("Ingrese el número de sección de la prueba de la que desea hacer el reconocimiento", "Reconocimiento facial").show();
-            int section;
-            if (int.TryParse(promptValue, out section))
-            {
-                await InitFaceRecognition(section);
-
-            }
-        }
-
         private async Task emotionButton_ClickAsync(object sender, EventArgs e)
         {
             string promptValue = new Prompt("Ingrese el número de sección de la prueba de la que desea hacer el reconocimiento", "Reconocimiento facial").show();
