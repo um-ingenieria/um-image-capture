@@ -13,15 +13,15 @@ using System.IO;
 using AForge.Video;
 using AForge.Video.DirectShow;
 using ProyectoCapturaDePantalla.face;
+using ProyectoCapturaDePantalla.dao;
+using ProyectoCapturaDePantalla.Images;
+using System.Threading;
 
 namespace ProyectoCapturaDePantalla
 {
     public partial class Form1 : Form
     {
-        /*CAMBIAR EL SQLCONNECTION */
-       // SqlConnection Conexion = new SqlConnection("Data Source=(localdb)\\ServidorSqlGonzalo;Initial Catalog=UM_TESIS;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-        SqlConnection Conexion = new SqlConnection("Data Source=192.168.0.3;User ID=sa;Password=Polopolo9;Initial Catalog=UM_NEUROSKY;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-        // SqlConnection Conexion = new SqlConnection("Data Source=DESKTOP-KQBRIL0\\SQLEXPRESS;Initial Catalog=UM_NEUROSKY;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        SqlConnection Conexion = DbConnection.GetConnection();
 
         public static string Directorio = "C:\\imagenes";
         
@@ -52,8 +52,6 @@ namespace ProyectoCapturaDePantalla
         public Form1()
         {
             Console.WriteLine("Inicializando");
-            FaceService faceService = new FaceService();
-            faceService.DetectFacesEmotionByBulk();
             InitializeComponent();
             timerLapso.Stop();
             timerCaptura.Stop();
@@ -106,9 +104,7 @@ namespace ProyectoCapturaDePantalla
             } catch(Exception e) {
                 Console.WriteLine("Fallo la conexion a la base");
                 Console.WriteLine(e.Message);
-                MessageBox.Show("Inserte un nombre antes de empezar la prueba");
             }           
-
         }
 
         private void buttonEmpezar_Click(object sender, EventArgs e)
@@ -214,10 +210,16 @@ namespace ProyectoCapturaDePantalla
             contador++;
         }
 
-        private void CerrarSeccion()
+        private async void CerrarSeccion()
         {
             if (arranco == true)
             {
+                DialogResult dialogResult = MessageBox.Show("Desea iniciar el proceso de reconocimiento facial ahora?", "Confirmación", MessageBoxButtons.YesNo);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    await InitFaceRecognition(Seccion);
+                }
                 Seccion++;
                 Identificador = 0;
 
@@ -272,9 +274,6 @@ namespace ProyectoCapturaDePantalla
                     MessageBox.Show("Algo salio mal, cierre la ejecucion y vuelva a intentarlo");
                 else
                 {
-
-
-
                     NombrePrueba = textBoxName.Text;
 
 
@@ -339,6 +338,73 @@ namespace ProyectoCapturaDePantalla
             cmd = new SqlCommand(SqlQuery2, Conexion);
             int N2 = cmd.ExecuteNonQuery();
             Conexion.Close();
+        }
+
+        private async Task emotionButton_ClickAsync(object sender, EventArgs e)
+        {
+            string promptValue = new Prompt("Reconocimiento facial", "Ingrese el número de sección de la prueba de la que desea hacer el reconocimiento").show();
+            if (int.TryParse(promptValue, out int section))
+                await InitFaceRecognition(section);
+
+            //if (int.TryParse(promptValue, out section))
+            //    {
+            //    using (LoadingView loadingView = new LoadingView(async () => { await InitFaceRecognition(section); }))
+            //    {
+            //        loadingView.ShowDialog(this);
+            //    }
+            //}
+        }
+
+        private async Task InitFaceRecognition(int section)
+        {
+            FaceService faceService = new FaceService();
+            try
+            {
+                await faceService.DetectFacesEmotionByBulk(this.GetImages(section, 1));
+                MessageBox.Show("El proceso de detección de imagenes finalizó!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error procesando las emociones!");
+                Console.WriteLine(ex.Message);
+                MessageBox.Show("Ocurrió un error procesando las emociones");
+            }
+        }
+
+        //If bulkLimit is 0, get all images
+        private List<FaceImage> GetImages(int section, int bulkLimit)
+        {
+            List<FaceImage> images = new List<FaceImage>();
+
+            try
+            {
+                Conexion.Open();
+                SqlCommand cmd = new SqlCommand($"SELECT [SECCION], [IDENTIFICADOR], [IMAGENWEBCAM] FROM NEUROSKY_IMAGENES WHERE SECCION = {section}", Conexion);
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    FaceImage img = new FaceImage();
+                    img.Id = int.Parse(Convert.ToString(dr["IDENTIFICADOR"]));
+                    img.Section = int.Parse(Convert.ToString(dr["SECCION"]));
+                    img.Path = Convert.ToString(dr["IMAGENWEBCAM"]);
+                    images.Add(img);
+                }
+
+                Conexion.Close();
+            } catch (Exception e)
+            {
+                string message = "Error recuperando imagenes de la base de datos";
+                Console.WriteLine(message + e.Message);
+                MessageBox.Show(message);
+            }
+
+            if (images.Count > 0 && bulkLimit > 0)
+            {
+                return images.GetRange(0, bulkLimit);
+            }
+
+            return images;
         }
     }
 
