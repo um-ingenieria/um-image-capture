@@ -16,6 +16,8 @@ using ProyectoCapturaDePantalla.face;
 using ProyectoCapturaDePantalla.dao;
 using ProyectoCapturaDePantalla.Images;
 using System.Threading;
+using ProyectoCapturaDePantalla.parser;
+using ProyectoCapturaDePantalla.Domain;
 
 namespace ProyectoCapturaDePantalla
 {
@@ -52,6 +54,12 @@ namespace ProyectoCapturaDePantalla
         public Form1()
         {
             Console.WriteLine("Inicializando");
+            //TODO: Move implentation
+            ParserService parserService = new ParserService();
+            PulseMeasurement pulseMeasurement = parserService.ParseCsvPulseMeasurement(PulseMeasurement.PATH, PulseMeasurement.FILE_NAME);
+            PulseDao pulseDao = new PulseDao();
+            pulseDao.SavePulseMeasurement(pulseMeasurement, 1, 2);
+
             InitializeComponent();
             timerLapso.Stop();
             timerCaptura.Stop();
