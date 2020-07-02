@@ -87,10 +87,14 @@
     <Compile Include="dao\DbConnection.cs" />
     <Compile Include="dao\EmotionsDao.cs" />
     <Compile Include="dao\PulseDao.cs" />
-    <Compile Include="Domain\PulseMeasurement.cs" />
-    <Compile Include="Domain\PulseMeasurementMap.cs" />
-    <Compile Include="Domain\PulseStatistic.cs" />
-    <Compile Include="Domain\PulseStatisticMap.cs" />
+    <Compile Include="dao\SkinDao.cs" />
+    <Compile Include="Domain\Pulse\PulseMeasurement.cs" />
+    <Compile Include="Domain\Pulse\PulseMeasurementMap.cs" />
+    <Compile Include="Domain\Pulse\PulseStatistic.cs" />
+    <Compile Include="Domain\Pulse\PulseStatisticMap.cs" />
+    <Compile Include="Domain\Skin\SkinMeasurement.cs" />
+    <Compile Include="Domain\Skin\SkinStatistic.cs" />
+    <Compile Include="Domain\Skin\SkinStatisticMap.cs" />
     <Compile Include="face\FaceService.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
