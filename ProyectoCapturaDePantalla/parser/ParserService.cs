@@ -15,20 +15,35 @@ namespace ProyectoCapturaDePantalla.parser
 {
     public class ParserService
     {
-        public PulseMeasurement ParseCsvPulseMeasurement(string path, string fileName)
+        public PulseMeasurement ParseCsvPulseMeasurement(string path, string fileName, String csvKey)
         {
             PulseMeasurement pulseMeasurement = new PulseMeasurement();
             using (var reader = new StreamReader(path + fileName))
-            using (var csv = new CsvReader(reader, CultureInfo.GetCultureInfo("en-GB")))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 csv.Configuration.RegisterClassMap<PulseStatisticMap>();
                 csv.Configuration.Delimiter = ";";
                 csv.Configuration.MissingFieldFound = null;
 
+                skipCsvResumeUntilKey(csv, csvKey);
+
                 var pulseStatisticRecords = csv.GetRecords<PulseStatistic>();
                 pulseMeasurement.AddPulseStatistics(pulseStatisticRecords.ToList());
             }
             return pulseMeasurement;
+        }
+
+        private static void skipCsvResumeUntilKey(CsvReader csv, String csvKey)
+        {
+            while (csv.Read())
+            {
+                if (csv.Context.Record[0].StartsWith(csvKey))
+                {
+                    csv.Read();
+                    csv.ReadHeader();
+                    break;
+                }
+            }
         }
     }
 }

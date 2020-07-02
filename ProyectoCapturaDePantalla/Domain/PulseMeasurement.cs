@@ -10,6 +10,7 @@ namespace ProyectoCapturaDePantalla.Domain
     {
         public static string PATH = "C:\\Users\\alons\\Documents\\Proyectos\\Visual Studio\\Tesis\\Sensores\\Pulso\\";
         public static string FILE_NAME = "ePulse-min.csv";
+        public static string CSV_KEY = "ESTADÍSTICAS";
 
         public List<PulseStatistic> pulseStatistics;
 

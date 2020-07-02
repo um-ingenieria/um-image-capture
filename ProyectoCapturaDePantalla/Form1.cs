@@ -56,7 +56,7 @@ namespace ProyectoCapturaDePantalla
             Console.WriteLine("Inicializando");
             //TODO: Move implentation
             ParserService parserService = new ParserService();
-            PulseMeasurement pulseMeasurement = parserService.ParseCsvPulseMeasurement(PulseMeasurement.PATH, PulseMeasurement.FILE_NAME);
+            PulseMeasurement pulseMeasurement = parserService.ParseCsvPulseMeasurement(PulseMeasurement.PATH, PulseMeasurement.FILE_NAME, PulseMeasurement.CSV_KEY);
             PulseDao pulseDao = new PulseDao();
             pulseDao.SavePulseMeasurement(pulseMeasurement, 1, 2);
 
