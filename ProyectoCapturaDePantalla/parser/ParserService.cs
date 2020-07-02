@@ -15,7 +15,7 @@ namespace ProyectoCapturaDePantalla.parser
 {
     public class ParserService
     {
-        public PulseMeasurement ParseCsvPulseMeasurement(string path, string fileName, String csvKey)
+        public PulseMeasurement ParseCsvPulseMeasurement(string path, string fileName, string csvKey)
         {
             PulseMeasurement pulseMeasurement = new PulseMeasurement();
             using (var reader = new StreamReader(path + fileName))
@@ -33,7 +33,7 @@ namespace ProyectoCapturaDePantalla.parser
             return pulseMeasurement;
         }
 
-        private static void skipCsvResumeUntilKey(CsvReader csv, String csvKey)
+        private static void skipCsvResumeUntilKey(CsvReader csv, string csvKey)
         {
             while (csv.Read())
             {
