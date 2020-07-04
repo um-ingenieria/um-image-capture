@@ -14,7 +14,7 @@ namespace ProyectoCapturaDePantalla.Domain
         public float HRV { get; set; }
         public float Uniformity { get; set; }
         public float LF_HF { get; set; }
-        public string AbsoluteTime { get; set; }
+        public DateTime AbsoluteTime { get; set; }
         public int Score { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace ProyectoCapturaDePantalla.Domain.Skin
     {
         public float RelativeTime { get; set; }
         public float MicroSiemens { get; set; }
-        public string AbsoluteTime { get; set; }
+        public DateTime AbsoluteTime { get; set; }
         public float SCR { get; set; }
         public float SCR_MIN { get; set; }
     }
