@@ -1,6 +1,7 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using ProyectoCapturaDePantalla.Domain;
+using ProyectoCapturaDePantalla.Domain.Skin;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -31,6 +32,24 @@ namespace ProyectoCapturaDePantalla.parser
                 pulseMeasurement.AddPulseStatistics(pulseStatisticRecords.ToList());
             }
             return pulseMeasurement;
+        }
+
+        public SkinMeasurement ParseCsvSkinMeasurement(string path, string fileName, string csvKey)
+        {
+            SkinMeasurement skinMeasurement = new SkinMeasurement();
+            using (var reader = new StreamReader(path + fileName))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                csv.Configuration.RegisterClassMap<SkinStatisticMap>();
+                csv.Configuration.Delimiter = ";";
+                csv.Configuration.MissingFieldFound = null;
+
+                skipCsvResumeUntilKey(csv, csvKey);
+
+                var skinStatisticRecords = csv.GetRecords<SkinStatistic>();
+                skinMeasurement.AddSkinStatistics(skinStatisticRecords.ToList());
+            }
+            return skinMeasurement;
         }
 
         private static void skipCsvResumeUntilKey(CsvReader csv, string csvKey)

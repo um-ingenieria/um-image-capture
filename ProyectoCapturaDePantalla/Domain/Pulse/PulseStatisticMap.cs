@@ -18,7 +18,7 @@ namespace ProyectoCapturaDePantalla.Domain
             Map(m => m.HRV).Name("AMPLITUD HRV");
             Map(m => m.Uniformity).Name("UNIFORMIDAD");
             Map(m => m.LF_HF).Name("LF + HF").ConvertUsing(NullFloatParser);
-            Map(m => m.AbsoluteTime).Name("MARCAS DE TIEMPO");
+            Map(m => m.AbsoluteTime).Name("MARCAS DE TIEMPO").ConvertUsing(NullDateParser);
             Map(m => m.Score).Name("MARCADOR").ConvertUsing(NullIntParser);
         }
 
@@ -40,6 +40,20 @@ namespace ProyectoCapturaDePantalla.Domain
                 return 0;
             else
                 return int.Parse(rawValue);
+        }
+
+        public DateTime NullDateParser(IReaderRow row)
+        {
+            var rawValue = row.GetField(row.Context.CurrentIndex + 1);
+            DateTime dt = new DateTime();
+            try
+            {
+                dt = DateTime.ParseExact(rawValue, "HH:mm:ss:fff", null);
+            } catch (Exception e)
+            {
+                throw e;
+            }
+            return dt;
         }
     }
 }
