@@ -19,35 +19,52 @@ namespace ProyectoCapturaDePantalla.parser
         public PulseMeasurement ParseCsvPulseMeasurement(string path, string fileName, string csvKey)
         {
             PulseMeasurement pulseMeasurement = new PulseMeasurement();
-            using (var reader = new StreamReader(path + fileName))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+
+            try
             {
-                csv.Configuration.RegisterClassMap<PulseStatisticMap>();
-                csv.Configuration.Delimiter = ";";
-                csv.Configuration.MissingFieldFound = null;
+                using (var reader = new StreamReader(path + fileName))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    csv.Configuration.RegisterClassMap<PulseStatisticMap>();
+                    csv.Configuration.Delimiter = ";";
+                    csv.Configuration.MissingFieldFound = null;
 
-                skipCsvResumeUntilKey(csv, csvKey);
+                    skipCsvResumeUntilKey(csv, csvKey);
 
-                var pulseStatisticRecords = csv.GetRecords<PulseStatistic>();
-                pulseMeasurement.AddPulseStatistics(pulseStatisticRecords.ToList());
+                    var pulseStatisticRecords = csv.GetRecords<PulseStatistic>();
+                    pulseMeasurement.AddPulseStatistics(pulseStatisticRecords.ToList());
+                }
+            } catch (Exception e)
+            {
+                Console.WriteLine("Ocurrio un error en el procesamiento de las mediciones de pulso");
+                Console.WriteLine(e.Message);
+                throw e;
             }
             return pulseMeasurement;
         }
-
+        
         public SkinMeasurement ParseCsvSkinMeasurement(string path, string fileName, string csvKey)
         {
             SkinMeasurement skinMeasurement = new SkinMeasurement();
-            using (var reader = new StreamReader(path + fileName))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            try
             {
-                csv.Configuration.RegisterClassMap<SkinStatisticMap>();
-                csv.Configuration.Delimiter = ";";
-                csv.Configuration.MissingFieldFound = null;
+                using (var reader = new StreamReader(path + fileName))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    csv.Configuration.RegisterClassMap<SkinStatisticMap>();
+                    csv.Configuration.Delimiter = ";";
+                    csv.Configuration.MissingFieldFound = null;
 
-                skipCsvResumeUntilKey(csv, csvKey);
+                    skipCsvResumeUntilKey(csv, csvKey);
 
-                var skinStatisticRecords = csv.GetRecords<SkinStatistic>();
-                skinMeasurement.AddSkinStatistics(skinStatisticRecords.ToList());
+                    var skinStatisticRecords = csv.GetRecords<SkinStatistic>();
+                    skinMeasurement.AddSkinStatistics(skinStatisticRecords.ToList());
+                }
+            } catch(Exception e)
+            {
+                Console.WriteLine("Ocurrio un error en el procesamiento de las mediciones de conductancia");
+                Console.WriteLine(e.Message);
+                throw e;
             }
             return skinMeasurement;
         }

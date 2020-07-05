@@ -9,7 +9,7 @@ namespace ProyectoCapturaDePantalla.Domain
 {
     public class SkinMeasurement
     {
-        public static string PATH = "C:\\Users\\alons\\Documents\\Proyectos\\Visual Studio\\Tesis\\Sensores\\Piel\\";
+        public static string PATH = "C:\\emotions\\skin\\";
         public static string FILE_NAME = "skin-min.csv";
         public static string CSV_KEY = "STATISTICS";
 

@@ -25,7 +25,7 @@ namespace ProyectoCapturaDePantalla
     {
         SqlConnection Conexion = DbConnection.GetConnection();
 
-        public static string Directorio = "C:\\imagenes";
+        public static string Directorio = "C:\\emotions\\imagenes";
         
         SqlCommand cmd;
 
@@ -56,13 +56,19 @@ namespace ProyectoCapturaDePantalla
             Console.WriteLine("Inicializando");
             //TODO: Move implentation
             ParserService parserService = new ParserService();
-            SkinMeasurement skinMeasurement = parserService.ParseCsvSkinMeasurement(SkinMeasurement.PATH, SkinMeasurement.FILE_NAME, SkinMeasurement.CSV_KEY);
-            SkinDao skinDao = new SkinDao();
-            skinDao.SaveSkinMeasurement(skinMeasurement, 1, 2);
 
-            /*PulseMeasurement pulseMeasurement = parserService.ParseCsvPulseMeasurement(PulseMeasurement.PATH, PulseMeasurement.FILE_NAME, PulseMeasurement.CSV_KEY);
-            PulseDao pulseDao = new PulseDao();
-            pulseDao.SavePulseMeasurement(pulseMeasurement, 1, 2);*/
+            try
+            {
+                SkinMeasurement skinMeasurement = parserService.ParseCsvSkinMeasurement(SkinMeasurement.PATH, SkinMeasurement.FILE_NAME, SkinMeasurement.CSV_KEY);
+                SkinDao skinDao = new SkinDao();
+                skinDao.SaveSkinMeasurement(skinMeasurement, 1, 2);
+            } catch (Exception e) { MessageBox.Show(e.Message); }
+
+            try {
+                PulseMeasurement pulseMeasurement = parserService.ParseCsvPulseMeasurement(PulseMeasurement.PATH, PulseMeasurement.FILE_NAME, PulseMeasurement.CSV_KEY);
+                PulseDao pulseDao = new PulseDao();
+                pulseDao.SavePulseMeasurement(pulseMeasurement, 1, 2);
+            } catch (Exception e) { MessageBox.Show(e.Message); }
 
             InitializeComponent();
             timerLapso.Stop();
