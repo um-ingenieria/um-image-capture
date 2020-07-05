@@ -42,6 +42,7 @@
             this.labelNombre = new System.Windows.Forms.Label();
             this.buttonRunSP = new System.Windows.Forms.Button();
             this.emotionButton = new System.Windows.Forms.Button();
+            this.biometricsBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImg)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWebCam)).BeginInit();
@@ -51,7 +52,7 @@
             // 
             this.pictureBoxImg.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.pictureBoxImg.Location = new System.Drawing.Point(16, 15);
-            this.pictureBoxImg.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBoxImg.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBoxImg.Name = "pictureBoxImg";
             this.pictureBoxImg.Size = new System.Drawing.Size(432, 289);
             this.pictureBoxImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -70,7 +71,7 @@
             // buttonEmpezar
             // 
             this.buttonEmpezar.Location = new System.Drawing.Point(13, 382);
-            this.buttonEmpezar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonEmpezar.Margin = new System.Windows.Forms.Padding(4);
             this.buttonEmpezar.Name = "buttonEmpezar";
             this.buttonEmpezar.Size = new System.Drawing.Size(203, 81);
             this.buttonEmpezar.TabIndex = 5;
@@ -81,7 +82,7 @@
             // buttonTerminar
             // 
             this.buttonTerminar.Location = new System.Drawing.Point(252, 382);
-            this.buttonTerminar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonTerminar.Margin = new System.Windows.Forms.Padding(4);
             this.buttonTerminar.Name = "buttonTerminar";
             this.buttonTerminar.Size = new System.Drawing.Size(196, 82);
             this.buttonTerminar.TabIndex = 6;
@@ -94,7 +95,7 @@
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel1.Controls.Add(this.pictureBoxWebCam);
             this.panel1.Location = new System.Drawing.Point(-1, -1);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(949, 325);
             this.panel1.TabIndex = 9;
@@ -103,7 +104,7 @@
             // 
             this.pictureBoxWebCam.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.pictureBoxWebCam.Location = new System.Drawing.Point(497, 16);
-            this.pictureBoxWebCam.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBoxWebCam.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBoxWebCam.Name = "pictureBoxWebCam";
             this.pictureBoxWebCam.Size = new System.Drawing.Size(432, 289);
             this.pictureBoxWebCam.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -113,8 +114,8 @@
             // comboBoxWebCam
             // 
             this.comboBoxWebCam.FormattingEnabled = true;
-            this.comboBoxWebCam.Location = new System.Drawing.Point(740, 340);
-            this.comboBoxWebCam.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxWebCam.Location = new System.Drawing.Point(747, 343);
+            this.comboBoxWebCam.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxWebCam.Name = "comboBoxWebCam";
             this.comboBoxWebCam.Size = new System.Drawing.Size(181, 24);
             this.comboBoxWebCam.TabIndex = 10;
@@ -123,8 +124,8 @@
             // comboBoxPantallas
             // 
             this.comboBoxPantallas.FormattingEnabled = true;
-            this.comboBoxPantallas.Location = new System.Drawing.Point(509, 340);
-            this.comboBoxPantallas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxPantallas.Location = new System.Drawing.Point(496, 343);
+            this.comboBoxPantallas.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxPantallas.Name = "comboBoxPantallas";
             this.comboBoxPantallas.Size = new System.Drawing.Size(181, 24);
             this.comboBoxPantallas.TabIndex = 11;
@@ -132,7 +133,7 @@
             // textBoxName
             // 
             this.textBoxName.Location = new System.Drawing.Point(224, 340);
-            this.textBoxName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxName.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(224, 22);
             this.textBoxName.TabIndex = 12;
@@ -149,8 +150,8 @@
             // 
             // buttonRunSP
             // 
-            this.buttonRunSP.Location = new System.Drawing.Point(783, 382);
-            this.buttonRunSP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonRunSP.Location = new System.Drawing.Point(804, 382);
+            this.buttonRunSP.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRunSP.Name = "buttonRunSP";
             this.buttonRunSP.Size = new System.Drawing.Size(139, 81);
             this.buttonRunSP.TabIndex = 14;
@@ -160,21 +161,30 @@
             // 
             // emotionButton
             // 
-            this.emotionButton.Location = new System.Drawing.Point(531, 382);
+            this.emotionButton.Location = new System.Drawing.Point(496, 385);
             this.emotionButton.Margin = new System.Windows.Forms.Padding(4);
             this.emotionButton.Name = "emotionButton";
             this.emotionButton.Size = new System.Drawing.Size(139, 81);
             this.emotionButton.TabIndex = 15;
             this.emotionButton.Text = "Correr proceso de reconocimiento emocional";
             this.emotionButton.UseVisualStyleBackColor = true;
-            //this.emotionButton.Click += new System.EventHandler(this.emotionButton_ClickAsync);
-            this.emotionButton.Click += async (s, e) => await this.emotionButton_ClickAsync(s, e);
+            // 
+            // biometricsBtn
+            // 
+            this.biometricsBtn.Location = new System.Drawing.Point(657, 385);
+            this.biometricsBtn.Name = "biometricsBtn";
+            this.biometricsBtn.Size = new System.Drawing.Size(127, 78);
+            this.biometricsBtn.TabIndex = 16;
+            this.biometricsBtn.Text = "Correr prosamiento de datos biométricos";
+            this.biometricsBtn.UseVisualStyleBackColor = true;
+            this.biometricsBtn.Click += new System.EventHandler(this.biometricsBtn_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(956, 479);
+            this.Controls.Add(this.biometricsBtn);
             this.Controls.Add(this.emotionButton);
             this.Controls.Add(this.buttonRunSP);
             this.Controls.Add(this.labelNombre);
@@ -185,7 +195,7 @@
             this.Controls.Add(this.buttonEmpezar);
             this.Controls.Add(this.pictureBoxImg);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -212,6 +222,7 @@
         private System.Windows.Forms.Label labelNombre;
         private System.Windows.Forms.Button buttonRunSP;
         private System.Windows.Forms.Button emotionButton;
+        private System.Windows.Forms.Button biometricsBtn;
     }
 }
 
