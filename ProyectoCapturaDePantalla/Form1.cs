@@ -118,9 +118,6 @@ namespace ProyectoCapturaDePantalla
             }
             else
             {
-                
-
-                
                 Pulsador ExcitacionValencia = new Pulsador();
                 ExcitacionValencia.Text = "Excitación/Valencia";
                 ExcitacionValencia.ShowDialog();
@@ -132,11 +129,7 @@ namespace ProyectoCapturaDePantalla
                     MessageBox.Show("Algo salio mal, cierre la ejecucion y vuelva a intentarlo");
                 else
                 {
-
-
-
                     NombrePrueba = textBoxName.Text;
-
 
                     this.Insert_Excitacion_Valencia(NombrePrueba, "Al iniciar", ValorExcitacion, ValorValencia);
                     MessageBox.Show("Excitación: " + this.ValorExcitacion + " / Valencia: " + this.ValorValencia);
@@ -148,9 +141,7 @@ namespace ProyectoCapturaDePantalla
                     comboBoxWebCam.Enabled = false;
                     buttonEmpezar.Enabled = false;
                     timerLapso.Start();
-
                 }
-
             }
         }
 
@@ -159,16 +150,12 @@ namespace ProyectoCapturaDePantalla
             this.buttonCapturar_Click(sender, e);
             timerLapso.Stop();
             timerLapso.Start();
-           
         }
 
         private void buttonCapturar_Click(object sender, EventArgs e)
         {
             contador = 0;
-
             this.timerCaptura.Start();
-
-
         }
 
         private void timerCaptura_Tick(object sender, EventArgs e)
@@ -224,7 +211,6 @@ namespace ProyectoCapturaDePantalla
                 }
                 Seccion++;
                 Identificador = 0;
-
             }
             arranco = false;
         }
@@ -234,7 +220,6 @@ namespace ProyectoCapturaDePantalla
             timerLapso.Stop();
             //this.CallSP();
             this.FinalizarCapturas();
-
         }
 
         public int CallSP(string SP)
@@ -245,7 +230,6 @@ namespace ProyectoCapturaDePantalla
                 NombreQuery = textBoxName.Text;
             else
                 NombreQuery = NombrePrueba;
-
 
             Conexion.Open();
             SqlCommand cmd = new SqlCommand(SP, Conexion);
@@ -289,14 +273,12 @@ namespace ProyectoCapturaDePantalla
                     comboBoxPantallas.Enabled = true;
                     comboBoxWebCam.Enabled = true;
                     buttonEmpezar.Focus();
-
                 }
             }
         }
 
         private void comboBoxWebCam_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             if (VideoSources != null)
             {
                 if (VideoSource.IsRunning)
@@ -320,7 +302,6 @@ namespace ProyectoCapturaDePantalla
 
         private void buttonRunSP_Click(object sender, EventArgs e)
         {
-            
             //this.CallSP();
             MessageBox.Show("El numero de registros afectados en la tabla general fueron: " + this.CallSP("SP_CargarDatos"));
             MessageBox.Show("El numero de registros afectados en la tabla Excitacion-Valencia fueron: " + this.CallSP("SP_CargarDatos_Excitacion_Valencia"));
@@ -328,7 +309,6 @@ namespace ProyectoCapturaDePantalla
 
         private void Insert_Excitacion_Valencia(string name,string periodicidad, int Excitacion, int valencia)
         {
-
             Conexion.Open();
             string SqlQuery1 = "INSERT INTO Excitacion_VALENCIA (NAME_TEST,Seccion,TIPO,EXCITACION,VALENCIA) VALUES('" + name + "',"+ this.Seccion + ",'" + periodicidad + "'," + Excitacion + ", NULL)";
             cmd = new SqlCommand(SqlQuery1, Conexion);
@@ -381,7 +361,7 @@ namespace ProyectoCapturaDePantalla
             try
             {
                 Conexion.Open();
-                SqlCommand cmd = new SqlCommand($"SELECT [SECCION], [IDENTIFICADOR], [IMAGENWEBCAM] FROM NEUROSKY_IMAGENES WHERE SECCION = {section}", Conexion);
+                SqlCommand cmd = new SqlCommand($"SELECT [SECCION], [IDENTIFICADOR], [DATE], [IMAGENWEBCAM] FROM NEUROSKY_IMAGENES WHERE SECCION = {section}", Conexion);
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 while (dr.Read())
@@ -389,6 +369,7 @@ namespace ProyectoCapturaDePantalla
                     FaceImage img = new FaceImage();
                     img.Id = int.Parse(Convert.ToString(dr["IDENTIFICADOR"]));
                     img.Section = int.Parse(Convert.ToString(dr["SECCION"]));
+                    img.Date = DateTime.ParseExact(Convert.ToString(dr["DATE"]), "dd-MM-yyyy HH:mm:tt.fff", System.Globalization.CultureInfo.InvariantCulture);
                     img.Path = Convert.ToString(dr["IMAGENWEBCAM"]);
                     images.Add(img);
                 }
@@ -411,12 +392,18 @@ namespace ProyectoCapturaDePantalla
 
         private void biometricsBtn_Click(object sender, EventArgs e)
         {
+            string promptValue = new Prompt("Procesamiento biometrico", "Ingrese el número de sección de la prueba de la que desea hacer el procesamiento de datos biometricos").show();
+            if (!int.TryParse(promptValue, out int section))
+            {
+                throw new Exception("Error al intentar parsear el número de seccción. Verifique que los datos sean correctos");
+            }
+
             ParserService parserService = new ParserService();
             try
             {
                 SkinMeasurement skinMeasurement = parserService.ParseCsvSkinMeasurement(SkinMeasurement.PATH, SkinMeasurement.FILE_NAME, SkinMeasurement.CSV_KEY);
                 SkinDao skinDao = new SkinDao();
-                skinDao.SaveSkinMeasurement(skinMeasurement, 1, 2);
+                skinDao.SaveSkinMeasurement(skinMeasurement, section);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
@@ -424,7 +411,7 @@ namespace ProyectoCapturaDePantalla
             {
                 PulseMeasurement pulseMeasurement = parserService.ParseCsvPulseMeasurement(PulseMeasurement.PATH, PulseMeasurement.FILE_NAME, PulseMeasurement.CSV_KEY);
                 PulseDao pulseDao = new PulseDao();
-                pulseDao.SavePulseMeasurement(pulseMeasurement, 1, 2);
+                pulseDao.SavePulseMeasurement(pulseMeasurement, section);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }

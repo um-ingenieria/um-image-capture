@@ -12,7 +12,7 @@ namespace ProyectoCapturaDePantalla.dao
 {
     public class SkinDao
     {
-        public void SaveSkinMeasurement(SkinMeasurement skinMeasurement, int seccion, int id)
+        public void SaveSkinMeasurement(SkinMeasurement skinMeasurement, int seccion)
         {
             SqlConnection dbConnection = DbConnection.GetConnection();
             try
@@ -20,7 +20,7 @@ namespace ProyectoCapturaDePantalla.dao
                 dbConnection.Open(); //TODO: ver si es transacional
                 foreach (SkinStatistic skinStatistic in skinMeasurement.skinStatistics)
                 {
-                    SqlCommand command = createCommandForRecord(seccion, id, dbConnection, skinStatistic);
+                    SqlCommand command = createCommandForRecord(seccion, dbConnection, skinStatistic);
                     int recordsAffected = command.ExecuteNonQuery();
                 }
             }
@@ -35,17 +35,16 @@ namespace ProyectoCapturaDePantalla.dao
             }
         }
 
-        private static SqlCommand createCommandForRecord(int seccion, int id, SqlConnection dbConnection, SkinStatistic skinStatistic)
+        private static SqlCommand createCommandForRecord(int seccion, SqlConnection dbConnection, SkinStatistic skinStatistic)
         {
             SqlCommand command = new SqlCommand
             {
                 Connection = dbConnection,
                 CommandType = CommandType.Text,
-                CommandText = "INSERT into SKIN_STATISTIC (secction , identificador , relative_time, micro_siemens, absolute_time, scr, scr_min) " +
-                        "VALUES (@secction, @identificador, @relative_time, @micro_siemens, @absolute_time, @scr, @scr_min)"
+                CommandText = "INSERT into SKIN_STATISTIC (secction, relative_time, micro_siemens, absolute_time, scr, scr_min) " +
+                        "VALUES (@secction, @relative_time, @micro_siemens, @absolute_time, @scr, @scr_min)"
             };
             command.Parameters.AddWithValue("@secction", seccion);
-            command.Parameters.AddWithValue("@identificador", id);
             command.Parameters.AddWithValue("@relative_time", skinStatistic.RelativeTime);
             command.Parameters.AddWithValue("@micro_siemens", skinStatistic.MicroSiemens);
             command.Parameters.AddWithValue("@absolute_time", skinStatistic.AbsoluteTime);
