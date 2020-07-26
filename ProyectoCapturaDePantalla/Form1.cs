@@ -18,6 +18,7 @@ using ProyectoCapturaDePantalla.Images;
 using System.Threading;
 using ProyectoCapturaDePantalla.parser;
 using ProyectoCapturaDePantalla.Domain;
+using ProyectoCapturaDePantalla.utils;
 
 namespace ProyectoCapturaDePantalla
 {
@@ -131,7 +132,10 @@ namespace ProyectoCapturaDePantalla
                 {
                     NombrePrueba = textBoxName.Text;
 
-                    this.Insert_Excitacion_Valencia(NombrePrueba, "Al iniciar", ValorExcitacion, ValorValencia);
+                    ExcitementAndArousalDao excitementAndArousalDao = new ExcitementAndArousalDao();
+                    excitementAndArousalDao.InsertExcitementAndArousal(NombrePrueba, "Al iniciar", ValorExcitacion, ValorValencia, this.Seccion);
+
+                    //this.Insert_Excitacion_Valencia(NombrePrueba, "Al iniciar", ValorExcitacion, ValorValencia);
                     MessageBox.Show("Excitación: " + this.ValorExcitacion + " / Valencia: " + this.ValorValencia);
 
                     LapsoDeTiempo = 1000;
@@ -186,13 +190,8 @@ namespace ProyectoCapturaDePantalla
                 ImagenDirectorioWebcam = String.Format(@"{0}\WebCam-{1}.jpg", Directorio, TiempoCaptura);
                 pictureBoxWebCam.Image.Save(ImagenDirectorioWebcam, System.Drawing.Imaging.ImageFormat.Png);
 
-                Conexion.Open();
-                string SqlQuery = "INSERT INTO NEUROSKY_IMAGENES (NOMBREPRUEBA,SECCION,IDENTIFICADOR,DATE,IMAGENESCRITORIO,IMAGENWEBCAM)VALUES('" + this.NombrePrueba + "'," + this.Seccion + "," + this.Identificador + ",'" + DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss.fff tt") + "','" + ImagenDirectorioEscritorio + "', '" + ImagenDirectorioWebcam + "')";
-                cmd = new SqlCommand(SqlQuery, Conexion);
-                
-
-                int N = cmd.ExecuteNonQuery();
-                Conexion.Close();
+                ImagesDao imagesDao = new ImagesDao();
+                imagesDao.InsertImages(this.NombrePrueba, this.Seccion, this.Identificador, ImagenDirectorioEscritorio, ImagenDirectorioWebcam);
 
                 timerCaptura.Stop();
             }
@@ -262,8 +261,10 @@ namespace ProyectoCapturaDePantalla
                 {
                     NombrePrueba = textBoxName.Text;
 
+                    ExcitementAndArousalDao excitementAndArousalDao = new ExcitementAndArousalDao();
+                    excitementAndArousalDao.InsertExcitementAndArousal(NombrePrueba, "Al Finalizar", ValorExcitacion, ValorValencia, this.Seccion);
 
-                    this.Insert_Excitacion_Valencia(NombrePrueba, "Al Finalizar", ValorExcitacion, ValorValencia);
+                    //this.Insert_Excitacion_Valencia(NombrePrueba, "Al Finalizar", ValorExcitacion, ValorValencia);
                     MessageBox.Show("Excitación: " + this.ValorExcitacion + " / Valencia: " + this.ValorValencia);
 
                     this.CerrarSeccion();
@@ -307,21 +308,6 @@ namespace ProyectoCapturaDePantalla
             MessageBox.Show("El numero de registros afectados en la tabla Excitacion-Valencia fueron: " + this.CallSP("SP_CargarDatos_Excitacion_Valencia"));
         }
 
-        private void Insert_Excitacion_Valencia(string name,string periodicidad, int Excitacion, int valencia)
-        {
-            Conexion.Open();
-            string SqlQuery1 = "INSERT INTO Excitacion_VALENCIA (NAME_TEST,Seccion,TIPO,EXCITACION,VALENCIA) VALUES('" + name + "',"+ this.Seccion + ",'" + periodicidad + "'," + Excitacion + ", NULL)";
-            cmd = new SqlCommand(SqlQuery1, Conexion);
-            int N1 = cmd.ExecuteNonQuery();
-            Conexion.Close();
-
-            Conexion.Open();
-            string SqlQuery2 = "INSERT INTO Excitacion_VALENCIA (NAME_TEST,Seccion,TIPO,EXCITACION,VALENCIA) VALUES('" + name + "'," + this.Seccion + ",'" + periodicidad + "', NULL ," + valencia + ")";
-            cmd = new SqlCommand(SqlQuery2, Conexion);
-            int N2 = cmd.ExecuteNonQuery();
-            Conexion.Close();
-        }
-
         private async Task emotionButton_ClickAsync(object sender, EventArgs e)
         {
             string promptValue = new Prompt("Reconocimiento facial", "Ingrese el número de sección de la prueba de la que desea hacer el reconocimiento").show();
@@ -360,34 +346,20 @@ namespace ProyectoCapturaDePantalla
 
             try
             {
-                Conexion.Open();
-                SqlCommand cmd = new SqlCommand($"SELECT [SECCION], [IDENTIFICADOR], [DATE], [IMAGENWEBCAM] FROM NEUROSKY_IMAGENES WHERE SECCION = {section}", Conexion);
-                SqlDataReader dr = cmd.ExecuteReader();
+                ImagesDao imagesDao = new ImagesDao();
+                images = imagesDao.GetImages(section);
 
-                while (dr.Read())
+                if (images.Count > 0 && bulkLimit > 0)
                 {
-                    FaceImage img = new FaceImage();
-                    img.Id = int.Parse(Convert.ToString(dr["IDENTIFICADOR"]));
-                    img.Section = int.Parse(Convert.ToString(dr["SECCION"]));
-                    img.Date = DateTime.ParseExact(Convert.ToString(dr["DATE"]), "dd-MM-yyyy HH:mm:tt.fff", System.Globalization.CultureInfo.InvariantCulture);
-                    img.Path = Convert.ToString(dr["IMAGENWEBCAM"]);
-                    images.Add(img);
+                    return images.GetRange(0, bulkLimit);
                 }
 
-                Conexion.Close();
+                return images;
             } catch (Exception e)
             {
-                string message = "Error recuperando imagenes de la base de datos";
-                Console.WriteLine(message + e.Message);
-                MessageBox.Show(message);
+                MessageBox.Show(e.Message);
+                throw e;
             }
-
-            if (images.Count > 0 && bulkLimit > 0)
-            {
-                return images.GetRange(0, bulkLimit);
-            }
-
-            return images;
         }
 
         private void biometricsBtn_Click(object sender, EventArgs e)

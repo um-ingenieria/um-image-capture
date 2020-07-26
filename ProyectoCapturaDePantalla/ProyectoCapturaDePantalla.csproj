@@ -86,6 +86,8 @@
   <ItemGroup>
     <Compile Include="dao\DbConnection.cs" />
     <Compile Include="dao\EmotionsDao.cs" />
+    <Compile Include="dao\ExcitementAndArousalDao.cs" />
+    <Compile Include="dao\ImagesDao.cs" />
     <Compile Include="dao\PulseDao.cs" />
     <Compile Include="dao\SkinDao.cs" />
     <Compile Include="Domain\Pulse\PulseMeasurement.cs" />
@@ -119,6 +121,7 @@
     <Compile Include="Pulsador.Designer.cs">
       <DependentUpon>Pulsador.cs</DependentUpon>
     </Compile>
+    <Compile Include="utils\DatesHelper.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
