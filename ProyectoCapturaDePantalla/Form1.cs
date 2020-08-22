@@ -18,6 +18,7 @@ using ProyectoCapturaDePantalla.Images;
 using System.Threading;
 using ProyectoCapturaDePantalla.parser;
 using ProyectoCapturaDePantalla.Domain;
+using ProyectoCapturaDePantalla.utils;
 
 namespace ProyectoCapturaDePantalla
 {
@@ -54,22 +55,6 @@ namespace ProyectoCapturaDePantalla
         public Form1()
         {
             Console.WriteLine("Inicializando");
-            //TODO: Move implentation
-            ParserService parserService = new ParserService();
-
-            try
-            {
-                SkinMeasurement skinMeasurement = parserService.ParseCsvSkinMeasurement(SkinMeasurement.PATH, SkinMeasurement.FILE_NAME, SkinMeasurement.CSV_KEY);
-                SkinDao skinDao = new SkinDao();
-                skinDao.SaveSkinMeasurement(skinMeasurement, 1, 2);
-            } catch (Exception e) { MessageBox.Show(e.Message); }
-
-            try {
-                PulseMeasurement pulseMeasurement = parserService.ParseCsvPulseMeasurement(PulseMeasurement.PATH, PulseMeasurement.FILE_NAME, PulseMeasurement.CSV_KEY);
-                PulseDao pulseDao = new PulseDao();
-                pulseDao.SavePulseMeasurement(pulseMeasurement, 1, 2);
-            } catch (Exception e) { MessageBox.Show(e.Message); }
-
             InitializeComponent();
             timerLapso.Stop();
             timerCaptura.Stop();
@@ -134,9 +119,6 @@ namespace ProyectoCapturaDePantalla
             }
             else
             {
-                
-
-                
                 Pulsador ExcitacionValencia = new Pulsador();
                 ExcitacionValencia.Text = "Excitación/Valencia";
                 ExcitacionValencia.ShowDialog();
@@ -148,13 +130,12 @@ namespace ProyectoCapturaDePantalla
                     MessageBox.Show("Algo salio mal, cierre la ejecucion y vuelva a intentarlo");
                 else
                 {
-
-
-
                     NombrePrueba = textBoxName.Text;
 
+                    ExcitementAndArousalDao excitementAndArousalDao = new ExcitementAndArousalDao();
+                    excitementAndArousalDao.InsertExcitementAndArousal(NombrePrueba, "Al iniciar", ValorExcitacion, ValorValencia, this.Seccion);
 
-                    this.Insert_Excitacion_Valencia(NombrePrueba, "Al iniciar", ValorExcitacion, ValorValencia);
+                    //this.Insert_Excitacion_Valencia(NombrePrueba, "Al iniciar", ValorExcitacion, ValorValencia);
                     MessageBox.Show("Excitación: " + this.ValorExcitacion + " / Valencia: " + this.ValorValencia);
 
                     LapsoDeTiempo = 1000;
@@ -164,9 +145,7 @@ namespace ProyectoCapturaDePantalla
                     comboBoxWebCam.Enabled = false;
                     buttonEmpezar.Enabled = false;
                     timerLapso.Start();
-
                 }
-
             }
         }
 
@@ -175,16 +154,12 @@ namespace ProyectoCapturaDePantalla
             this.buttonCapturar_Click(sender, e);
             timerLapso.Stop();
             timerLapso.Start();
-           
         }
 
         private void buttonCapturar_Click(object sender, EventArgs e)
         {
             contador = 0;
-
             this.timerCaptura.Start();
-
-
         }
 
         private void timerCaptura_Tick(object sender, EventArgs e)
@@ -215,13 +190,8 @@ namespace ProyectoCapturaDePantalla
                 ImagenDirectorioWebcam = String.Format(@"{0}\WebCam-{1}.jpg", Directorio, TiempoCaptura);
                 pictureBoxWebCam.Image.Save(ImagenDirectorioWebcam, System.Drawing.Imaging.ImageFormat.Png);
 
-                Conexion.Open();
-                string SqlQuery = "INSERT INTO NEUROSKY_IMAGENES (NOMBREPRUEBA,SECCION,IDENTIFICADOR,DATE,IMAGENESCRITORIO,IMAGENWEBCAM)VALUES('" + this.NombrePrueba + "'," + this.Seccion + "," + this.Identificador + ",'" + DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss.fff tt") + "','" + ImagenDirectorioEscritorio + "', '" + ImagenDirectorioWebcam + "')";
-                cmd = new SqlCommand(SqlQuery, Conexion);
-                
-
-                int N = cmd.ExecuteNonQuery();
-                Conexion.Close();
+                ImagesDao imagesDao = new ImagesDao();
+                imagesDao.InsertImages(this.NombrePrueba, this.Seccion, this.Identificador, ImagenDirectorioEscritorio, ImagenDirectorioWebcam);
 
                 timerCaptura.Stop();
             }
@@ -240,7 +210,6 @@ namespace ProyectoCapturaDePantalla
                 }
                 Seccion++;
                 Identificador = 0;
-
             }
             arranco = false;
         }
@@ -250,7 +219,6 @@ namespace ProyectoCapturaDePantalla
             timerLapso.Stop();
             //this.CallSP();
             this.FinalizarCapturas();
-
         }
 
         public int CallSP(string SP)
@@ -261,7 +229,6 @@ namespace ProyectoCapturaDePantalla
                 NombreQuery = textBoxName.Text;
             else
                 NombreQuery = NombrePrueba;
-
 
             Conexion.Open();
             SqlCommand cmd = new SqlCommand(SP, Conexion);
@@ -294,8 +261,10 @@ namespace ProyectoCapturaDePantalla
                 {
                     NombrePrueba = textBoxName.Text;
 
+                    ExcitementAndArousalDao excitementAndArousalDao = new ExcitementAndArousalDao();
+                    excitementAndArousalDao.InsertExcitementAndArousal(NombrePrueba, "Al Finalizar", ValorExcitacion, ValorValencia, this.Seccion);
 
-                    this.Insert_Excitacion_Valencia(NombrePrueba, "Al Finalizar", ValorExcitacion, ValorValencia);
+                    //this.Insert_Excitacion_Valencia(NombrePrueba, "Al Finalizar", ValorExcitacion, ValorValencia);
                     MessageBox.Show("Excitación: " + this.ValorExcitacion + " / Valencia: " + this.ValorValencia);
 
                     this.CerrarSeccion();
@@ -305,14 +274,12 @@ namespace ProyectoCapturaDePantalla
                     comboBoxPantallas.Enabled = true;
                     comboBoxWebCam.Enabled = true;
                     buttonEmpezar.Focus();
-
                 }
             }
         }
 
         private void comboBoxWebCam_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             if (VideoSources != null)
             {
                 if (VideoSource.IsRunning)
@@ -336,26 +303,9 @@ namespace ProyectoCapturaDePantalla
 
         private void buttonRunSP_Click(object sender, EventArgs e)
         {
-            
             //this.CallSP();
             MessageBox.Show("El numero de registros afectados en la tabla general fueron: " + this.CallSP("SP_CargarDatos"));
             MessageBox.Show("El numero de registros afectados en la tabla Excitacion-Valencia fueron: " + this.CallSP("SP_CargarDatos_Excitacion_Valencia"));
-        }
-
-        private void Insert_Excitacion_Valencia(string name,string periodicidad, int Excitacion, int valencia)
-        {
-
-            Conexion.Open();
-            string SqlQuery1 = "INSERT INTO Excitacion_VALENCIA (NAME_TEST,Seccion,TIPO,EXCITACION,VALENCIA) VALUES('" + name + "',"+ this.Seccion + ",'" + periodicidad + "'," + Excitacion + ", NULL)";
-            cmd = new SqlCommand(SqlQuery1, Conexion);
-            int N1 = cmd.ExecuteNonQuery();
-            Conexion.Close();
-
-            Conexion.Open();
-            string SqlQuery2 = "INSERT INTO Excitacion_VALENCIA (NAME_TEST,Seccion,TIPO,EXCITACION,VALENCIA) VALUES('" + name + "'," + this.Seccion + ",'" + periodicidad + "', NULL ," + valencia + ")";
-            cmd = new SqlCommand(SqlQuery2, Conexion);
-            int N2 = cmd.ExecuteNonQuery();
-            Conexion.Close();
         }
 
         private async Task emotionButton_ClickAsync(object sender, EventArgs e)
@@ -396,33 +346,46 @@ namespace ProyectoCapturaDePantalla
 
             try
             {
-                Conexion.Open();
-                SqlCommand cmd = new SqlCommand($"SELECT [SECCION], [IDENTIFICADOR], [IMAGENWEBCAM] FROM NEUROSKY_IMAGENES WHERE SECCION = {section}", Conexion);
-                SqlDataReader dr = cmd.ExecuteReader();
+                ImagesDao imagesDao = new ImagesDao();
+                images = imagesDao.GetImages(section);
 
-                while (dr.Read())
+                if (images.Count > 0 && bulkLimit > 0)
                 {
-                    FaceImage img = new FaceImage();
-                    img.Id = int.Parse(Convert.ToString(dr["IDENTIFICADOR"]));
-                    img.Section = int.Parse(Convert.ToString(dr["SECCION"]));
-                    img.Path = Convert.ToString(dr["IMAGENWEBCAM"]);
-                    images.Add(img);
+                    return images.GetRange(0, bulkLimit);
                 }
 
-                Conexion.Close();
+                return images;
             } catch (Exception e)
             {
-                string message = "Error recuperando imagenes de la base de datos";
-                Console.WriteLine(message + e.Message);
-                MessageBox.Show(message);
+                MessageBox.Show(e.Message);
+                throw e;
             }
+        }
 
-            if (images.Count > 0 && bulkLimit > 0)
+        private void biometricsBtn_Click(object sender, EventArgs e)
+        {
+            string promptValue = new Prompt("Procesamiento biometrico", "Ingrese el número de sección de la prueba de la que desea hacer el procesamiento de datos biometricos").show();
+            if (!int.TryParse(promptValue, out int section))
             {
-                return images.GetRange(0, bulkLimit);
+                throw new Exception("Error al intentar parsear el número de seccción. Verifique que los datos sean correctos");
             }
 
-            return images;
+            ParserService parserService = new ParserService();
+            try
+            {
+                SkinMeasurement skinMeasurement = parserService.ParseCsvSkinMeasurement(SkinMeasurement.PATH, SkinMeasurement.FILE_NAME, SkinMeasurement.CSV_KEY);
+                SkinDao skinDao = new SkinDao();
+                skinDao.SaveSkinMeasurement(skinMeasurement, section);
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+            try
+            {
+                PulseMeasurement pulseMeasurement = parserService.ParseCsvPulseMeasurement(PulseMeasurement.PATH, PulseMeasurement.FILE_NAME, PulseMeasurement.CSV_KEY);
+                PulseDao pulseDao = new PulseDao();
+                pulseDao.SavePulseMeasurement(pulseMeasurement, section);
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
     }
 
