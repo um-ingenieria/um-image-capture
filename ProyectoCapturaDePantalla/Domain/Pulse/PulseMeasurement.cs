@@ -8,7 +8,7 @@ namespace ProyectoCapturaDePantalla.Domain
 {
     public class PulseMeasurement
     {
-        public static string PATH = "C:\\emotions\\pulse\\";
+        public static string PATH = "..\\..\\..\\Resources\\csv\\pulse\\";
         public static string FILE_NAME = "ePulse-min.csv";
         public static string CSV_KEY = "ESTADÍSTICAS";
 
