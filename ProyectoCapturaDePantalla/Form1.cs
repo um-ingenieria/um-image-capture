@@ -387,6 +387,26 @@ namespace ProyectoCapturaDePantalla
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-    }
 
+        public void StartIAPSPresentation()
+        {
+            string[] iaps_ids = new string[]
+            {
+                "1080", "1033", "1040", "1050"
+            };
+
+            ImageDisplay imageDisplay = new ImageDisplay("../../../resources/iaps");
+            imageDisplay.WindowState = FormWindowState.Maximized;
+            imageDisplay.Show();
+
+            Task.Run(async () =>
+            {
+                foreach (string iaps_id in iaps_ids)
+                {
+                    imageDisplay.ChangeImage(string.Concat(iaps_id, ".jpg"));
+                    await Task.Delay(2000);
+                }
+            });
+        }
+    }
 }
