@@ -357,6 +357,7 @@ MigrationBackup/
 .ionide/
 
 #resorces
+/resources/iaps/*
 *.png
 *.jpeg
 *.jpg

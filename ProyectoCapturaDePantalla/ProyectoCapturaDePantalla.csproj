@@ -89,11 +89,15 @@
     <Compile Include="dao\ExcitementAndArousalDao.cs" />
     <Compile Include="dao\ImagesDao.cs" />
     <Compile Include="dao\PulseDao.cs" />
+    <Compile Include="dao\SessionDao.cs" />
+    <Compile Include="dao\SessionEventDao.cs" />
     <Compile Include="dao\SkinDao.cs" />
     <Compile Include="Domain\Pulse\PulseMeasurement.cs" />
     <Compile Include="Domain\Pulse\PulseMeasurementMap.cs" />
     <Compile Include="Domain\Pulse\PulseStatistic.cs" />
     <Compile Include="Domain\Pulse\PulseStatisticMap.cs" />
+    <Compile Include="Domain\Session\Session.cs" />
+    <Compile Include="Domain\Session\SessionEvent.cs" />
     <Compile Include="Domain\Skin\SkinMeasurement.cs" />
     <Compile Include="Domain\Skin\SkinStatistic.cs" />
     <Compile Include="Domain\Skin\SkinStatisticMap.cs" />
