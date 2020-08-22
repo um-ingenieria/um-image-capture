@@ -19,13 +19,15 @@ using System.Threading;
 using ProyectoCapturaDePantalla.parser;
 using ProyectoCapturaDePantalla.Domain;
 using ProyectoCapturaDePantalla.utils;
+using ProyectoCapturaDePantalla.Domain.Session;
 
 namespace ProyectoCapturaDePantalla
 {
     public partial class Form1 : Form
     {
         SqlConnection Conexion = DbConnection.GetConnection();
-        
+        Session session;
+
         public static string Directorio = "..\\..\\..\\resources\\emotions\\imagenes";
         
         SqlCommand cmd;
@@ -119,6 +121,29 @@ namespace ProyectoCapturaDePantalla
             }
             else
             {
+                SessionDao sessionDao = new SessionDao();
+                Session tempSession = new Session(textBoxName.Text);
+
+                try
+                {
+                    session = sessionDao.SaveSession(new Session(textBoxName.Text));
+                }
+                catch (SqlException ex)
+                {
+                    if (ex.ErrorCode == 2146232060 || ex.ErrorCode == -2146232060)
+                    {
+                        MessageBox.Show("Ya existe una prueba con ese nombre. Por favor elija otro");
+                        return;
+                    }
+                    throw ex;
+                }
+                
+
+                //TODO: create first event
+                SessionEvent sessionEvent = new SessionEvent(session.Id, session.TestName, "event", DateTime.Now);
+                SessionEventDao sessionEventDao = new SessionEventDao();
+                sessionEventDao.SaveSessionEvent(sessionEvent);
+
                 Pulsador ExcitacionValencia = new Pulsador();
                 ExcitacionValencia.Text = "Excitación/Valencia";
                 ExcitacionValencia.ShowDialog();
