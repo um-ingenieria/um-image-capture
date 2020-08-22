@@ -9,7 +9,7 @@ namespace ProyectoCapturaDePantalla.Domain
 {
     public class SkinMeasurement
     {
-        public static string PATH = "..\\..\\..\\Resources\\csv\\skin\\";
+        public static string PATH = "..\\..\\..\\resources\\csv\\skin\\";
         public static string FILE_NAME = "skin-min.csv";
         public static string CSV_KEY = "STATISTICS";
 

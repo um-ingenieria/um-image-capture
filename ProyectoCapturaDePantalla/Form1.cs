@@ -25,8 +25,8 @@ namespace ProyectoCapturaDePantalla
     public partial class Form1 : Form
     {
         SqlConnection Conexion = DbConnection.GetConnection();
-
-        public static string Directorio = "C:\\emotions\\imagenes";
+        
+        public static string Directorio = "..\\..\\..\\resources\\emotions\\imagenes";
         
         SqlCommand cmd;
 
