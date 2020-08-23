@@ -32,13 +32,6 @@ namespace ProyectoCapturaDePantalla
             return valorValencia;
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            valorValencia = 0;
-            valorExcitacion = 0;
-            Close();
-        }
-
         private void buttonAccept_Click(object sender, EventArgs e)
         {
             Close();
