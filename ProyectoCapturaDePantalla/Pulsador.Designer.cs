@@ -45,6 +45,14 @@
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.pictureBox10 = new System.Windows.Forms.PictureBox();
             this.trackBarArousal = new System.Windows.Forms.TrackBar();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarValence)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -101,6 +109,7 @@
             // 
             // trackBarValence
             // 
+            this.trackBarValence.LargeChange = 1;
             this.trackBarValence.Location = new System.Drawing.Point(72, 339);
             this.trackBarValence.Maximum = 4;
             this.trackBarValence.Minimum = -4;
@@ -211,6 +220,7 @@
             // 
             // trackBarArousal
             // 
+            this.trackBarArousal.LargeChange = 1;
             this.trackBarArousal.Location = new System.Drawing.Point(72, 150);
             this.trackBarArousal.Maximum = 4;
             this.trackBarArousal.Minimum = -4;
@@ -219,11 +229,99 @@
             this.trackBarArousal.TabIndex = 28;
             this.trackBarArousal.Scroll += new System.EventHandler(this.trackBarArousal_Scroll);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(169, 83);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(31, 37);
+            this.label3.TabIndex = 34;
+            this.label3.Text = "•";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(368, 83);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(31, 37);
+            this.label4.TabIndex = 35;
+            this.label4.Text = "•";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(763, 83);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(31, 37);
+            this.label5.TabIndex = 37;
+            this.label5.Text = "•";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(566, 83);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(31, 37);
+            this.label6.TabIndex = 36;
+            this.label6.Text = "•";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(763, 271);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(31, 37);
+            this.label7.TabIndex = 41;
+            this.label7.Text = "•";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(566, 271);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(31, 37);
+            this.label8.TabIndex = 40;
+            this.label8.Text = "•";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(368, 271);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(31, 37);
+            this.label9.TabIndex = 39;
+            this.label9.Text = "•";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(169, 271);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(31, 37);
+            this.label10.TabIndex = 38;
+            this.label10.Text = "•";
+            // 
             // Pulsador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(956, 458);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.pictureBox6);
             this.Controls.Add(this.pictureBox7);
             this.Controls.Add(this.pictureBox8);
@@ -276,5 +374,13 @@
         private System.Windows.Forms.PictureBox pictureBox9;
         private System.Windows.Forms.PictureBox pictureBox10;
         private System.Windows.Forms.TrackBar trackBarArousal;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
     }
 }
