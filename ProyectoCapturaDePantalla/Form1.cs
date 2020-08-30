@@ -20,6 +20,8 @@ using ProyectoCapturaDePantalla.parser;
 using ProyectoCapturaDePantalla.Domain;
 using ProyectoCapturaDePantalla.utils;
 using ProyectoCapturaDePantalla.Domain.Session;
+using System.Configuration;
+using ProyectoCapturaDePantalla.Domain.SAM;
 
 namespace ProyectoCapturaDePantalla
 {
@@ -28,26 +30,13 @@ namespace ProyectoCapturaDePantalla
         SqlConnection Conexion = DbConnection.GetConnection();
         Session session;
 
-        public static string Directorio = "..\\..\\..\\resources\\emotions\\imagenes";
-        
-        SqlCommand cmd;
-
-        int ValorExcitacion = 0;
-        int ValorValencia = 0;
-
         int contador = 0;
-        int LapsoDeTiempo = 0;
 
         bool arranco;
 
         string NombrePrueba;
         int Seccion;
         int Identificador = 0;
-
-        long TiempoCaptura;
-        String ImagenDirectorioEscritorio;
-        String ImagenDirectorioWebcam;
-
 
         AForge.Video.DirectShow.VideoCaptureDevice VideoSource;
         AForge.Video.DirectShow.FilterInfoCollection VideoSources;
@@ -56,7 +45,6 @@ namespace ProyectoCapturaDePantalla
 
         public Form1()
         {
-            Console.WriteLine("Inicializando");
             InitializeComponent();
             timerLapso.Stop();
             timerCaptura.Stop();
@@ -109,7 +97,8 @@ namespace ProyectoCapturaDePantalla
             } catch(Exception e) {
                 Console.WriteLine("Fallo la conexion a la base");
                 Console.WriteLine(e.Message);
-            }           
+            }
+            // StartIAPSPresentation();
         }
 
         private void buttonEmpezar_Click(object sender, EventArgs e)
@@ -137,41 +126,33 @@ namespace ProyectoCapturaDePantalla
                     }
                     throw ex;
                 }
-                
+
+                NombrePrueba = textBoxName.Text;
 
                 //TODO: create first event
                 SessionEvent sessionEvent = new SessionEvent(session.Id, session.TestName, "event", DateTime.Now);
                 SessionEventDao sessionEventDao = new SessionEventDao();
                 sessionEventDao.SaveSessionEvent(sessionEvent);
 
-                Pulsador ExcitacionValencia = new Pulsador();
-                ExcitacionValencia.Text = "Excitación/Valencia";
-                ExcitacionValencia.ShowDialog();
+                SAM samResponse = RequestSAM();
+                MessageBox.Show("Excitación: " + samResponse.Arousal + " / Valencia: " + samResponse.Valence);
+                ValenceAndArousalDao excitementAndArousalDao = new ValenceAndArousalDao();
+                excitementAndArousalDao.InsertExcitementAndArousal(NombrePrueba, "Al iniciar", samResponse.Valence, samResponse.Arousal, this.Seccion);
 
-                this.ValorExcitacion = ExcitacionValencia.DarValorExcitacion();
-                this.ValorValencia = ExcitacionValencia.DarValorValencia();
-
-                if (this.ValorExcitacion == 99 || this.ValorValencia == 99)
-                    MessageBox.Show("Algo salio mal, cierre la ejecucion y vuelva a intentarlo");
-                else
-                {
-                    NombrePrueba = textBoxName.Text;
-
-                    ExcitementAndArousalDao excitementAndArousalDao = new ExcitementAndArousalDao();
-                    excitementAndArousalDao.InsertExcitementAndArousal(NombrePrueba, "Al iniciar", ValorExcitacion, ValorValencia, this.Seccion);
-
-                    //this.Insert_Excitacion_Valencia(NombrePrueba, "Al iniciar", ValorExcitacion, ValorValencia);
-                    MessageBox.Show("Excitación: " + this.ValorExcitacion + " / Valencia: " + this.ValorValencia);
-
-                    LapsoDeTiempo = 1000;
-                    this.timerLapso.Interval = LapsoDeTiempo;
-                    buttonTerminar.Enabled = true;
-                    comboBoxPantallas.Enabled = false;
-                    comboBoxWebCam.Enabled = false;
-                    buttonEmpezar.Enabled = false;
-                    timerLapso.Start();
-                }
+                this.timerLapso.Interval = 1000;
+                buttonTerminar.Enabled = true;
+                comboBoxPantallas.Enabled = false;
+                comboBoxWebCam.Enabled = false;
+                buttonEmpezar.Enabled = false;
+                timerLapso.Start();
             }
+        }
+
+        private SAM RequestSAM()
+        {
+            SAMForm SAMForm = new SAMForm();
+            SAMForm.ShowDialog();
+            return SAMForm.getSAMResponse();
         }
 
         private void timerLapso_Tick(object sender, EventArgs e)
@@ -202,21 +183,22 @@ namespace ProyectoCapturaDePantalla
                 
                 pictureBoxImg.Image = Imgb;
 
-                if (!Directory.Exists(Directorio))
-                {
-                    Directory.CreateDirectory(Directorio);
-                }
+                string imagesPath = ConfigurationManager.AppSettings["images-path"];
+                string desktopPath = string.Concat(imagesPath, "\\desktop");
+                string webcamPath = string.Concat(imagesPath, "\\webcam");
+                Directory.CreateDirectory(desktopPath);
+                Directory.CreateDirectory(webcamPath);
 
-                TiempoCaptura = (long)DateTime.UtcNow.Ticks;
+                long tiempoCaptura = DateTime.UtcNow.Ticks;
 
-                ImagenDirectorioEscritorio = String.Format(@"{0}\Escritorio-{1}.jpg", Directorio, TiempoCaptura);
-                Imgb.Save(ImagenDirectorioEscritorio, ImageFormat.Bmp);
+                string desktopScreenshot = string.Format(@"{0}\Escritorio-{1}.jpg", desktopPath, tiempoCaptura);
+                Imgb.Save(desktopScreenshot, ImageFormat.Bmp);
 
-                ImagenDirectorioWebcam = String.Format(@"{0}\WebCam-{1}.jpg", Directorio, TiempoCaptura);
-                pictureBoxWebCam.Image.Save(ImagenDirectorioWebcam, System.Drawing.Imaging.ImageFormat.Png);
+                string webcamPicture = string.Format(@"{0}\WebCam-{1}.jpg", webcamPath, tiempoCaptura);
+                pictureBoxWebCam.Image.Save(webcamPicture, ImageFormat.Png);
 
                 ImagesDao imagesDao = new ImagesDao();
-                imagesDao.InsertImages(this.NombrePrueba, this.Seccion, this.Identificador, ImagenDirectorioEscritorio, ImagenDirectorioWebcam);
+                imagesDao.InsertImages(this.NombrePrueba, this.Seccion, this.Identificador, desktopScreenshot, webcamPicture);
 
                 timerCaptura.Stop();
             }
@@ -231,7 +213,9 @@ namespace ProyectoCapturaDePantalla
 
                 if (dialogResult == DialogResult.Yes)
                 {
+                    this.Enabled = false;
                     await InitFaceRecognition(Seccion);
+                    this.Enabled = true;
                 }
                 Seccion++;
                 Identificador = 0;
@@ -243,7 +227,15 @@ namespace ProyectoCapturaDePantalla
         {
             timerLapso.Stop();
             //this.CallSP();
-            this.FinalizarCapturas();
+            SAM samResponse = RequestSAM();
+            MessageBox.Show("Excitación: " + samResponse.Arousal + " / Valencia: " + samResponse.Valence);
+            ValenceAndArousalDao excitementAndArousalDao = new ValenceAndArousalDao();
+            excitementAndArousalDao.InsertExcitementAndArousal(NombrePrueba, "Al Finalizar", samResponse.Valence, samResponse.Arousal, this.Seccion);
+            CerrarSeccion();
+            buttonTerminar.Enabled = false;
+            comboBoxPantallas.Enabled = true;
+            comboBoxWebCam.Enabled = true;
+            buttonEmpezar.Enabled = true;
         }
 
         public int CallSP(string SP)
@@ -263,44 +255,6 @@ namespace ProyectoCapturaDePantalla
             Conexion.Close();
 
             return resultado;
-        }
-
-        public void FinalizarCapturas()
-        {
-            if (textBoxName.Text == "" || textBoxName.Text == "0")
-            {
-                MessageBox.Show("Inserte un nombre antes de empezar la prueba");
-            }
-            else
-            {
-                Pulsador ExcitacionValencia = new Pulsador();
-                ExcitacionValencia.Text = "Excitación/Valencia";
-                ExcitacionValencia.ShowDialog();
-
-                this.ValorExcitacion = ExcitacionValencia.DarValorExcitacion();
-                this.ValorValencia = ExcitacionValencia.DarValorValencia();
-
-                if (this.ValorExcitacion == 99 || this.ValorValencia == 99)
-                    MessageBox.Show("Algo salio mal, cierre la ejecucion y vuelva a intentarlo");
-                else
-                {
-                    NombrePrueba = textBoxName.Text;
-
-                    ExcitementAndArousalDao excitementAndArousalDao = new ExcitementAndArousalDao();
-                    excitementAndArousalDao.InsertExcitementAndArousal(NombrePrueba, "Al Finalizar", ValorExcitacion, ValorValencia, this.Seccion);
-
-                    //this.Insert_Excitacion_Valencia(NombrePrueba, "Al Finalizar", ValorExcitacion, ValorValencia);
-                    MessageBox.Show("Excitación: " + this.ValorExcitacion + " / Valencia: " + this.ValorValencia);
-
-                    this.CerrarSeccion();
-
-                    buttonTerminar.Enabled = false;
-                    buttonEmpezar.Enabled = true;
-                    comboBoxPantallas.Enabled = true;
-                    comboBoxWebCam.Enabled = true;
-                    buttonEmpezar.Focus();
-                }
-            }
         }
 
         private void comboBoxWebCam_SelectedIndexChanged(object sender, EventArgs e)
@@ -337,15 +291,11 @@ namespace ProyectoCapturaDePantalla
         {
             string promptValue = new Prompt("Reconocimiento facial", "Ingrese el número de sección de la prueba de la que desea hacer el reconocimiento").show();
             if (int.TryParse(promptValue, out int section))
+            {
+                this.Enabled = false;
                 await InitFaceRecognition(section);
-
-            //if (int.TryParse(promptValue, out section))
-            //    {
-            //    using (LoadingView loadingView = new LoadingView(async () => { await InitFaceRecognition(section); }))
-            //    {
-            //        loadingView.ShowDialog(this);
-            //    }
-            //}
+                this.Enabled = true;
+            }
         }
 
         private async Task InitFaceRecognition(int section)
@@ -413,11 +363,11 @@ namespace ProyectoCapturaDePantalla
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        public void StartIAPSPresentation()
+        private void StartIAPSPresentation()
         {
             string[] iaps_ids = new string[]
             {
-                "1080", "1033", "1040", "1050"
+                "9592","9582","9480","9046","8231","8185","7600","7496","7495","7481","7402","7211","7195","7186","7095","6840","6834","6570.1","6250.1","5972","5875","5849","5535","5395","4689","4683","4681","4664.1","3550.1","3266","3022","2900.2","2749","2655","2616","2516","2487","2389","2383","2352.2","2345","2344","2331","2312","2310","2303","2280","2276","2215","1942","1850","1722","1321","1051","1022","1019"
             };
 
             ImageDisplay imageDisplay = new ImageDisplay("../../../resources/iaps");

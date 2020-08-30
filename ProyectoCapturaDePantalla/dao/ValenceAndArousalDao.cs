@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ProyectoCapturaDePantalla.dao
 {
-    public class ExcitementAndArousalDao
+    public class ValenceAndArousalDao
     {
-        public void InsertExcitementAndArousal(string name, string periodicity, int excitement, int arousal, int section)
+        public void InsertExcitementAndArousal(string name, string periodicity, int valence, int arousal, int section)
         {
             SqlConnection dbConnection = DbConnection.GetConnection();
             SqlCommand cmd;
@@ -17,7 +17,7 @@ namespace ProyectoCapturaDePantalla.dao
             try
             {
                 dbConnection.Open();
-                string SqlQuery1 = "INSERT INTO Excitacion_VALENCIA (NAME_TEST,Seccion,TIPO,EXCITACION,VALENCIA) VALUES('" + name + "'," + section + ",'" + periodicity + "'," + excitement + ", NULL)";
+                string SqlQuery1 = "INSERT INTO Excitacion_VALENCIA (NAME_TEST,Seccion,TIPO,EXCITACION,VALENCIA) VALUES('" + name + "'," + section + ",'" + periodicity + "'," + valence + ", NULL)";
                 cmd = new SqlCommand(SqlQuery1, dbConnection);
                 int N1 = cmd.ExecuteNonQuery();
                 dbConnection.Close();
