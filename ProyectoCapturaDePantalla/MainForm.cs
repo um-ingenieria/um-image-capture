@@ -92,7 +92,7 @@ namespace ProyectoCapturaDePantalla
             }
         }
 
-        private void buttonEmpezar_Click(object sender, EventArgs e)
+        private async void buttonEmpezar_Click(object sender, EventArgs e)
         {
             string testName = textBoxName.Text;
 
@@ -151,7 +151,7 @@ namespace ProyectoCapturaDePantalla
                 foreach (Phase phase in phases)
                 {
                     // FIXME: El startPresentation no bloquea y se lanzan todos los SAM juntos.
-                    startPresentation(phase.Images, ConfigurationManager.AppSettings["iaps-path"]);
+                    await startPresentation(phase.Images, ConfigurationManager.AppSettings["iaps-path"]);
                     requestSAM();
                     SessionEvent phaseEvent = new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.Name), DateTime.Now);
                     sessionEventDao.SaveSessionEvent(phaseEvent);
@@ -357,13 +357,13 @@ namespace ProyectoCapturaDePantalla
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        private async void startPresentation(string[] images, string path)
+        private async Task startPresentation(string[] images, string path)
         {
             ImageDisplay imageDisplay = new ImageDisplay(path);
             imageDisplay.WindowState = FormWindowState.Maximized;
             imageDisplay.Show();
 
-            Task playShow = new Task(async () =>
+            await Task.Run(async () =>
             {
                 foreach (string image in images)
                 {
@@ -372,12 +372,7 @@ namespace ProyectoCapturaDePantalla
                 }
             });
 
-            playShow.Start();
-
-            playShow.Wait();
-
-            imageDisplay.Close();
-            return;
+           imageDisplay.Close();
         }
     }
 }
