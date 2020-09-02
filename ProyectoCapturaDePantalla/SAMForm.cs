@@ -14,17 +14,19 @@ namespace ProyectoCapturaDePantalla
     public partial class SAMForm : Form
     {
 
-        int? arousal = null;
-        int? valence = null;
+        int arousal = 0;
+        int valence = 0;
 
         public SAMForm()
         {   
             InitializeComponent();
+            trackBarArousal.Value = arousal;
+            trackBarValence.Value = valence;
         }
 
         public SAM getSAMResponse()
         {
-            return new SAM((int)arousal, (int)valence);
+            return new SAM(arousal, valence);
         }
 
         private void buttonAccept_Click(object sender, EventArgs e)
@@ -35,19 +37,11 @@ namespace ProyectoCapturaDePantalla
         private void trackBarValence_Scroll(object sender, EventArgs e)
         {
             valence = int.Parse(trackBarValence.Value.ToString());
-            if (arousal != null)
-            {
-                btnAccept.Enabled = true;
-            }
         }
 
         private void trackBarArousal_Scroll(object sender, EventArgs e)
         {
             arousal = int.Parse(trackBarArousal.Value.ToString());
-            if (valence != null)
-            {
-                btnAccept.Enabled = true;
-            }
         }
     }
 }
