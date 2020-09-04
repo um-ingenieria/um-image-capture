@@ -1,6 +1,6 @@
 ﻿namespace ProyectoCapturaDePantalla
 {
-    partial class Pulsador
+    partial class SAMForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pulsador));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SAMForm));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnAccept = new System.Windows.Forms.Button();
@@ -88,6 +88,7 @@
             // 
             // btnAccept
             // 
+            this.btnAccept.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnAccept.Location = new System.Drawing.Point(822, 399);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(95, 34);
@@ -298,7 +299,7 @@
             this.label10.TabIndex = 38;
             this.label10.Text = "•";
             // 
-            // Pulsador
+            // SAMForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -326,8 +327,8 @@
             this.Controls.Add(this.btnAccept);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "Pulsador";
-            this.Text = "Pulsador";
+            this.Name = "SAMForm";
+            this.Text = "Excitación / Valencia";
             ((System.ComponentModel.ISupportInitialize)(this.trackBarValence)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

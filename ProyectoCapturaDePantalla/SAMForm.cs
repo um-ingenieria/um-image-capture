@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoCapturaDePantalla.Domain.SAM;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,26 +11,20 @@ using System.Windows.Forms;
 
 namespace ProyectoCapturaDePantalla
 {
-    public partial class Pulsador : Form
+    public partial class SAMForm : Form
     {
 
-        int valorExcitacion = 99;
-        int valorValencia = 99;
+        int? arousal = null;
+        int? valence = null;
 
-        public Pulsador()
+        public SAMForm()
         {   
             InitializeComponent();
         }
 
-
-        public int DarValorExcitacion()
+        public SAM getSAMResponse()
         {
-            return valorExcitacion;
-        }
-
-        public int DarValorValencia()
-        {
-            return valorValencia;
+            return new SAM((int)arousal, (int)valence);
         }
 
         private void buttonAccept_Click(object sender, EventArgs e)
@@ -39,12 +34,20 @@ namespace ProyectoCapturaDePantalla
 
         private void trackBarValence_Scroll(object sender, EventArgs e)
         {
-            valorValencia = int.Parse(trackBarValence.Value.ToString());
+            valence = int.Parse(trackBarValence.Value.ToString());
+            if (arousal != null)
+            {
+                btnAccept.Enabled = true;
+            }
         }
 
         private void trackBarArousal_Scroll(object sender, EventArgs e)
         {
-            valorExcitacion = int.Parse(trackBarArousal.Value.ToString());
+            arousal = int.Parse(trackBarArousal.Value.ToString());
+            if (valence != null)
+            {
+                btnAccept.Enabled = true;
+            }
         }
     }
 }

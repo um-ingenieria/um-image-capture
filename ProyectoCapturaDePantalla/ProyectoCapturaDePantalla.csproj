@@ -58,6 +58,7 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http.WebRequest" />
@@ -86,7 +87,7 @@
   <ItemGroup>
     <Compile Include="dao\DbConnection.cs" />
     <Compile Include="dao\EmotionsDao.cs" />
-    <Compile Include="dao\ExcitementAndArousalDao.cs" />
+    <Compile Include="dao\ValenceAndArousalDao.cs" />
     <Compile Include="dao\ImagesDao.cs" />
     <Compile Include="dao\PulseDao.cs" />
     <Compile Include="dao\SessionDao.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Domain\Pulse\PulseMeasurementMap.cs" />
     <Compile Include="Domain\Pulse\PulseStatistic.cs" />
     <Compile Include="Domain\Pulse\PulseStatisticMap.cs" />
+    <Compile Include="Domain\SAM\SAM.cs" />
     <Compile Include="Domain\Session\Session.cs" />
     <Compile Include="Domain\Session\SessionEvent.cs" />
     <Compile Include="Domain\Skin\SkinMeasurement.cs" />
@@ -125,11 +127,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Prompt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Pulsador.cs">
+    <Compile Include="SAMForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pulsador.Designer.cs">
-      <DependentUpon>Pulsador.cs</DependentUpon>
+    <Compile Include="SAMForm.Designer.cs">
+      <DependentUpon>SAMForm.cs</DependentUpon>
     </Compile>
     <Compile Include="utils\DatesHelper.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -150,8 +152,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Pulsador.resx">
-      <DependentUpon>Pulsador.cs</DependentUpon>
+    <EmbeddedResource Include="SAMForm.resx">
+      <DependentUpon>SAMForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
