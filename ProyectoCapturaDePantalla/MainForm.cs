@@ -48,7 +48,6 @@ namespace ProyectoCapturaDePantalla
             timerCaptura.Stop();
             buttonEmpezar.Focus();
 
-            TestSet testSet = TestSetDao.GetTestSet(defaultTestSet);
 
             VideoSources = new AForge.Video.DirectShow.FilterInfoCollection(AForge.Video.DirectShow.FilterCategory.VideoInputDevice);
             if (VideoSources != null)
@@ -141,18 +140,6 @@ namespace ProyectoCapturaDePantalla
                 buttonEmpezar.Enabled = false;
                 timerLapso.Start();
 
-                string[] HA_HV = new string[] { "9592", "9582", "9480" };
-                string[] HA_LV = new string[] { "9046", "8231", "8185" };
-                string[] LA_HV = new string[] { "7600", "7496", "7495" };
-                string[] LA_LV = new string[] { "7481", "7402", "7211" };
-
-                Phase[] phases = new Phase[] {
-                    new Phase("HA_HV", HA_HV),
-                    new Phase("HA_LV", HA_LV),
-                    new Phase("LA_HV", LA_HV),
-                    new Phase("LA_LV", LA_LV)
-                };
-
                 TestSet testSet = TestSetDao.GetTestSet(defaultTestSet);
 
                 foreach (PhaseBase phase in testSet.Phases)
@@ -161,7 +148,7 @@ namespace ProyectoCapturaDePantalla
                     var imagePhase = (ImagePhase) phase;
                     await startPresentation(imagePhase.Iaps, ConfigurationManager.AppSettings["iaps-path"]);
                     requestSAM();
-                    SessionEvent phaseEvent = new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.Name), DateTime.Now);
+                    SessionEvent phaseEvent = new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.ValenceArrousalQuadrant), DateTime.Now);
                     sessionEventDao.SaveSessionEvent(phaseEvent);
                 }
             }
