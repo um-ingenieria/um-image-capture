@@ -153,10 +153,13 @@ namespace ProyectoCapturaDePantalla
                     new Phase("LA_LV", LA_LV)
                 };
 
-                foreach (Phase phase in phases)
+                TestSet testSet = TestSetDao.GetTestSet(defaultTestSet);
+
+                foreach (PhaseBase phase in testSet.Phases)
                 {
                     // FIXME: El startPresentation no bloquea y se lanzan todos los SAM juntos.
-                    await startPresentation(phase.Images, ConfigurationManager.AppSettings["iaps-path"]);
+                    var imagePhase = (ImagePhase) phase;
+                    await startPresentation(imagePhase.Iaps, ConfigurationManager.AppSettings["iaps-path"]);
                     requestSAM();
                     SessionEvent phaseEvent = new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.Name), DateTime.Now);
                     sessionEventDao.SaveSessionEvent(phaseEvent);
@@ -362,7 +365,7 @@ namespace ProyectoCapturaDePantalla
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        private async Task startPresentation(string[] images, string path)
+        private async Task startPresentation(List<IAP> iapsList, string path)
         {
             ImageDisplay imageDisplay = new ImageDisplay(path);
             imageDisplay.WindowState = FormWindowState.Maximized;
@@ -370,9 +373,9 @@ namespace ProyectoCapturaDePantalla
 
             await Task.Run(async () =>
             {
-                foreach (string image in images)
+                foreach (IAP iaps in iapsList)
                 {
-                    imageDisplay.ChangeImage(string.Concat(image, ".jpg"));
+                    imageDisplay.ChangeImage(string.Concat(iaps.IdIaps, ".jpg"));
                     await Task.Delay(2000);
                 }
             });
