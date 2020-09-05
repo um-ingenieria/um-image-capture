@@ -14,6 +14,7 @@ namespace ProyectoCapturaDePantalla.Domain.Session
         private string testEvent;
         private DateTime eventDate;
 
+
         public SessionEvent(int sessionId, string testName, string testEvent, DateTime eventDate)
         {
             this.SessionId = sessionId;
@@ -29,3 +30,4 @@ namespace ProyectoCapturaDePantalla.Domain.Session
         public DateTime EventDate { get => eventDate; set => eventDate = value; }
     }
 }
+ 

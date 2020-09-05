@@ -22,28 +22,23 @@ using ProyectoCapturaDePantalla.utils;
 using ProyectoCapturaDePantalla.Domain.Session;
 using System.Configuration;
 using ProyectoCapturaDePantalla.Domain.SAM;
+using ProyectoCapturaDePantalla.Domain.Phase;
 
 namespace ProyectoCapturaDePantalla
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
+        /* Instance Variables */
         SqlConnection Conexion = DbConnection.GetConnection();
-        Session session;
-
+        Session currentSession;
         int contador = 0;
-
-        bool arranco;
-
-        string NombrePrueba;
         int Seccion;
         int Identificador = 0;
-
         AForge.Video.DirectShow.VideoCaptureDevice VideoSource;
         AForge.Video.DirectShow.FilterInfoCollection VideoSources;
-
         Screen[] screens2;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             timerLapso.Stop();
@@ -76,9 +71,6 @@ namespace ProyectoCapturaDePantalla
                     comboBoxWebCam.SelectedIndex = 0;
                 }
             }
-            
-
-            arranco = false;
 
             buttonTerminar.Enabled = false;
 
@@ -90,7 +82,7 @@ namespace ProyectoCapturaDePantalla
 
                 if (dr.Read())
                 {
-                    Int32.TryParse(Convert.ToString(dr["SECCION"]), out this.Seccion);
+                    int.TryParse(Convert.ToString(dr["SECCION"]), out this.Seccion);
                     Seccion++;
                 }
                 Conexion.Close();
@@ -98,24 +90,24 @@ namespace ProyectoCapturaDePantalla
                 Console.WriteLine("Fallo la conexion a la base");
                 Console.WriteLine(e.Message);
             }
-            // StartIAPSPresentation();
         }
 
-        private void buttonEmpezar_Click(object sender, EventArgs e)
+        private async void buttonEmpezar_Click(object sender, EventArgs e)
         {
-     
-            if (textBoxName.Text == "" || textBoxName.Text == "0")
+            string testName = textBoxName.Text;
+
+            if (testName == "")
             {
                 MessageBox.Show("Inserte un nombre antes de empezar la prueba");
             }
             else
             {
                 SessionDao sessionDao = new SessionDao();
-                Session tempSession = new Session(textBoxName.Text);
+                currentSession = new Session(testName);
 
                 try
                 {
-                    session = sessionDao.SaveSession(new Session(textBoxName.Text));
+                    sessionDao.SaveSession(currentSession);
                 }
                 catch (SqlException ex)
                 {
@@ -127,53 +119,68 @@ namespace ProyectoCapturaDePantalla
                     throw ex;
                 }
 
-                NombrePrueba = textBoxName.Text;
-
-                //TODO: create first event
-                SessionEvent sessionEvent = new SessionEvent(session.Id, session.TestName, "event", DateTime.Now);
                 SessionEventDao sessionEventDao = new SessionEventDao();
-                sessionEventDao.SaveSessionEvent(sessionEvent);
 
-                SAM samResponse = RequestSAM();
-                MessageBox.Show("Excitación: " + samResponse.Arousal + " / Valencia: " + samResponse.Valence);
-                ValenceAndArousalDao excitementAndArousalDao = new ValenceAndArousalDao();
-                excitementAndArousalDao.InsertExcitementAndArousal(NombrePrueba, "Al iniciar", samResponse.Valence, samResponse.Arousal, this.Seccion);
+                SessionEvent sessionStart = new SessionEvent(currentSession.Id, currentSession.TestName, EventTypes.SESSION_START, DateTime.Now);
+                sessionEventDao.SaveSessionEvent(sessionStart);
 
-                this.timerLapso.Interval = 1000;
+                requestSAM();
+
+                SessionEvent initialSAM = new SessionEvent(currentSession.Id, currentSession.TestName, EventTypes.INITIAL_SAM, DateTime.Now);
+                sessionEventDao.SaveSessionEvent(initialSAM);
+
+                timerLapso.Interval = 1000;
                 buttonTerminar.Enabled = true;
                 comboBoxPantallas.Enabled = false;
                 comboBoxWebCam.Enabled = false;
                 buttonEmpezar.Enabled = false;
                 timerLapso.Start();
+
+                string[] HA_HV = new string[] { "9592", "9582", "9480" };
+                string[] HA_LV = new string[] { "9046", "8231", "8185" };
+                string[] LA_HV = new string[] { "7600", "7496", "7495" };
+                string[] LA_LV = new string[] { "7481", "7402", "7211" };
+
+                Phase[] phases = new Phase[] {
+                    new Phase("HA_HV", HA_HV),
+                    new Phase("HA_LV", HA_LV),
+                    new Phase("LA_HV", LA_HV),
+                    new Phase("LA_LV", LA_LV)
+                };
+
+                foreach (Phase phase in phases)
+                {
+                    // FIXME: El startPresentation no bloquea y se lanzan todos los SAM juntos.
+                    await startPresentation(phase.Images, ConfigurationManager.AppSettings["iaps-path"]);
+                    requestSAM();
+                    SessionEvent phaseEvent = new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.Name), DateTime.Now);
+                    sessionEventDao.SaveSessionEvent(phaseEvent);
+                }
             }
         }
 
-        private SAM RequestSAM()
+        private SAM requestSAM()
         {
             SAMForm SAMForm = new SAMForm();
             SAMForm.ShowDialog();
-            return SAMForm.getSAMResponse();
+            SAM response = SAMForm.getSAMResponse();
+            ValenceAndArousalDao excitementAndArousalDao = new ValenceAndArousalDao();
+            excitementAndArousalDao.InsertExcitementAndArousal(currentSession.TestName, EventTypes.INITIAL_SAM, response.Valence, response.Arousal, this.Seccion);
+            return response;
         }
 
         private void timerLapso_Tick(object sender, EventArgs e)
         {
-            this.buttonCapturar_Click(sender, e);
+            contador = 0;
+            timerCaptura.Start();
             timerLapso.Stop();
             timerLapso.Start();
-        }
-
-        private void buttonCapturar_Click(object sender, EventArgs e)
-        {
-            contador = 0;
-            this.timerCaptura.Start();
         }
 
         private void timerCaptura_Tick(object sender, EventArgs e)
         {
             if (contador == 1)
             {
-                arranco = true;
-
                 this.Identificador++;
                 
                 Bitmap Imgb = new Bitmap(screens2[comboBoxPantallas.SelectedIndex].WorkingArea.Width, screens2[comboBoxPantallas.SelectedIndex].WorkingArea.Height, PixelFormat.Format32bppArgb);
@@ -198,7 +205,7 @@ namespace ProyectoCapturaDePantalla
                 pictureBoxWebCam.Image.Save(webcamPicture, ImageFormat.Png);
 
                 ImagesDao imagesDao = new ImagesDao();
-                imagesDao.InsertImages(this.NombrePrueba, this.Seccion, this.Identificador, desktopScreenshot, webcamPicture);
+                imagesDao.InsertImages(currentSession.TestName, this.Seccion, this.Identificador, desktopScreenshot, webcamPicture);
 
                 timerCaptura.Stop();
             }
@@ -207,30 +214,22 @@ namespace ProyectoCapturaDePantalla
 
         private async void CerrarSeccion()
         {
-            if (arranco == true)
-            {
-                DialogResult dialogResult = MessageBox.Show("Desea iniciar el proceso de reconocimiento facial ahora?", "Confirmación", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Desea iniciar el proceso de reconocimiento facial ahora?", "Confirmación", MessageBoxButtons.YesNo);
 
-                if (dialogResult == DialogResult.Yes)
-                {
-                    this.Enabled = false;
-                    await InitFaceRecognition(Seccion);
-                    this.Enabled = true;
-                }
-                Seccion++;
-                Identificador = 0;
+            if (dialogResult == DialogResult.Yes)
+            {
+                Enabled = false;
+                await InitFaceRecognition(Seccion);
+                Enabled = true;
             }
-            arranco = false;
+            Seccion++;
+            Identificador = 0;
         }
 
         private void buttonTerminar_Click(object sender, EventArgs e)
         {
             timerLapso.Stop();
             //this.CallSP();
-            SAM samResponse = RequestSAM();
-            MessageBox.Show("Excitación: " + samResponse.Arousal + " / Valencia: " + samResponse.Valence);
-            ValenceAndArousalDao excitementAndArousalDao = new ValenceAndArousalDao();
-            excitementAndArousalDao.InsertExcitementAndArousal(NombrePrueba, "Al Finalizar", samResponse.Valence, samResponse.Arousal, this.Seccion);
             CerrarSeccion();
             buttonTerminar.Enabled = false;
             comboBoxPantallas.Enabled = true;
@@ -240,18 +239,13 @@ namespace ProyectoCapturaDePantalla
 
         public int CallSP(string SP)
         {
-            string NombreQuery;
-            int resultado;
-            if (NombrePrueba == null)
-                NombreQuery = textBoxName.Text;
-            else
-                NombreQuery = NombrePrueba;
+            string NombreQuery = currentSession.TestName;
 
             Conexion.Open();
             SqlCommand cmd = new SqlCommand(SP, Conexion);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@Name", SqlDbType.NVarChar).Value = NombreQuery;
-            resultado = cmd.ExecuteNonQuery();
+            int resultado = cmd.ExecuteNonQuery();
             Conexion.Close();
 
             return resultado;
@@ -292,9 +286,9 @@ namespace ProyectoCapturaDePantalla
             string promptValue = new Prompt("Reconocimiento facial", "Ingrese el número de sección de la prueba de la que desea hacer el reconocimiento").show();
             if (int.TryParse(promptValue, out int section))
             {
-                this.Enabled = false;
+                Enabled = false;
                 await InitFaceRecognition(section);
-                this.Enabled = true;
+                Enabled = true;
             }
         }
 
@@ -363,25 +357,22 @@ namespace ProyectoCapturaDePantalla
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        private void StartIAPSPresentation()
+        private async Task startPresentation(string[] images, string path)
         {
-            string[] iaps_ids = new string[]
-            {
-                "9592","9582","9480","9046","8231","8185","7600","7496","7495","7481","7402","7211","7195","7186","7095","6840","6834","6570.1","6250.1","5972","5875","5849","5535","5395","4689","4683","4681","4664.1","3550.1","3266","3022","2900.2","2749","2655","2616","2516","2487","2389","2383","2352.2","2345","2344","2331","2312","2310","2303","2280","2276","2215","1942","1850","1722","1321","1051","1022","1019"
-            };
-
-            ImageDisplay imageDisplay = new ImageDisplay("../../../resources/iaps");
+            ImageDisplay imageDisplay = new ImageDisplay(path);
             imageDisplay.WindowState = FormWindowState.Maximized;
             imageDisplay.Show();
 
-            Task.Run(async () =>
+            await Task.Run(async () =>
             {
-                foreach (string iaps_id in iaps_ids)
+                foreach (string image in images)
                 {
-                    imageDisplay.ChangeImage(string.Concat(iaps_id, ".jpg"));
+                    imageDisplay.ChangeImage(string.Concat(image, ".jpg"));
                     await Task.Delay(2000);
                 }
             });
+
+           imageDisplay.Close();
         }
     }
 }
