@@ -23,6 +23,8 @@ using ProyectoCapturaDePantalla.Domain.Session;
 using System.Configuration;
 using ProyectoCapturaDePantalla.Domain.SAM;
 using ProyectoCapturaDePantalla.Domain.Phase;
+using ProyectoCapturaDePantalla.Domain.Phase.stimulus;
+using ProyectoCapturaDePantalla.Domain.TestSet;
 
 namespace ProyectoCapturaDePantalla
 {
@@ -37,6 +39,7 @@ namespace ProyectoCapturaDePantalla
         AForge.Video.DirectShow.VideoCaptureDevice VideoSource;
         AForge.Video.DirectShow.FilterInfoCollection VideoSources;
         Screen[] screens2;
+        int defaultTestSet = 1;
 
         public MainForm()
         {
@@ -44,6 +47,8 @@ namespace ProyectoCapturaDePantalla
             timerLapso.Stop();
             timerCaptura.Stop();
             buttonEmpezar.Focus();
+
+            TestSet testSet = TestSetDao.GetTestSet(defaultTestSet);
 
             VideoSources = new AForge.Video.DirectShow.FilterInfoCollection(AForge.Video.DirectShow.FilterCategory.VideoInputDevice);
             if (VideoSources != null)
