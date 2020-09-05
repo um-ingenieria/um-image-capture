@@ -87,13 +87,19 @@
   <ItemGroup>
     <Compile Include="dao\DbConnection.cs" />
     <Compile Include="dao\EmotionsDao.cs" />
+    <Compile Include="dao\IAPSDao.cs" />
+    <Compile Include="dao\PhaseDao.cs" />
+    <Compile Include="dao\TestSetDao.cs" />
     <Compile Include="dao\ValenceAndArousalDao.cs" />
     <Compile Include="dao\ImagesDao.cs" />
     <Compile Include="dao\PulseDao.cs" />
     <Compile Include="dao\SessionDao.cs" />
     <Compile Include="dao\SessionEventDao.cs" />
     <Compile Include="dao\SkinDao.cs" />
+    <Compile Include="Domain\Phase\ImagePhase.cs" />
     <Compile Include="Domain\Phase\Phase.cs" />
+    <Compile Include="Domain\Phase\PhaseBase.cs" />
+    <Compile Include="Domain\Phase\stimulus\IAP.cs" />
     <Compile Include="Domain\Pulse\PulseMeasurement.cs" />
     <Compile Include="Domain\Pulse\PulseMeasurementMap.cs" />
     <Compile Include="Domain\Pulse\PulseStatistic.cs" />
@@ -104,6 +110,7 @@
     <Compile Include="Domain\Skin\SkinMeasurement.cs" />
     <Compile Include="Domain\Skin\SkinStatistic.cs" />
     <Compile Include="Domain\Skin\SkinStatisticMap.cs" />
+    <Compile Include="Domain\TestSet\TestSet.cs" />
     <Compile Include="face\FaceService.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -169,7 +176,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

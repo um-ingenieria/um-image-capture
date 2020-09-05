@@ -23,6 +23,8 @@ using ProyectoCapturaDePantalla.Domain.Session;
 using System.Configuration;
 using ProyectoCapturaDePantalla.Domain.SAM;
 using ProyectoCapturaDePantalla.Domain.Phase;
+using ProyectoCapturaDePantalla.Domain.Phase.stimulus;
+using ProyectoCapturaDePantalla.Domain.TestSet;
 
 namespace ProyectoCapturaDePantalla
 {
@@ -37,6 +39,7 @@ namespace ProyectoCapturaDePantalla
         AForge.Video.DirectShow.VideoCaptureDevice VideoSource;
         AForge.Video.DirectShow.FilterInfoCollection VideoSources;
         Screen[] screens2;
+        int defaultTestSet = 1;
 
         public MainForm()
         {
@@ -44,6 +47,7 @@ namespace ProyectoCapturaDePantalla
             timerLapso.Stop();
             timerCaptura.Stop();
             buttonEmpezar.Focus();
+
 
             VideoSources = new AForge.Video.DirectShow.FilterInfoCollection(AForge.Video.DirectShow.FilterCategory.VideoInputDevice);
             if (VideoSources != null)
@@ -136,24 +140,15 @@ namespace ProyectoCapturaDePantalla
                 buttonEmpezar.Enabled = false;
                 timerLapso.Start();
 
-                string[] HA_HV = new string[] { "9592", "9582", "9480" };
-                string[] HA_LV = new string[] { "9046", "8231", "8185" };
-                string[] LA_HV = new string[] { "7600", "7496", "7495" };
-                string[] LA_LV = new string[] { "7481", "7402", "7211" };
+                TestSet testSet = TestSetDao.GetTestSet(defaultTestSet);
 
-                Phase[] phases = new Phase[] {
-                    new Phase("HA_HV", HA_HV),
-                    new Phase("HA_LV", HA_LV),
-                    new Phase("LA_HV", LA_HV),
-                    new Phase("LA_LV", LA_LV)
-                };
-
-                foreach (Phase phase in phases)
+                foreach (PhaseBase phase in testSet.Phases)
                 {
                     // FIXME: El startPresentation no bloquea y se lanzan todos los SAM juntos.
-                    await startPresentation(phase.Images, ConfigurationManager.AppSettings["iaps-path"]);
+                    var imagePhase = (ImagePhase) phase;
+                    await startPresentation(imagePhase.Iaps, ConfigurationManager.AppSettings["iaps-path"]);
                     requestSAM();
-                    SessionEvent phaseEvent = new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.Name), DateTime.Now);
+                    SessionEvent phaseEvent = new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.ValenceArrousalQuadrant), DateTime.Now);
                     sessionEventDao.SaveSessionEvent(phaseEvent);
                 }
             }
@@ -357,7 +352,7 @@ namespace ProyectoCapturaDePantalla
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        private async Task startPresentation(string[] images, string path)
+        private async Task startPresentation(List<IAP> iapsList, string path)
         {
             ImageDisplay imageDisplay = new ImageDisplay(path);
             imageDisplay.WindowState = FormWindowState.Maximized;
@@ -365,9 +360,9 @@ namespace ProyectoCapturaDePantalla
 
             await Task.Run(async () =>
             {
-                foreach (string image in images)
+                foreach (IAP iaps in iapsList)
                 {
-                    imageDisplay.ChangeImage(string.Concat(image, ".jpg"));
+                    imageDisplay.ChangeImage(string.Concat(iaps.IdIaps, ".jpg"));
                     await Task.Delay(2000);
                 }
             });

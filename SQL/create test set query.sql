@@ -1,0 +1,6 @@
+drop table [dbo].[TEST_SET];
+CREATE TABLE TEST_SET (
+  ID			INT						NOT NULL,
+  DESCRIPTION	VARCHAR(100),
+  PHASE_ID		INT						NOT NULL,
+);
