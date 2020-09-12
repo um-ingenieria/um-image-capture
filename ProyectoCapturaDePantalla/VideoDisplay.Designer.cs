@@ -28,47 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VideoDisplay));
-            this.button1 = new System.Windows.Forms.Button();
-            this.WMPlayer = new AxWMPLib.AxWindowsMediaPlayer();
-            ((System.ComponentModel.ISupportInitialize)(this.WMPlayer)).BeginInit();
+            this.vlcPlayer = new Vlc.DotNet.Forms.VlcControl();
+            ((System.ComponentModel.ISupportInitialize)(this.vlcPlayer)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // vlcPlayer
             // 
-            this.button1.Location = new System.Drawing.Point(181, 1002);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // WMPlayer
-            // 
-            this.WMPlayer.Enabled = true;
-            this.WMPlayer.Location = new System.Drawing.Point(287, 96);
-            this.WMPlayer.Name = "WMPlayer";
-            this.WMPlayer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("WMPlayer.OcxState")));
-            this.WMPlayer.Size = new System.Drawing.Size(899, 703);
-            this.WMPlayer.TabIndex = 2;
+            this.vlcPlayer.BackColor = System.Drawing.Color.Black;
+            this.vlcPlayer.Location = new System.Drawing.Point(1, -2);
+            this.vlcPlayer.Name = "vlcPlayer";
+            this.vlcPlayer.Size = new System.Drawing.Size(1559, 783);
+            this.vlcPlayer.Spu = -1;
+            this.vlcPlayer.TabIndex = 0;
+            this.vlcPlayer.Text = "vlcControl1";
+            this.vlcPlayer.VlcLibDirectory = null;
+            this.vlcPlayer.VlcMediaplayerOptions = null;
+            this.vlcPlayer.VlcLibDirectoryNeeded += new System.EventHandler<Vlc.DotNet.Forms.VlcLibDirectoryNeededEventArgs>(this.vlcControl1_VlcLibDirectoryNeeded);
             // 
             // VideoDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1556, 1070);
-            this.Controls.Add(this.WMPlayer);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(1556, 1136);
+            this.Controls.Add(this.vlcPlayer);
             this.Name = "VideoDisplay";
             this.Text = "VideoDisplay";
-            ((System.ComponentModel.ISupportInitialize)(this.WMPlayer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vlcPlayer)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Button button1;
-        private AxWMPLib.AxWindowsMediaPlayer WMPlayer;
+
+        private Vlc.DotNet.Forms.VlcControl vlcPlayer;
     }
 }

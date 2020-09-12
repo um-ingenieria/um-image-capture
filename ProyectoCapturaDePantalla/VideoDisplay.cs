@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,23 +17,23 @@ namespace ProyectoCapturaDePantalla
         public VideoDisplay()
         {
             InitializeComponent();
-   
+            FileInfo file = new FileInfo(@"C:\Users\sebastiangon11\source\repos\um - image - capture\resources\devo\1.2.avi");
+            vlcPlayer.SetMedia(file);
+            vlcPlayer.Play();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void vlcControl1_VlcLibDirectoryNeeded(object sender, Vlc.DotNet.Forms.VlcLibDirectoryNeededEventArgs e)
         {
-            //string aVideoPath = string.Concat(ConfigurationManager.AppSettings["devo-path"], "\\2.1.avi");
-            string aVideoPath = @"C:\Users\sebastiangon11\source\repos\um - image - capture\resources\devo\1.2.avi";
-            //string aVideoPath = "C:\\Users\\sebastiangon11\\source\\repos\\um - image - capture\\resources\\devo\\1.2.avi";
-            try
+            if (IntPtr.Size == 4)
             {
-                WMPlayer.URL = aVideoPath;
-                //WMPlayer.Ctlcontrols.play();
-            } catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                //e.VlcLibDirectory = new DirectoryInfo(@"..\..\..\lib\x86");
+                e.VlcLibDirectory = new DirectoryInfo(Path.Combine(".", "libvlc", "win-x86"));
             }
-
+            else
+            {
+                //e.VlcLibDirectory = new DirectoryInfo(@"..\..\..\lib\x64\");
+                e.VlcLibDirectory = new DirectoryInfo(Path.Combine(".", "libvlc", "win-x64"));
+            }
         }
     }
 }
