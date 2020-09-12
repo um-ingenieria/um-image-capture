@@ -358,6 +358,7 @@ MigrationBackup/
 
 #resorces
 /resources/iaps/*
+/resources/devo/*
 *.png
 *.jpeg
 *.jpg
