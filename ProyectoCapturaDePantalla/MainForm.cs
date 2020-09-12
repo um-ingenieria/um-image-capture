@@ -95,6 +95,10 @@ namespace ProyectoCapturaDePantalla
                 Console.WriteLine("Fallo la conexion a la base");
                 Console.WriteLine(e.Message);
             }
+
+            VideoDisplay player = new VideoDisplay();
+            player.ShowDialog();
+
         }
 
         private async void buttonEmpezar_Click(object sender, EventArgs e)
