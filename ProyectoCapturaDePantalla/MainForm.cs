@@ -48,6 +48,7 @@ namespace ProyectoCapturaDePantalla
             timerCaptura.Stop();
             buttonEmpezar.Focus();
 
+            TestSet testSet = TestSetDao.GetTestSet(defaultTestSet);
 
             VideoSources = new AForge.Video.DirectShow.FilterInfoCollection(AForge.Video.DirectShow.FilterCategory.VideoInputDevice);
             if (VideoSources != null)

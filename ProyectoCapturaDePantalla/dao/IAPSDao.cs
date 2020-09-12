@@ -28,12 +28,12 @@ namespace ProyectoCapturaDePantalla.dao
             }
         }
 
-        public static List<IAP> GetIAPS(List<int> iapsIds, string gender)
+        public static List<IAP> GetIAPS(List<float> iapsIds, string gender)
         {
             return Instance.getIAPS(iapsIds, gender);
         }
 
-        private List<IAP> getIAPS(List<int> iapsIds, string gender)
+        private List<IAP> getIAPS(List<float> iapsIds, string gender)
         {
             SqlConnection dbConnection = DbConnection.GetConnection();
             List<IAP> iapsList;
