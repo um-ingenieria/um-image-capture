@@ -22,7 +22,7 @@ namespace ProyectoCapturaDePantalla
         private void button1_Click(object sender, EventArgs e)
         {
             //string aVideoPath = string.Concat(ConfigurationManager.AppSettings["devo-path"], "\\2.1.avi");
-            string aVideoPath = @"C:\Users\sebastiangon11\source\repos\um - image - capture\resources\devo\1.2.avi";
+            string aVideoPath = @"C:\Users\alons\Documents\Proyectos\Visual Studio\Tesis\um-image-capture\resources\devo\1.2.avi";
             //string aVideoPath = "C:\\Users\\sebastiangon11\\source\\repos\\um - image - capture\\resources\\devo\\1.2.avi";
             try
             {

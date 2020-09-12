@@ -10,11 +10,11 @@ namespace ProyectoCapturaDePantalla.Domain.Phase
     public class VideoPhase : PhaseBase
     {
         private List<DEVO> videos;
-        public const string IAP_TYPE = "DEVO_TYPE";
+        public const string DEVO_TYPE = "DEVO_TYPE";
 
         public VideoPhase(int id, string name, string description, string valenceArrousalQuadrant, List<DEVO> videos) : base(id, name, description, valenceArrousalQuadrant)
         {
-            this.StimuliType = IAP_TYPE;
+            this.StimuliType = DEVO_TYPE;
             this.videos = videos;
         }
 

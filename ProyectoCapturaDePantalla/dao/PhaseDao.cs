@@ -42,7 +42,7 @@ namespace ProyectoCapturaDePantalla.dao
             string name = "";
             string phaseType = "";
             string valenceArousalQuadrant = "";
-            List<int> stimulusIds;
+            List<float> stimulusIds;
 
             try
             {
@@ -50,7 +50,7 @@ namespace ProyectoCapturaDePantalla.dao
                 SqlCommand cmd = new SqlCommand($"SELECT [ID], [DESCRIPTION], [NAME], [PHASE_TYPE], [VALENCE_AROUSAL_QUARDRANT], [STIMULI_ID] FROM PHASE WHERE ID = {phaseId}", dbConnection);
                 SqlDataReader dr = cmd.ExecuteReader();
 
-                stimulusIds = new List<int>();
+                stimulusIds = new List<float>();
 
                 while (dr.Read())
                 {
@@ -59,7 +59,7 @@ namespace ProyectoCapturaDePantalla.dao
                     name = Convert.ToString(dr["NAME"]);
                     phaseType = Convert.ToString(dr["PHASE_TYPE"]);
                     valenceArousalQuadrant = Convert.ToString(dr["VALENCE_AROUSAL_QUARDRANT"]);
-                    stimulusIds.Add(int.Parse(Convert.ToString(dr["STIMULI_ID"])));
+                    stimulusIds.Add(float.Parse(Convert.ToString(dr["STIMULI_ID"])));
                 }
             }
             catch (Exception e)
@@ -79,6 +79,10 @@ namespace ProyectoCapturaDePantalla.dao
                 case ImagePhase.IAP_TYPE:
                     List<IAP> iapsList = IAPSDao.GetIAPS(stimulusIds, IAP.ALL_SUBJECTS);
                     phaseBase = new ImagePhase(id, name, description, valenceArousalQuadrant, iapsList);
+                    break;
+                case VideoPhase.DEVO_TYPE:
+                    List<DEVO> videos = DEVODao.GetVideos(stimulusIds, DEVO.ALL_SUBJECTS);
+                    phaseBase = new VideoPhase(id, name, description, valenceArousalQuadrant, videos);
                     break;
                 default:
                     throw new TypeUnloadedException("Tipo de fase no definido");
