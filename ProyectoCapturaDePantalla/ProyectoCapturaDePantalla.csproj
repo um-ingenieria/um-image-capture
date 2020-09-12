@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="dao\DbConnection.cs" />
+    <Compile Include="dao\DEVODao.cs" />
     <Compile Include="dao\EmotionsDao.cs" />
     <Compile Include="dao\IAPSDao.cs" />
     <Compile Include="dao\PhaseDao.cs" />
@@ -99,7 +100,9 @@
     <Compile Include="Domain\Phase\ImagePhase.cs" />
     <Compile Include="Domain\Phase\Phase.cs" />
     <Compile Include="Domain\Phase\PhaseBase.cs" />
+    <Compile Include="Domain\Phase\stimulus\DEVO.cs" />
     <Compile Include="Domain\Phase\stimulus\IAP.cs" />
+    <Compile Include="Domain\Phase\VideoPhase.cs" />
     <Compile Include="Domain\Pulse\PulseMeasurement.cs" />
     <Compile Include="Domain\Pulse\PulseMeasurementMap.cs" />
     <Compile Include="Domain\Pulse\PulseStatistic.cs" />

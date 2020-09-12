@@ -48,6 +48,7 @@ namespace ProyectoCapturaDePantalla
             timerCaptura.Stop();
             buttonEmpezar.Focus();
 
+            List<DEVO> videos = DEVODao.GetVideos(new List<float> {1.1F, 1.2F}, DEVO.ALL_SUBJECTS);
 
             VideoSources = new AForge.Video.DirectShow.FilterInfoCollection(AForge.Video.DirectShow.FilterCategory.VideoInputDevice);
             if (VideoSources != null)
