@@ -17,7 +17,7 @@ namespace ProyectoCapturaDePantalla
         public VideoDisplay()
         {
             InitializeComponent();
-            FileInfo file = new FileInfo(@"C:\Users\sebastiangon11\source\repos\um - image - capture\resources\devo\1.2.avi");
+            FileInfo file = new FileInfo(@"C:\Users\alons\Documents\Proyectos\Visual Studio\Tesis\um-image-capture\resources\devo\1.2.avi");
             vlcPlayer.SetMedia(file);
             vlcPlayer.Play();
         }

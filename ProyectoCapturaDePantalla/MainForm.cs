@@ -48,7 +48,7 @@ namespace ProyectoCapturaDePantalla
             timerCaptura.Stop();
             buttonEmpezar.Focus();
 
-            TestSet testSet = TestSetDao.GetTestSet(defaultTestSet);
+            //TestSet testSet = TestSetDao.GetTestSet(defaultTestSet);
 
             VideoSources = new AForge.Video.DirectShow.FilterInfoCollection(AForge.Video.DirectShow.FilterCategory.VideoInputDevice);
             if (VideoSources != null)
@@ -149,12 +149,21 @@ namespace ProyectoCapturaDePantalla
 
                 foreach (PhaseBase phase in testSet.Phases)
                 {
-                    sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("INIT_", phase.ValenceArrousalQuadrant, "_", phase.id.ToString()), DateTime.Now));
+                    sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("INIT_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
 
-                    var imagePhase = (ImagePhase) phase;
-                    await startPresentation(imagePhase.Iaps, ConfigurationManager.AppSettings["iaps-path"]);
+                    if(phase.StimuliType == ImagePhase.IAP_TYPE)
+                    {
+                        var imagePhase = (ImagePhase)phase;
+                        await startPresentation(imagePhase.Iaps, ConfigurationManager.AppSettings["iaps-path"]);
+                    }
 
-                    sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("END_", phase.ValenceArrousalQuadrant, "_", phase.id.ToString()), DateTime.Now));
+                    if(phase.StimuliType == VideoPhase.DEVO_TYPE)
+                    {
+
+                    }
+                    
+
+                    sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("END_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
 
                     requestSAM();
                     sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.ValenceArrousalQuadrant), DateTime.Now));
