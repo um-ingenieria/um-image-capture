@@ -387,7 +387,10 @@ namespace ProyectoCapturaDePantalla
 
            imageDisplay.Close();
         }
+
         Boolean endVideo = false;
+        VideoDisplay vd = null;
+
         private void startPresentation(List<DEVO> videoList, string path)
         {
             VideoDisplay videoDisplay = new VideoDisplay(path);
@@ -395,12 +398,16 @@ namespace ProyectoCapturaDePantalla
             videoDisplay.Show();
             videoDisplay.onVideoEnd += HandleVideoEnd;
 
+            vd.setPlaylist(videoList);
+            vd.startPresentation();
 
-            videoDisplay.ChangeVideo(string.Concat(videoList[0].Id, ".avi"));
-            while (!endVideo)
-            {
 
-            }
+
+            videoDisplay.ChangeVideo(string.Concat(videoList[0].Id, ".mp4"));
+            //while (!endVideo)
+            //{
+
+            //}
             //foreach (DEVO video in videoList)
             //{
             //    endVideo = false;
@@ -412,10 +419,11 @@ namespace ProyectoCapturaDePantalla
             //}
 
 
-            videoDisplay.Close();
+            //videoDisplay.Close();
         }
         public void HandleVideoEnd(object sender, EventArgs e)
         {
+            videoDisplay.Close();
             endVideo = true;
         }
     }

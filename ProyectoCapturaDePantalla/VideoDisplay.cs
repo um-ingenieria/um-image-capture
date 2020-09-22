@@ -17,6 +17,9 @@ namespace ProyectoCapturaDePantalla
         string path = "./";
         public event EventHandler onVideoEnd;
 
+        listaDeVideos = [];
+        int actual = 0;
+
         public VideoDisplay(string path)
         {
             InitializeComponent();
@@ -53,7 +56,15 @@ namespace ProyectoCapturaDePantalla
 
         private void vlcPlayer_EndReached(object sender, Vlc.DotNet.Core.VlcMediaPlayerEndReachedEventArgs e)
         {
-            onVideoEnd?.Invoke(this, null);
+            // se ejecuta cada vez que termina un video
+
+            //onVideoEnd?.Invoke(this, null);
+
+            // si hay un video mas
+            this.ChangeVideo(listaDeVideos[actual + 1]);
+
+            // si no hay m'as videos
+            //onPlaylistEnd?.Invoke(this, null)
         }
     }
 }
