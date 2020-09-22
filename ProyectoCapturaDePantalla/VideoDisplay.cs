@@ -14,9 +14,11 @@ namespace ProyectoCapturaDePantalla
 {
     public partial class VideoDisplay : Form
     {
-        public VideoDisplay()
+        string path = "./";
+        public VideoDisplay(string path)
         {
             InitializeComponent();
+            this.path = path;
         }
 
         private void vlcControl1_VlcLibDirectoryNeeded(object sender, Vlc.DotNet.Forms.VlcLibDirectoryNeededEventArgs e)
@@ -33,9 +35,15 @@ namespace ProyectoCapturaDePantalla
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void ChangeVideo(string id)
         {
-            FileInfo file = new FileInfo(@"..\..\..\resources\devo\mp4.mp4");
+            SetVideo(id);
+        }
+
+        private void SetVideo(string fileName)
+        {
+            vlcPlayer.Stop();
+            FileInfo file = new FileInfo(@"..\..\..\resources\devo\" + fileName);
             vlcPlayer.SetMedia(file);
             vlcPlayer.Play();
         }

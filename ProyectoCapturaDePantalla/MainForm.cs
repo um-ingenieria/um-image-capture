@@ -95,10 +95,6 @@ namespace ProyectoCapturaDePantalla
                 Console.WriteLine("Fallo la conexion a la base");
                 Console.WriteLine(e.Message);
             }
-
-            VideoDisplay player = new VideoDisplay();
-            player.ShowDialog();
-
         }
 
         private async void buttonEmpezar_Click(object sender, EventArgs e)
@@ -151,15 +147,16 @@ namespace ProyectoCapturaDePantalla
                 {
                     sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("INIT_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
 
-                    if(phase.StimuliType == ImagePhase.IAP_TYPE)
-                    {
-                        var imagePhase = (ImagePhase)phase;
-                        await startPresentation(imagePhase.Iaps, ConfigurationManager.AppSettings["iaps-path"]);
-                    }
+                    //if(phase.StimuliType == ImagePhase.IAP_TYPE)
+                    //{
+                    //    var imagePhase = (ImagePhase)phase;
+                    //    await startPresentation(imagePhase.Iaps, ConfigurationManager.AppSettings["iaps-path"]);
+                    //}
 
                     if(phase.StimuliType == VideoPhase.DEVO_TYPE)
                     {
-
+                        var videoPhase = (VideoPhase)phase;
+                        await startPresentation(videoPhase.Videos, ConfigurationManager.AppSettings["devo-path"]);
                     }
                     
 
@@ -388,6 +385,24 @@ namespace ProyectoCapturaDePantalla
             });
 
            imageDisplay.Close();
+        }
+
+        private async Task startPresentation(List<DEVO> videoList, string path)
+        {
+            VideoDisplay videoDisplay = new VideoDisplay(path);
+            videoDisplay.WindowState = FormWindowState.Maximized;
+            videoDisplay.Show();
+
+            await Task.Run(async () =>
+            {
+                foreach (DEVO video in videoList)
+                {
+                    videoDisplay.ChangeVideo(string.Concat(video.Id, ".mp4"));
+                    await Task.Delay(new TimeSpan((long)video.LengthInMs + 1000));
+                }
+            });
+
+            videoDisplay.Close();
         }
     }
 }
