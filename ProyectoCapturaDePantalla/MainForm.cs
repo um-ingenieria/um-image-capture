@@ -153,17 +153,18 @@ namespace ProyectoCapturaDePantalla
                     //    await startPresentation(imagePhase.Iaps, ConfigurationManager.AppSettings["iaps-path"]);
                     //}
 
-                    if(phase.StimuliType == VideoPhase.DEVO_TYPE)
+                    if (phase.StimuliType == VideoPhase.DEVO_TYPE)
                     {
                         var videoPhase = (VideoPhase)phase;
-                        await startPresentation(videoPhase.Videos, ConfigurationManager.AppSettings["devo-path"]);
+                        startPresentation(videoPhase.Videos, ConfigurationManager.AppSettings["devo-path"]);
+
+
+
+                        sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("END_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
+
+                        requestSAM();
+                        sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.ValenceArrousalQuadrant), DateTime.Now));
                     }
-                    
-
-                    sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("END_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
-
-                    requestSAM();
-                    sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.ValenceArrousalQuadrant), DateTime.Now));
                 }
             }
         }
@@ -386,23 +387,36 @@ namespace ProyectoCapturaDePantalla
 
            imageDisplay.Close();
         }
-
-        private async Task startPresentation(List<DEVO> videoList, string path)
+        Boolean endVideo = false;
+        private void startPresentation(List<DEVO> videoList, string path)
         {
             VideoDisplay videoDisplay = new VideoDisplay(path);
             videoDisplay.WindowState = FormWindowState.Maximized;
             videoDisplay.Show();
+            videoDisplay.onVideoEnd += HandleVideoEnd;
 
-            await Task.Run(async () =>
+
+            videoDisplay.ChangeVideo(string.Concat(videoList[0].Id, ".avi"));
+            while (!endVideo)
             {
-                foreach (DEVO video in videoList)
-                {
-                    videoDisplay.ChangeVideo(string.Concat(video.Id, ".mp4"));
-                    await Task.Delay(new TimeSpan((long)video.LengthInMs + 1000));
-                }
-            });
+
+            }
+            //foreach (DEVO video in videoList)
+            //{
+            //    endVideo = false;
+            //    videoDisplay.ChangeVideo(string.Concat(video.Id, ".mp4"));
+            //    while (!endVideo)
+            //    {
+
+            //    }
+            //}
+
 
             videoDisplay.Close();
+        }
+        public void HandleVideoEnd(object sender, EventArgs e)
+        {
+            endVideo = true;
         }
     }
 }

@@ -15,6 +15,8 @@ namespace ProyectoCapturaDePantalla
     public partial class VideoDisplay : Form
     {
         string path = "./";
+        public event EventHandler onVideoEnd;
+
         public VideoDisplay(string path)
         {
             InitializeComponent();
@@ -46,6 +48,12 @@ namespace ProyectoCapturaDePantalla
             FileInfo file = new FileInfo(@"..\..\..\resources\devo\" + fileName);
             vlcPlayer.SetMedia(file);
             vlcPlayer.Play();
+            
+        }
+
+        private void vlcPlayer_EndReached(object sender, Vlc.DotNet.Core.VlcMediaPlayerEndReachedEventArgs e)
+        {
+            onVideoEnd?.Invoke(this, null);
         }
     }
 }

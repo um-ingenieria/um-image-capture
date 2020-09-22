@@ -17,8 +17,8 @@ namespace ProyectoCapturaDePantalla.dao
             {
                 try
                 {
-                    // dbConnection = new SqlConnection("Data Source=DESKTOP-KQBRIL0\\SQLEXPRESS;Initial Catalog=UM_NEUROSKY;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-                    dbConnection = new SqlConnection("Data Source=192.168.0.4;User ID=sa;Password=Polopolo9;Initial Catalog=UM_NEUROSKY;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                    dbConnection = new SqlConnection("Data Source=DESKTOP-KQBRIL0\\SQLEXPRESS;Initial Catalog=UM_NEUROSKY;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                    //dbConnection = new SqlConnection("Data Source=192.168.0.4;User ID=sa;Password=Polopolo9;Initial Catalog=UM_NEUROSKY;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
                 }
                 catch (SqlException e)
                 {
