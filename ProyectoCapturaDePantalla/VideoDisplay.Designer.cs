@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.vlcPlayer = new Vlc.DotNet.Forms.VlcControl();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.vlcPlayer)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,14 +43,26 @@
             this.vlcPlayer.TabIndex = 0;
             this.vlcPlayer.Text = "vlcControl1";
             this.vlcPlayer.VlcLibDirectory = null;
-            this.vlcPlayer.VlcMediaplayerOptions = null;
+            this.vlcPlayer.VlcMediaplayerOptions = new string[] {
+        "aout=directsound"};
             this.vlcPlayer.VlcLibDirectoryNeeded += new System.EventHandler<Vlc.DotNet.Forms.VlcLibDirectoryNeededEventArgs>(this.vlcControl1_VlcLibDirectoryNeeded);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(196, 882);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(431, 119);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // VideoDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1556, 1136);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.vlcPlayer);
             this.Name = "VideoDisplay";
             this.Text = "VideoDisplay";
@@ -61,5 +74,6 @@
         #endregion
 
         private Vlc.DotNet.Forms.VlcControl vlcPlayer;
+        private System.Windows.Forms.Button button1;
     }
 }

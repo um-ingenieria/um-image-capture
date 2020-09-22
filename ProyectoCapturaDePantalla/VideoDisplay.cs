@@ -17,9 +17,6 @@ namespace ProyectoCapturaDePantalla
         public VideoDisplay()
         {
             InitializeComponent();
-            FileInfo file = new FileInfo(@"C:\Users\alons\Documents\Proyectos\Visual Studio\Tesis\um-image-capture\resources\devo\1.2.avi");
-            vlcPlayer.SetMedia(file);
-            vlcPlayer.Play();
         }
 
         private void vlcControl1_VlcLibDirectoryNeeded(object sender, Vlc.DotNet.Forms.VlcLibDirectoryNeededEventArgs e)
@@ -34,6 +31,13 @@ namespace ProyectoCapturaDePantalla
                 //e.VlcLibDirectory = new DirectoryInfo(@"..\..\..\lib\x64\");
                 e.VlcLibDirectory = new DirectoryInfo(Path.Combine(".", "libvlc", "win-x64"));
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FileInfo file = new FileInfo(@"..\..\..\resources\devo\mp4.mp4");
+            vlcPlayer.SetMedia(file);
+            vlcPlayer.Play();
         }
     }
 }
