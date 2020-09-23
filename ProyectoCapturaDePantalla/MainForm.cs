@@ -147,22 +147,21 @@ namespace ProyectoCapturaDePantalla
                 {
                     sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("INIT_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
 
-                    //if(phase.StimuliType == ImagePhase.IAP_TYPE)
-                    //{
-                    //    var imagePhase = (ImagePhase)phase;
-                    //    await startPresentation(imagePhase.Iaps, ConfigurationManager.AppSettings["iaps-path"]);
-                    //}
+                    if (phase.StimuliType == ImagePhase.IAP_TYPE)
+                    {
+                        var imagePhase = (ImagePhase)phase;
+                        await startPresentation(imagePhase.Iaps, ConfigurationManager.AppSettings["iaps-path"]);
+                    }
 
                     if (phase.StimuliType == VideoPhase.DEVO_TYPE)
                     {
                         var videoPhase = (VideoPhase)phase;
                         startPresentation(videoPhase.Videos, ConfigurationManager.AppSettings["devo-path"]);
-
-                        sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("END_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
-
-                        requestSAM();
-                        sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.ValenceArrousalQuadrant), DateTime.Now));
                     }
+                    sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("END_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
+
+                    requestSAM();
+                    sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.ValenceArrousalQuadrant), DateTime.Now));
                 }
             }
         }
