@@ -198,8 +198,8 @@ namespace ProyectoCapturaDePantalla
                 pictureBoxImg.Image = Imgb;
 
                 string imagesPath = ConfigurationManager.AppSettings["images-path"];
-                string desktopPath = string.Concat(imagesPath, "\\desktop");
-                string webcamPath = string.Concat(imagesPath, "\\webcam");
+                string desktopPath = string.Concat(imagesPath, "\\desktop\\", currentSession.TestName);
+                string webcamPath = string.Concat(imagesPath, "\\webcam\\", currentSession.TestName);
                 Directory.CreateDirectory(desktopPath);
                 Directory.CreateDirectory(webcamPath);
 
