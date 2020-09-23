@@ -144,12 +144,15 @@ namespace ProyectoCapturaDePantalla
 
                 foreach (PhaseBase phase in testSet.Phases)
                 {
-                    // FIXME: El startPresentation no bloquea y se lanzan todos los SAM juntos.
+                    sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("INIT_", phase.ValenceArrousalQuadrant, "_", phase.id.ToString()), DateTime.Now));
+
                     var imagePhase = (ImagePhase) phase;
                     await startPresentation(imagePhase.Iaps, ConfigurationManager.AppSettings["iaps-path"]);
+
+                    sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("END_", phase.ValenceArrousalQuadrant, "_", phase.id.ToString()), DateTime.Now));
+
                     requestSAM();
-                    SessionEvent phaseEvent = new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.ValenceArrousalQuadrant), DateTime.Now);
-                    sessionEventDao.SaveSessionEvent(phaseEvent);
+                    sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.ValenceArrousalQuadrant), DateTime.Now));
                 }
             }
         }
@@ -186,8 +189,8 @@ namespace ProyectoCapturaDePantalla
                 pictureBoxImg.Image = Imgb;
 
                 string imagesPath = ConfigurationManager.AppSettings["images-path"];
-                string desktopPath = string.Concat(imagesPath, "\\desktop");
-                string webcamPath = string.Concat(imagesPath, "\\webcam");
+                string desktopPath = string.Concat(imagesPath, "\\desktop\\", currentSession.TestName);
+                string webcamPath = string.Concat(imagesPath, "\\webcam\\", currentSession.TestName);
                 Directory.CreateDirectory(desktopPath);
                 Directory.CreateDirectory(webcamPath);
 
@@ -223,6 +226,9 @@ namespace ProyectoCapturaDePantalla
 
         private void buttonTerminar_Click(object sender, EventArgs e)
         {
+            SessionEventDao sessionEventDao = new SessionEventDao();
+            sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, "END_TEST", DateTime.Now));
+
             timerLapso.Stop();
             //this.CallSP();
             CerrarSeccion();
