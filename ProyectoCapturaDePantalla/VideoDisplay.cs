@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoCapturaDePantalla.Domain.Phase.stimulus;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -15,15 +16,17 @@ namespace ProyectoCapturaDePantalla
     public partial class VideoDisplay : Form
     {
         string path = "./";
-        public event EventHandler onVideoEnd;
-
-        listaDeVideos = [];
+        public event EventHandler onPlaylistEnd;
+        List<DEVO> videoList; 
         int actual = 0;
 
-        public VideoDisplay(string path)
+        public VideoDisplay(string path, List<DEVO> videoList)
         {
             InitializeComponent();
             this.path = path;
+            this.videoList = videoList;
+            startPresentation();
+
         }
 
         private void vlcControl1_VlcLibDirectoryNeeded(object sender, Vlc.DotNet.Forms.VlcLibDirectoryNeededEventArgs e)
@@ -40,31 +43,46 @@ namespace ProyectoCapturaDePantalla
             }
         }
 
-        public void ChangeVideo(string id)
-        {
-            SetVideo(id);
-        }
-
         private void SetVideo(string fileName)
         {
-            vlcPlayer.Stop();
+            //vlcPlayer.Stop();
             FileInfo file = new FileInfo(@"..\..\..\resources\devo\" + fileName);
+            vlcPlayer.ResetMedia();
             vlcPlayer.SetMedia(file);
             vlcPlayer.Play();
-            
         }
 
         private void vlcPlayer_EndReached(object sender, Vlc.DotNet.Core.VlcMediaPlayerEndReachedEventArgs e)
         {
-            // se ejecuta cada vez que termina un video
+            if(actual > videoList.Count)
+            {
+                this.Close();
+            }
+        }
 
-            //onVideoEnd?.Invoke(this, null);
+        internal void startPresentation()
+        {
+            if(videoList.Count > 0)
+            {
+                this.SetVideo(string.Concat(videoList[actual].Id, ".mp4"));
+            }
+        }
 
-            // si hay un video mas
-            this.ChangeVideo(listaDeVideos[actual + 1]);
+        private void button1_Click(object sender, EventArgs e)
+        {
+            actual++;
+            if (actual < videoList.Count)
+            {
+                this.SetVideo(string.Concat(videoList[actual].Id, ".mp4"));
+            } else
+            {
+                this.Close();
+            }
+        }
 
-            // si no hay m'as videos
-            //onPlaylistEnd?.Invoke(this, null)
+        private void VideoDisplay_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
