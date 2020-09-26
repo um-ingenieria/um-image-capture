@@ -142,29 +142,26 @@ namespace ProyectoCapturaDePantalla
                 timerLapso.Start();
 
                 TestSet testSet = TestSetDao.GetTestSet(defaultTestSet);
-
+                
                 foreach (PhaseBase phase in testSet.Phases)
                 {
                     sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("INIT_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
 
-                    //if(phase.StimuliType == ImagePhase.IAP_TYPE)
-                    //{
-                    //    var imagePhase = (ImagePhase)phase;
-                    //    await startPresentation(imagePhase.Iaps, ConfigurationManager.AppSettings["iaps-path"]);
-                    //}
+                    if (phase.StimuliType == ImagePhase.IAP_TYPE)
+                    {
+                        var imagePhase = (ImagePhase)phase;
+                        await startPresentation(imagePhase.Iaps, ConfigurationManager.AppSettings["iaps-path"]);
+                    }
 
                     if (phase.StimuliType == VideoPhase.DEVO_TYPE)
                     {
                         var videoPhase = (VideoPhase)phase;
                         startPresentation(videoPhase.Videos, ConfigurationManager.AppSettings["devo-path"]);
-
-
-
-                        sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("END_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
-
-                        requestSAM();
-                        sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.ValenceArrousalQuadrant), DateTime.Now));
                     }
+                    sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("END_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
+
+                    requestSAM();
+                    sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.ValenceArrousalQuadrant), DateTime.Now));
                 }
             }
         }
@@ -388,22 +385,19 @@ namespace ProyectoCapturaDePantalla
            imageDisplay.Close();
         }
 
-        Boolean endVideo = false;
-        VideoDisplay vd = null;
 
         private void startPresentation(List<DEVO> videoList, string path)
         {
-            VideoDisplay videoDisplay = new VideoDisplay(path);
+            VideoDisplay videoDisplay = new VideoDisplay(path, videoList);
             videoDisplay.WindowState = FormWindowState.Maximized;
-            videoDisplay.Show();
-            videoDisplay.onVideoEnd += HandleVideoEnd;
+            videoDisplay.ShowDialog();
+            //////videoDisplay.onVideoEnd += HandleVideoEnd;
 
-            vd.setPlaylist(videoList);
-            vd.startPresentation();
-
+            //videoDisplay.startPresentation();
 
 
-            videoDisplay.ChangeVideo(string.Concat(videoList[0].Id, ".mp4"));
+
+            //videoDisplay.ChangeVideo(string.Concat(videoList[0].Id, ".mp4"));
             //while (!endVideo)
             //{
 
@@ -423,8 +417,8 @@ namespace ProyectoCapturaDePantalla
         }
         public void HandleVideoEnd(object sender, EventArgs e)
         {
-            videoDisplay.Close();
-            endVideo = true;
+            var videos = (VideoDisplay)sender;
+            videos.Close();
         }
     }
 }
