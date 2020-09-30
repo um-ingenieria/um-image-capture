@@ -41,6 +41,9 @@ namespace ProyectoCapturaDePantalla
         Screen[] screens2;
         int defaultTestSet = 1;
 
+        VideoDisplay videoPlayer;
+        ImageDisplay imagePlayer;
+
         public MainForm()
         {
             InitializeComponent();
@@ -142,7 +145,7 @@ namespace ProyectoCapturaDePantalla
                 timerLapso.Start();
 
                 TestSet testSet = TestSetDao.GetTestSet(defaultTestSet);
-                
+
                 foreach (PhaseBase phase in testSet.Phases)
                 {
                     sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("INIT_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
@@ -150,14 +153,35 @@ namespace ProyectoCapturaDePantalla
                     if (phase.StimuliType == ImagePhase.IAP_TYPE)
                     {
                         var imagePhase = (ImagePhase)phase;
-                        await startPresentation(imagePhase.Iaps, ConfigurationManager.AppSettings["iaps-path"]);
+                        imagePlayer = new ImageDisplay(ConfigurationManager.AppSettings["iaps-path"]);
+                        imagePlayer.WindowState = FormWindowState.Maximized;
+                        imagePlayer.Show();
+
+                        await Task.Run(async () =>
+                        {
+                            foreach (IAP image in imagePhase.Iaps)
+                            {
+                                imagePlayer.ChangeImage(string.Concat(image.IdIaps, ".jpg"));
+                                await Task.Delay(2000);
+                            }
+                        });
+
+                        imagePlayer.Close();
                     }
 
                     if (phase.StimuliType == VideoPhase.DEVO_TYPE)
                     {
                         var videoPhase = (VideoPhase)phase;
-                        startPresentation(videoPhase.Videos, ConfigurationManager.AppSettings["devo-path"]);
+
+                        foreach (DEVO video in videoPhase.Videos)
+                        {
+                            videoPlayer = new VideoDisplay(ConfigurationManager.AppSettings["devo-path"]);
+                            videoPlayer.WindowState = FormWindowState.Maximized;
+                            videoPlayer.play(string.Concat(video.Id, ".mp4"));
+                            videoPlayer.ShowDialog();
+                        }
                     }
+
                     sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("END_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
 
                     requestSAM();

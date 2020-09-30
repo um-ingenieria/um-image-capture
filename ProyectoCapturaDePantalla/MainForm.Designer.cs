@@ -169,7 +169,7 @@
             this.emotionButton.Text = "Correr proceso de reconocimiento emocional";
             this.emotionButton.UseVisualStyleBackColor = true;
             //this.emotionButton.Click += new System.EventHandler(this.emotionButton_Click);
-            this.emotionButton.Click += async (s, e) => await this.emotionButton_Click(s, e);
+            this.emotionButton.Click += async (s, e) => await this.emotionButton_ClickAsync(s, e);
 
             // 
             // biometricsBtn
