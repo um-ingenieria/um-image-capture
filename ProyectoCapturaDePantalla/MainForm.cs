@@ -41,6 +41,9 @@ namespace ProyectoCapturaDePantalla
         Screen[] screens2;
         int defaultTestSet = 1;
 
+        VideoDisplay videoPlayer;
+        ImageDisplay imagePlayer;
+
         public MainForm()
         {
             InitializeComponent();
@@ -150,13 +153,33 @@ namespace ProyectoCapturaDePantalla
                     if (phase.StimuliType == ImagePhase.IAP_TYPE)
                     {
                         var imagePhase = (ImagePhase)phase;
-                        await startPresentation(imagePhase.Iaps, ConfigurationManager.AppSettings["iaps-path"]);
+                        imagePlayer = new ImageDisplay(ConfigurationManager.AppSettings["iaps-path"]);
+                        imagePlayer.WindowState = FormWindowState.Maximized;
+                        imagePlayer.Show();
+
+                        await Task.Run(async () =>
+                        {
+                            foreach (IAP image in imagePhase.Iaps)
+                            {
+                                imagePlayer.ChangeImage(string.Concat(image.IdIaps, ".jpg"));
+                                await Task.Delay(2000);
+                            }
+                        });
+
+                        imagePlayer.Close();
                     }
 
                     if (phase.StimuliType == VideoPhase.DEVO_TYPE)
                     {
                         var videoPhase = (VideoPhase)phase;
-                        startPresentation(videoPhase.Videos, ConfigurationManager.AppSettings["devo-path"]);
+                        
+                        foreach (DEVO video in videoPhase.Videos)
+                        {
+                            videoPlayer = new VideoDisplay(ConfigurationManager.AppSettings["devo-path"]);
+                            videoPlayer.WindowState = FormWindowState.Maximized;
+                            videoPlayer.play(string.Concat(video.Id, ".mp4"));
+                            videoPlayer.ShowDialog();
+                        }
                     }
                     sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("END_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
 
@@ -365,60 +388,6 @@ namespace ProyectoCapturaDePantalla
                 pulseDao.SavePulseMeasurement(pulseMeasurement, section);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
-        }
-
-        private async Task startPresentation(List<IAP> iapsList, string path)
-        {
-            ImageDisplay imageDisplay = new ImageDisplay(path);
-            imageDisplay.WindowState = FormWindowState.Maximized;
-            imageDisplay.Show();
-
-            await Task.Run(async () =>
-            {
-                foreach (IAP iaps in iapsList)
-                {
-                    imageDisplay.ChangeImage(string.Concat(iaps.IdIaps, ".jpg"));
-                    await Task.Delay(2000);
-                }
-            });
-
-           imageDisplay.Close();
-        }
-
-
-        private void startPresentation(List<DEVO> videoList, string path)
-        {
-            VideoDisplay videoDisplay = new VideoDisplay(path, videoList);
-            videoDisplay.WindowState = FormWindowState.Maximized;
-            videoDisplay.ShowDialog();
-            //////videoDisplay.onVideoEnd += HandleVideoEnd;
-
-            //videoDisplay.startPresentation();
-
-
-
-            //videoDisplay.ChangeVideo(string.Concat(videoList[0].Id, ".mp4"));
-            //while (!endVideo)
-            //{
-
-            //}
-            //foreach (DEVO video in videoList)
-            //{
-            //    endVideo = false;
-            //    videoDisplay.ChangeVideo(string.Concat(video.Id, ".mp4"));
-            //    while (!endVideo)
-            //    {
-
-            //    }
-            //}
-
-
-            //videoDisplay.Close();
-        }
-        public void HandleVideoEnd(object sender, EventArgs e)
-        {
-            var videos = (VideoDisplay)sender;
-            videos.Close();
         }
     }
 }

@@ -78,7 +78,7 @@ namespace ProyectoCapturaDePantalla.dao
         private static SqlCommand getCommand(string gender, List<float> videosIds, SqlConnection dbConnection)
         {
             //TODO: ADD SWITCH
-            return new SqlCommand($"SELECT TOP (3) [id], [length_in_ms], [title], [description], [valence_mean], [valence_sd], [arousal_mean], [arousal_sd], [impact_mean], [impact_sd] FROM {gender} WHERE id in ({string.Join(",", videosIds.Select(n => n.ToString()).ToArray())})", dbConnection); ;
+            return new SqlCommand($"SELECT [id], [length_in_ms], [title], [description], [valence_mean], [valence_sd], [arousal_mean], [arousal_sd], [impact_mean], [impact_sd] FROM {gender} WHERE id in ({string.Join(",", videosIds.Select(n => n.ToString()).ToArray())})", dbConnection); ;
         }
     }
 }
