@@ -18,8 +18,6 @@ namespace ProyectoCapturaDePantalla.face
         public static string SUBSCRIPTION_ENDPOINT = "https://emotion-recognition-api.cognitiveservices.azure.com/";
         public static int NO_BULK_LMIT = 0;
 
-        private EmotionsDao emotionDao = null;
-
         IFaceClient client;
 
         public FaceService()
@@ -28,7 +26,6 @@ namespace ProyectoCapturaDePantalla.face
 
             // Authenticate.
             client = Authenticate(SUBSCRIPTION_ENDPOINT, SUBSCRIPTION_KEY);
-            emotionDao = new EmotionsDao();
         }
 
         public async Task DetectFacesEmotionByBulk(List<FaceImage> images)
@@ -181,9 +178,20 @@ namespace ProyectoCapturaDePantalla.face
                     Emotion emotion = face.FaceAttributes.Emotion;
                     string emotionType = GetEmotionType(emotion);
                     //TODO: pasar id y section
-                    emotionDao.SaveEmotion(emotion, image.Section, image.Id);
+                    EmotionsDao.SaveEmotion(emotion, image.Section, image.Id, CalculateValence(emotion));
                 }
             }
+        }
+
+        private double CalculateValence(Emotion emotion)
+        {
+            double positiveValues = 0;
+            double negativeValues = 0;
+
+            positiveValues += emotion.Happiness;
+            negativeValues += emotion.Sadness + emotion.Anger + emotion.Disgust + emotion.Fear;
+
+            return positiveValues - negativeValues;
         }
 
         private static string GetEmotionType(Emotion emotion)

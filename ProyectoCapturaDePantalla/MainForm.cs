@@ -291,7 +291,7 @@ namespace ProyectoCapturaDePantalla
             MessageBox.Show("El numero de registros afectados en la tabla Excitacion-Valencia fueron: " + this.CallSP("SP_CargarDatos_Excitacion_Valencia"));
         }
 
-        private async Task emotionButton_ClickAsync(object sender, EventArgs e)
+        private async Task emotionButton_Click(object sender, EventArgs e)
         {
             string promptValue = new Prompt("Reconocimiento facial", "Ingrese el número de sección de la prueba de la que desea hacer el reconocimiento").show();
             if (int.TryParse(promptValue, out int section))
@@ -307,7 +307,7 @@ namespace ProyectoCapturaDePantalla
             FaceService faceService = new FaceService();
             try
             {
-                await faceService.DetectFacesEmotionByBulk(this.GetImages(section, 1));
+                await faceService.DetectFacesEmotionByBulk(this.GetImages(section, 5));
                 MessageBox.Show("El proceso de detección de imagenes finalizó!");
             }
             catch (Exception ex)
@@ -420,5 +420,10 @@ namespace ProyectoCapturaDePantalla
             var videos = (VideoDisplay)sender;
             videos.Close();
         }
+
+        //private void emotionButton_Click(object sender, EventArgs e)
+        //{
+
+        //}
     }
 }
