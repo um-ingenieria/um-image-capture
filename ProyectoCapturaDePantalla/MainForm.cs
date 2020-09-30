@@ -291,7 +291,7 @@ namespace ProyectoCapturaDePantalla
             MessageBox.Show("El numero de registros afectados en la tabla Excitacion-Valencia fueron: " + this.CallSP("SP_CargarDatos_Excitacion_Valencia"));
         }
 
-        private async Task emotionButton_Click(object sender, EventArgs e)
+        private async Task emotionButton_ClickAsync(object sender, EventArgs e)
         {
             string promptValue = new Prompt("Reconocimiento facial", "Ingrese el número de sección de la prueba de la que desea hacer el reconocimiento").show();
             if (int.TryParse(promptValue, out int section))
@@ -307,7 +307,7 @@ namespace ProyectoCapturaDePantalla
             FaceService faceService = new FaceService();
             try
             {
-                await faceService.DetectFacesEmotionByBulk(this.GetImages(section, 5));
+                await faceService.DetectFacesEmotionByBulk(this.GetImages(section, 1));
                 MessageBox.Show("El proceso de detección de imagenes finalizó!");
             }
             catch (Exception ex)
@@ -366,64 +366,5 @@ namespace ProyectoCapturaDePantalla
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-
-        private async Task startPresentation(List<IAP> iapsList, string path)
-        {
-            ImageDisplay imageDisplay = new ImageDisplay(path);
-            imageDisplay.WindowState = FormWindowState.Maximized;
-            imageDisplay.Show();
-
-            await Task.Run(async () =>
-            {
-                foreach (IAP iaps in iapsList)
-                {
-                    imageDisplay.ChangeImage(string.Concat(iaps.IdIaps, ".jpg"));
-                    await Task.Delay(2000);
-                }
-            });
-
-           imageDisplay.Close();
-        }
-
-
-        private void startPresentation(List<DEVO> videoList, string path)
-        {
-            VideoDisplay videoDisplay = new VideoDisplay(path, videoList);
-            videoDisplay.WindowState = FormWindowState.Maximized;
-            videoDisplay.ShowDialog();
-            //////videoDisplay.onVideoEnd += HandleVideoEnd;
-
-            //videoDisplay.startPresentation();
-
-
-
-            //videoDisplay.ChangeVideo(string.Concat(videoList[0].Id, ".mp4"));
-            //while (!endVideo)
-            //{
-
-            //}
-            //foreach (DEVO video in videoList)
-            //{
-            //    endVideo = false;
-            //    videoDisplay.ChangeVideo(string.Concat(video.Id, ".mp4"));
-            //    while (!endVideo)
-            //    {
-
-            //    }
-            //}
-
-
-            //videoDisplay.Close();
-        }
-        public void HandleVideoEnd(object sender, EventArgs e)
-        {
-            var videos = (VideoDisplay)sender;
-            videos.Close();
-        }
-
-        //private void emotionButton_Click(object sender, EventArgs e)
-        //{
-
-        //}
     }
 }

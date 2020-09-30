@@ -15,38 +15,27 @@ namespace ProyectoCapturaDePantalla
 {
     public partial class VideoDisplay : Form
     {
-        string path = "./";
-        public event EventHandler onPlaylistEnd;
-        List<DEVO> videoList; 
-        int actual = 0;
+        public event EventHandler onVideoEnd;
 
-        public VideoDisplay(string path, List<DEVO> videoList)
+        public string Path;
+
+        public VideoDisplay(string path)
         {
             InitializeComponent();
-            this.path = path;
-            this.videoList = videoList;
-            startPresentation();
-
+            this.Path = path;
         }
 
         private void vlcControl1_VlcLibDirectoryNeeded(object sender, Vlc.DotNet.Forms.VlcLibDirectoryNeededEventArgs e)
         {
             if (IntPtr.Size == 4)
-            {
-                //e.VlcLibDirectory = new DirectoryInfo(@"..\..\..\lib\x86");
-                e.VlcLibDirectory = new DirectoryInfo(Path.Combine(".", "libvlc", "win-x86"));
-            }
+                e.VlcLibDirectory = new DirectoryInfo(System.IO.Path.Combine(".", "libvlc", "win-x86"));
             else
-            {
-                //e.VlcLibDirectory = new DirectoryInfo(@"..\..\..\lib\x64\");
-                e.VlcLibDirectory = new DirectoryInfo(Path.Combine(".", "libvlc", "win-x64"));
-            }
+                e.VlcLibDirectory = new DirectoryInfo(System.IO.Path.Combine(".", "libvlc", "win-x64"));
         }
 
-        private void SetVideo(string fileName)
+        public void play(string fileName)
         {
-            //vlcPlayer.Stop();
-            FileInfo file = new FileInfo(@"..\..\..\resources\devo\" + fileName);
+            FileInfo file = new FileInfo(this.Path + "\\" + fileName);
             vlcPlayer.ResetMedia();
             vlcPlayer.SetMedia(file);
             vlcPlayer.Play();
@@ -54,35 +43,22 @@ namespace ProyectoCapturaDePantalla
 
         private void vlcPlayer_EndReached(object sender, Vlc.DotNet.Core.VlcMediaPlayerEndReachedEventArgs e)
         {
-            if(actual > videoList.Count)
+            //this.onVideoEnd?.Invoke(this, e);
+            // this.Close();
+            //this.Invoke(new MethodInvoker(delegate { this.Close(); }));
+            try
             {
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action(this.Close));
+                    return;
+                }
                 this.Close();
             }
-        }
-
-        internal void startPresentation()
-        {
-            if(videoList.Count > 0)
+            catch (Exception ex)
             {
-                this.SetVideo(string.Concat(videoList[actual].Id, ".mp4"));
+                MessageBox.Show(ex.ToString());
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            actual++;
-            if (actual < videoList.Count)
-            {
-                this.SetVideo(string.Concat(videoList[actual].Id, ".mp4"));
-            } else
-            {
-                this.Close();
-            }
-        }
-
-        private void VideoDisplay_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
