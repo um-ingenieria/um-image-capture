@@ -1,3 +1,4 @@
+DELETE FROM PHASE;
 INSERT INTO [dbo].[PHASE]
   (ID, DESCRIPTION, NAME, PHASE_TYPE, VALENCE_AROUSAL_QUARDRANT, STIMULI_ID)
 VALUES
@@ -402,3 +403,28 @@ INSERT INTO [dbo].[PHASE]
   (ID, DESCRIPTION, NAME, PHASE_TYPE, VALENCE_AROUSAL_QUARDRANT, STIMULI_ID)
 VALUES
   (4, 'High Arousal - Negative Valence', 'Fase 4', 'IAP_TYPE', 'HA_NV', 6231);
+
+INSERT INTO PHASE VALUES (5 ,'Low Arousal - Positive Valence' ,'Fase 5' ,'DEVO_TYPE' ,'LA_PV', 9.7);
+INSERT INTO PHASE VALUES (5 ,'Low Arousal - Positive Valence' ,'Fase 5' ,'DEVO_TYPE' ,'LA_PV', 102.2);
+INSERT INTO PHASE VALUES (5 ,'Low Arousal - Positive Valence' ,'Fase 5' ,'DEVO_TYPE' ,'LA_PV', 29.2);
+INSERT INTO PHASE VALUES (5 ,'Low Arousal - Positive Valence' ,'Fase 5' ,'DEVO_TYPE' ,'LA_PV', 70.5 );
+INSERT INTO PHASE VALUES (5 ,'Low Arousal - Positive Valence' ,'Fase 5' ,'DEVO_TYPE' ,'LA_PV', 21.3);
+
+INSERT INTO PHASE VALUES (6 ,'High Arousal - Positive Valence' ,'Fase 6' ,'DEVO_TYPE' ,'HA_PV', 936.2);
+INSERT INTO PHASE VALUES (6 ,'High Arousal - Positive Valence' ,'Fase 6' ,'DEVO_TYPE' ,'HA_PV', 136.5);
+INSERT INTO PHASE VALUES (6 ,'High Arousal - Positive Valence' ,'Fase 6' ,'DEVO_TYPE' ,'HA_PV', 228.1);
+INSERT INTO PHASE VALUES (6 ,'High Arousal - Positive Valence' ,'Fase 6' ,'DEVO_TYPE' ,'HA_PV', 755.2 );
+INSERT INTO PHASE VALUES (6 ,'High Arousal - Positive Valence' ,'Fase 6' ,'DEVO_TYPE' ,'HA_PV', 249.2);
+
+INSERT INTO PHASE VALUES (7 ,'High Arousal - Negative Valence' ,'Fase 7' ,'DEVO_TYPE' ,'HA_NV', 93.3);
+INSERT INTO PHASE VALUES (7 ,'High Arousal - Negative Valence' ,'Fase 7' ,'DEVO_TYPE' ,'HA_NV', 95.1);
+INSERT INTO PHASE VALUES (7 ,'High Arousal - Negative Valence' ,'Fase 7' ,'DEVO_TYPE' ,'HA_NV', 91.1);
+INSERT INTO PHASE VALUES (7 ,'High Arousal - Negative Valence' ,'Fase 7' ,'DEVO_TYPE' ,'HA_NV', 122.1);
+INSERT INTO PHASE VALUES (7 ,'High Arousal - Negative Valence' ,'Fase 7' ,'DEVO_TYPE' ,'HA_NV', 114.2);
+INSERT INTO PHASE VALUES (7 ,'High Arousal - Negative Valence' ,'Fase 7' ,'DEVO_TYPE' ,'HA_NV', 66.3);
+
+INSERT INTO PHASE VALUES (8 ,'Low Arousal - Negative Valence' ,'Fase 8' ,'DEVO_TYPE' ,'LA_NV', 135.2);
+INSERT INTO PHASE VALUES (8 ,'Low Arousal - Negative Valence' ,'Fase 8' ,'DEVO_TYPE' ,'LA_NV', 117.2);
+INSERT INTO PHASE VALUES (8 ,'Low Arousal - Negative Valence' ,'Fase 8' ,'DEVO_TYPE' ,'LA_NV', 47.2);
+INSERT INTO PHASE VALUES (8 ,'Low Arousal - Negative Valence' ,'Fase 8' ,'DEVO_TYPE' ,'LA_NV', 76.1);
+INSERT INTO PHASE VALUES (8 ,'Low Arousal - Negative Valence' ,'Fase 8' ,'DEVO_TYPE' ,'LA_NV', 64.3);

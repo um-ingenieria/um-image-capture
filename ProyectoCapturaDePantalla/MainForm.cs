@@ -41,6 +41,9 @@ namespace ProyectoCapturaDePantalla
         Screen[] screens2;
         int defaultTestSet = 1;
 
+        VideoDisplay videoPlayer;
+        ImageDisplay imagePlayer;
+
         public MainForm()
         {
             InitializeComponent();
@@ -48,6 +51,7 @@ namespace ProyectoCapturaDePantalla
             timerCaptura.Stop();
             buttonEmpezar.Focus();
 
+            //TestSet testSet = TestSetDao.GetTestSet(defaultTestSet);
 
             VideoSources = new AForge.Video.DirectShow.FilterInfoCollection(AForge.Video.DirectShow.FilterCategory.VideoInputDevice);
             if (VideoSources != null)
@@ -144,12 +148,41 @@ namespace ProyectoCapturaDePantalla
 
                 foreach (PhaseBase phase in testSet.Phases)
                 {
-                    sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("INIT_", phase.ValenceArrousalQuadrant, "_", phase.id.ToString()), DateTime.Now));
+                    sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("INIT_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
 
-                    var imagePhase = (ImagePhase) phase;
-                    await startPresentation(imagePhase.Iaps, ConfigurationManager.AppSettings["iaps-path"]);
+                    if (phase.StimuliType == ImagePhase.IAP_TYPE)
+                    {
+                        var imagePhase = (ImagePhase)phase;
+                        imagePlayer = new ImageDisplay(ConfigurationManager.AppSettings["iaps-path"]);
+                        imagePlayer.WindowState = FormWindowState.Maximized;
+                        imagePlayer.Show();
 
-                    sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("END_", phase.ValenceArrousalQuadrant, "_", phase.id.ToString()), DateTime.Now));
+                        await Task.Run(async () =>
+                        {
+                            foreach (IAP image in imagePhase.Iaps)
+                            {
+                                imagePlayer.ChangeImage(string.Concat(image.IdIaps, ".jpg"));
+                                await Task.Delay(2000);
+                            }
+                        });
+
+                        imagePlayer.Close();
+                    }
+
+                    if (phase.StimuliType == VideoPhase.DEVO_TYPE)
+                    {
+                        var videoPhase = (VideoPhase)phase;
+
+                        foreach (DEVO video in videoPhase.Videos)
+                        {
+                            videoPlayer = new VideoDisplay(ConfigurationManager.AppSettings["devo-path"]);
+                            videoPlayer.WindowState = FormWindowState.Maximized;
+                            videoPlayer.play(string.Concat(video.Id, ".mp4"));
+                            videoPlayer.ShowDialog();
+                        }
+                    }
+
+                    sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("END_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
 
                     requestSAM();
                     sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.ValenceArrousalQuadrant), DateTime.Now));
@@ -356,24 +389,6 @@ namespace ProyectoCapturaDePantalla
                 pulseDao.SavePulseMeasurement(pulseMeasurement, section);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
-        }
-
-        private async Task startPresentation(List<IAP> iapsList, string path)
-        {
-            ImageDisplay imageDisplay = new ImageDisplay(path);
-            imageDisplay.WindowState = FormWindowState.Maximized;
-            imageDisplay.Show();
-
-            await Task.Run(async () =>
-            {
-                foreach (IAP iaps in iapsList)
-                {
-                    imageDisplay.ChangeImage(string.Concat(iaps.IdIaps, ".jpg"));
-                    await Task.Delay(2000);
-                }
-            });
-
-           imageDisplay.Close();
         }
     }
 }

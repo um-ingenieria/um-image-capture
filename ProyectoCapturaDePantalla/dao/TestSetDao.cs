@@ -45,7 +45,7 @@ namespace ProyectoCapturaDePantalla.dao
             try
             {
                 dbConnection.Open();
-                SqlCommand cmd = new SqlCommand($"SELECT [ID], [DESCRIPTION], [PHASE_ID] FROM TEST_SET WHERE ID = {testSetId}", dbConnection);
+                SqlCommand cmd = new SqlCommand($"SELECT [ID], [DESCRIPTION], [PHASE_ID] FROM TEST_SET WHERE ID = {testSetId} order by [PHASE_ID]", dbConnection);
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 while (dr.Read())
