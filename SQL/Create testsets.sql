@@ -1,8 +1,11 @@
 INSERT INTO [dbo].[TEST_SET] (ID, DESCRIPTION, PHASE_ID)
 VALUES (1, 'test set 1', 1);
 INSERT INTO [dbo].[TEST_SET] (ID, DESCRIPTION, PHASE_ID)
-VALUES (1, 'test set 2', 2);
+VALUES (1, 'test set 1', 2);
 INSERT INTO [dbo].[TEST_SET] (ID, DESCRIPTION, PHASE_ID)
-VALUES (1, 'test set 3', 3);
+VALUES (1, 'test set 1', 3);
 INSERT INTO [dbo].[TEST_SET] (ID, DESCRIPTION, PHASE_ID)
-VALUES (1, 'test set 4', 4);
+VALUES (1, 'test set 1', 4);
+
+INSERT INTO [dbo].[TEST_SET] (ID, DESCRIPTION, PHASE_ID)
+VALUES (1, 'test set 1', 5);
