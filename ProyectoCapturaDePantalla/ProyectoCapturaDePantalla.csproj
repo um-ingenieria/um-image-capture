@@ -114,6 +114,7 @@
     <Compile Include="Domain\Phase\Phase.cs" />
     <Compile Include="Domain\Phase\PhaseBase.cs" />
     <Compile Include="Domain\Phase\stimulus\DEVO.cs" />
+    <Compile Include="Domain\Phase\stimulus\DimensionalStimuli.cs" />
     <Compile Include="Domain\Phase\stimulus\IAP.cs" />
     <Compile Include="Domain\Phase\VideoPhase.cs" />
     <Compile Include="Domain\Pulse\PulseMeasurement.cs" />

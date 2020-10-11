@@ -41,7 +41,7 @@ namespace ProyectoCapturaDePantalla.dao
             try
             {
                 dbConnection.Open();
-                SqlCommand cmd = new SqlCommand($"SELECT TOP (2) [id_iaps], [valence_mean], [valence_standard_deviation], [arousal_mean], [arousal_standard_deviation], [set_id] FROM {gender} WHERE id_iaps in ({string.Join(",", iapsIds.Select(n => n.ToString()).ToArray())})", dbConnection);
+                SqlCommand cmd = new SqlCommand($"SELECT TOP (2) [id_iaps], [valence_mean], [valence_sd], [arousal_mean], [arousal_sd], [set_id] FROM {gender} WHERE id_iaps in ({string.Join(",", iapsIds.Select(n => n.ToString()).ToArray())})", dbConnection);
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 iapsList = new List<IAP>();
@@ -50,9 +50,9 @@ namespace ProyectoCapturaDePantalla.dao
                 {
                     float id = float.Parse(Convert.ToString(dr["id_iaps"]));
                     float valenceMean = float.Parse(Convert.ToString(dr["valence_mean"]));
-                    float valenceStandardDeviation = float.Parse(Convert.ToString(dr["valence_standard_deviation"]));
+                    float valenceStandardDeviation = float.Parse(Convert.ToString(dr["valence_sd"]));
                     float arousalMean = float.Parse(Convert.ToString(dr["arousal_mean"]));
-                    float arousalStandardDeviation = float.Parse(Convert.ToString(dr["valence_standard_deviation"]));
+                    float arousalStandardDeviation = float.Parse(Convert.ToString(dr["valence_sd"]));
                     int setId = int.Parse(Convert.ToString(dr["set_id"]));
 
                     iapsList.Add(new IAP(id, setId, valenceMean, valenceStandardDeviation, arousalMean, arousalStandardDeviation));

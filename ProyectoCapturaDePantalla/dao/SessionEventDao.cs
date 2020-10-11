@@ -1,4 +1,7 @@
-﻿using ProyectoCapturaDePantalla.Domain.Session;
+﻿using ProyectoCapturaDePantalla.Domain.Phase;
+using ProyectoCapturaDePantalla.Domain.Phase.stimulus;
+using ProyectoCapturaDePantalla.Domain.Session;
+using ProyectoCapturaDePantalla.utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +14,30 @@ namespace ProyectoCapturaDePantalla.dao
 {
     public class SessionEventDao
     {
-        public void SaveSessionEvent(SessionEvent sessionEvent)
+        private static SessionEventDao instance = null;
+
+        private SessionEventDao()
+        {
+        }
+
+        public static SessionEventDao Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new SessionEventDao();
+                }
+                return instance;
+            }
+        }
+
+        public static void SaveSessionEvent(SessionEvent sessionEvent)
+        {
+            Instance.saveSessionEvent(sessionEvent);
+        }
+
+        public void saveSessionEvent(SessionEvent sessionEvent)
         {
             SqlConnection dbConnection = DbConnection.GetConnection();
             SqlCommand command = new SqlCommand();
@@ -24,9 +50,16 @@ namespace ProyectoCapturaDePantalla.dao
             command.Parameters.AddWithValue("@test_name", sessionEvent.TestName);
             command.Parameters.AddWithValue("@test_event", sessionEvent.TestEvent);
             command.Parameters.AddWithValue("@event_date", sessionEvent.EventDate);
-            command.Parameters.AddWithValue("@stimuli_id", (sessionEvent.StimulId == 0f) ? (Object)DBNull.Value : sessionEvent.StimulId);
-            command.Parameters.AddWithValue("@stimuli_type", string.IsNullOrEmpty(sessionEvent.StimuliType) ? (Object)DBNull.Value : sessionEvent.StimuliType);
-            //param.Value = !string.IsNullOrEmpty(activity.StaffId) ? activity.StaffId : (object)DBNull.Value;
+            if (sessionEvent.Stimuli == null)
+            {
+                command.Parameters.AddWithValue("@stimuli_id", (Object)DBNull.Value);
+                command.Parameters.AddWithValue("@stimuli_type", (Object)DBNull.Value);
+            } else
+            {
+                command.Parameters.AddWithValue("@stimuli_id", sessionEvent.Stimuli.Id == 0f ? (Object)DBNull.Value : sessionEvent.Stimuli.Id);
+                command.Parameters.AddWithValue("@stimuli_type", string.IsNullOrEmpty(sessionEvent.Stimuli.Type) ? (Object)DBNull.Value : sessionEvent.Stimuli.Type);
+            }
+
             try
             {
                 dbConnection.Open();
@@ -41,6 +74,74 @@ namespace ProyectoCapturaDePantalla.dao
             {
                 dbConnection.Close();
             }
+        }
+        public static List<SessionEvent> GetStimuliEventsBySessionId(int sessionId)
+        {
+            return Instance.getStimuliEventsBySessionId(sessionId);
+        }
+        public List<SessionEvent> getStimuliEventsBySessionId(int sessionId)
+        {
+            List<SessionEvent> events = new List<SessionEvent>();
+            SqlConnection dbConnection = DbConnection.GetConnection();
+          
+
+            try
+            {
+                dbConnection.Open();
+                
+                SqlCommand cmd = new SqlCommand($@"SELECT se.event_date, se.test_name, se.STIMULI_ID, se.STIMULI_TYPE, se.test_event,
+                    CASE WHEN se.STIMULI_TYPE = 'IAP_TYPE' THEN iaps.arousal_mean ELSE devo.arousal_mean END as arousal_mean,
+                    CASE WHEN se.STIMULI_TYPE = 'IAP_TYPE' THEN iaps.arousal_sd ELSE devo.arousal_sd END as arousal_sd,
+                    CASE WHEN se.STIMULI_TYPE = 'IAP_TYPE' THEN iaps.valence_mean ELSE devo.valence_mean END as valence_mean,
+                    CASE WHEN se.STIMULI_TYPE = 'IAP_TYPE' THEN iaps.valence_sd ELSE devo.valence_sd END as valence_sd,
+                    CASE WHEN se.STIMULI_TYPE = 'IAP_TYPE' THEN iaps.set_id  ELSE NULL END as set_id
+                    FROM SESSION_EVENT se
+                    LEFT JOIN IAPS_ALL_SUBJECTS iaps on se.STIMULI_ID = iaps.id_iaps
+                    LEFT JOIN DEVO_ALL_SUBJECTS devo on se.STIMULI_ID = devo.id
+                    WHERE se.session_id = {sessionId}
+                    AND se.test_event in ('INIT_STIMULI', 'END_STIMULI')", dbConnection);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    //DateTime eventDate = DateHelper.FormatDate((Convert.ToString(dr["event_date"])), DateHelper.FULL_DATE_HOUR_PERIOD);
+                    DateTime eventDate = (System.DateTime)dr["event_date"];
+                    string testName = Convert.ToString(dr["test_name"]);
+                    float stimuliId= float.Parse(Convert.ToString(dr["STIMULI_ID"]));
+                    string stimuliType = Convert.ToString(dr["STIMULI_TYPE"]);
+                    string testEvent = Convert.ToString(dr["test_event"]);
+                    float arousalMean = float.Parse(Convert.ToString(dr["arousal_mean"]));
+                    float arousalSD = float.Parse(Convert.ToString(dr["arousal_sd"]));
+                    float valenceMean = float.Parse(Convert.ToString(dr["valence_mean"]));
+                    float valenceSD = float.Parse(Convert.ToString(dr["valence_sd"]));
+
+                    DimensionalStimuli stimuli = null;
+
+                    if (stimuliType == ImagePhase.IAP_TYPE)
+                    {
+                        int setId = int.Parse(Convert.ToString(dr["set_id"]));
+                        stimuli = new IAP(stimuliId, setId, valenceMean, valenceSD, arousalMean, arousalSD);
+                    } else if (stimuliType == VideoPhase.DEVO_TYPE)
+                    {
+                        stimuli = new DEVO(stimuliId, valenceMean, valenceSD, arousalMean, arousalSD);
+                    }
+
+                    events.Add(new SessionEvent(sessionId, testName, testEvent, eventDate, stimuli));
+                }
+            }
+            catch (Exception e)
+            {
+                string message = "Error recuperando los eventos de los estimulos";
+                Console.WriteLine(message + e.Message);
+                throw e;
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+
+            return events;
         }
     }
 }

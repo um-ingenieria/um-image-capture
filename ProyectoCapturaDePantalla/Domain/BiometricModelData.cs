@@ -15,8 +15,10 @@ namespace ProyectoCapturaDePantalla.Domain
         private float microSiemens;
         private float sCR;
         private float sCR_MIN;
-        private float arousal;
-        private float valence;
+        private float arousalMean;
+        private float valenceMean;
+        private float arousalSD;
+        private float valenceSD;
 
         public DateTime TimeStamp { get => timeStamp; set => timeStamp = value; }
         public float HR { get => hR; set => hR = value; }
@@ -25,8 +27,10 @@ namespace ProyectoCapturaDePantalla.Domain
         public float MicroSiemens { get => microSiemens; set => microSiemens = value; }
         public float SCR { get => sCR; set => sCR = value; }
         public float SCR_MIN { get => sCR_MIN; set => sCR_MIN = value; }
-        public float Arousal { get => arousal; set => arousal = value; }
-        public float Valence { get => valence; set => valence = value; }
+        public float ArousalMean { get => arousalMean; set => arousalMean = value; }
+        public float ValenceMean { get => valenceMean; set => valenceMean = value; }
+        public float ArousalSD { get => arousalSD; set => arousalSD = value; }
+        public float ValenceSD { get => valenceSD; set => valenceSD = value; }
 
         public BiometricModelData(DateTime timeStamp, float hR, float rR, float hRV, float microSiemens, float sCR, float sCR_MIN)
         {

@@ -18,7 +18,7 @@ namespace ProyectoCapturaDePantalla.dao
             try
             {
                 dbConnection.Open(); //TODO: ver si es transacional
-                foreach (PulseStatistic pulseStatistic in pulseMeasurement.pulseStatistics)
+                foreach (PulseStatistic pulseStatistic in pulseMeasurement.PulseStatistics)
                 {
                     SqlCommand command = createCommandForRecord(seccion, dbConnection, pulseStatistic);
                     int recordsAffected = command.ExecuteNonQuery();
