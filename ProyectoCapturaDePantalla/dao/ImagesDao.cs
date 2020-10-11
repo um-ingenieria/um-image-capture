@@ -19,13 +19,13 @@ namespace ProyectoCapturaDePantalla.dao
             try
             {
                 dbConnection.Open();
-                SqlCommand cmd = new SqlCommand($"SELECT [SECCION], [IDENTIFICADOR], [DATE], [IMAGENWEBCAM] FROM NEUROSKY_IMAGENES WHERE SECCION = {section}", dbConnection);
+                SqlCommand cmd = new SqlCommand($"SELECT [SECCION], [id], [DATE], [IMAGENWEBCAM] FROM NEUROSKY_IMAGENES WHERE SECCION = {section}", dbConnection);
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 while (dr.Read())
                 {
                     FaceImage img = new FaceImage();
-                    img.Id = int.Parse(Convert.ToString(dr["IDENTIFICADOR"]));
+                    img.Id = int.Parse(Convert.ToString(dr["id"]));
                     img.Section = int.Parse(Convert.ToString(dr["SECCION"]));
                     img.Date = DateHelper.FormatDate((Convert.ToString(dr["DATE"])), DateHelper.FULL_DATE_HOUR_PERIOD);
                     img.Path = Convert.ToString(dr["IMAGENWEBCAM"]);
@@ -50,7 +50,7 @@ namespace ProyectoCapturaDePantalla.dao
             try
             {
                 dbConnection.Open();
-                string SqlQuery = "INSERT INTO NEUROSKY_IMAGENES (NOMBREPRUEBA,SECCION,IDENTIFICADOR,DATE,IMAGENESCRITORIO,IMAGENWEBCAM)VALUES('" + testName + "'," + section + "," + id + ",'" + DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss.fff tt") + "','" + desktopImagePath + "', '" + webcamImagePath + "')";
+                string SqlQuery = "INSERT INTO NEUROSKY_IMAGENES (test_name, SECCION, id, DATE, IMAGENESCRITORIO, IMAGENWEBCAM)VALUES('" + testName + "'," + section + "," + id + ",'" + DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss.fff tt") + "','" + desktopImagePath + "', '" + webcamImagePath + "')";
                 SqlCommand cmd = new SqlCommand(SqlQuery, dbConnection);
 
 

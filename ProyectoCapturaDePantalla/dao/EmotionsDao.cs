@@ -42,7 +42,7 @@ namespace ProyectoCapturaDePantalla.dao
             SqlCommand command = new SqlCommand();
             command.Connection = dbConnection;          
             command.CommandType = CommandType.Text;
-            command.CommandText = "INSERT into FACE_EMOTION (SECCION , IDENTIFICADOR , ANGER, CONTEMPT, DISGUST, FEAR, HAPPINESS, NEUTRAL, SADNESS, SURPRISE, VALENCE) " +
+            command.CommandText = "INSERT into FACE_EMOTION (SECCION , image_id , ANGER, CONTEMPT, DISGUST, FEAR, HAPPINESS, NEUTRAL, SADNESS, SURPRISE, VALENCE) " +
                 "VALUES (@id , @seccion, @anger, @contempt, @disgust, @fear, @happiness, @neutral, @sadness, @surprise, @valence)";
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@seccion", seccion);

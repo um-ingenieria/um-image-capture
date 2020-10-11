@@ -36,7 +36,7 @@ namespace ProyectoCapturaDePantalla
         Session currentSession;
         int contador = 0;
         int Seccion;
-        int Identificador = 0;
+        int imageId = 0;
         AForge.Video.DirectShow.VideoCaptureDevice VideoSource;
         AForge.Video.DirectShow.FilterInfoCollection VideoSources;
         Screen[] screens2;
@@ -219,7 +219,7 @@ namespace ProyectoCapturaDePantalla
         {
             if (contador == 1)
             {
-                this.Identificador++;
+                this.imageId++;
                 
                 Bitmap Imgb = new Bitmap(screens2[comboBoxPantallas.SelectedIndex].WorkingArea.Width, screens2[comboBoxPantallas.SelectedIndex].WorkingArea.Height, PixelFormat.Format32bppArgb);
                 Graphics graf = Graphics.FromImage(Imgb);
@@ -243,7 +243,7 @@ namespace ProyectoCapturaDePantalla
                 pictureBoxWebCam.Image.Save(webcamPicture, ImageFormat.Png);
 
                 ImagesDao imagesDao = new ImagesDao();
-                imagesDao.InsertImages(currentSession.TestName, this.Seccion, this.Identificador, desktopScreenshot, webcamPicture);
+                imagesDao.InsertImages(currentSession.TestName, this.Seccion, this.imageId, desktopScreenshot, webcamPicture);
 
                 timerCaptura.Stop();
             }
@@ -261,7 +261,7 @@ namespace ProyectoCapturaDePantalla
                 Enabled = true;
             }
             Seccion++;
-            Identificador = 0;
+            imageId = 0;
         }
 
         private void buttonTerminar_Click(object sender, EventArgs e)
