@@ -108,6 +108,8 @@
     <Compile Include="dao\SessionDao.cs" />
     <Compile Include="dao\SessionEventDao.cs" />
     <Compile Include="dao\SkinDao.cs" />
+    <Compile Include="Domain\BiometricModelData.cs" />
+    <Compile Include="Domain\DimentionalMesurement.cs" />
     <Compile Include="Domain\Phase\ImagePhase.cs" />
     <Compile Include="Domain\Phase\Phase.cs" />
     <Compile Include="Domain\Phase\PhaseBase.cs" />

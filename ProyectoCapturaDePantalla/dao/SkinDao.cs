@@ -18,7 +18,7 @@ namespace ProyectoCapturaDePantalla.dao
             try
             {
                 dbConnection.Open(); //TODO: ver si es transacional
-                foreach (SkinStatistic skinStatistic in skinMeasurement.skinStatistics)
+                foreach (SkinStatistic skinStatistic in skinMeasurement.SkinStatistics)
                 {
                     SqlCommand command = createCommandForRecord(seccion, dbConnection, skinStatistic);
                     int recordsAffected = command.ExecuteNonQuery();

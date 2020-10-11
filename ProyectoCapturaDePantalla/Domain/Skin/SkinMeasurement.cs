@@ -13,21 +13,23 @@ namespace ProyectoCapturaDePantalla.Domain
         public static string FILE_NAME = "skin-min.csv";
         public static string CSV_KEY = "STATISTICS";
 
-        public List<SkinStatistic> skinStatistics;
+        private List<SkinStatistic> skinStatistics;
 
         public SkinMeasurement()
         {
-            skinStatistics = new List<SkinStatistic>();
+            SkinStatistics = new List<SkinStatistic>();
         }
+
+        public List<SkinStatistic> SkinStatistics { get => skinStatistics; set => skinStatistics = value; }
 
         public void AddSkinStatistic(SkinStatistic skinStatistic)
         {
-            this.skinStatistics.Add(skinStatistic);
+            this.SkinStatistics.Add(skinStatistic);
         }
 
         public void AddSkinStatistics(List<SkinStatistic> skinStatistics)
         {
-            this.skinStatistics = skinStatistics;
+            this.SkinStatistics = skinStatistics;
         }
     }
 }

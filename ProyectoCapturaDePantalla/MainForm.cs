@@ -25,6 +25,7 @@ using ProyectoCapturaDePantalla.Domain.SAM;
 using ProyectoCapturaDePantalla.Domain.Phase;
 using ProyectoCapturaDePantalla.Domain.Phase.stimulus;
 using ProyectoCapturaDePantalla.Domain.TestSet;
+using ProyectoCapturaDePantalla.Domain.Skin;
 
 namespace ProyectoCapturaDePantalla
 {
@@ -161,8 +162,12 @@ namespace ProyectoCapturaDePantalla
                         {
                             foreach (IAP image in imagePhase.Iaps)
                             {
+                                sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, "INIT_STIMULI", DateTime.Now, image.IdIaps, ImagePhase.IAP_TYPE));
+
                                 imagePlayer.ChangeImage(string.Concat(image.IdIaps, ".jpg"));
                                 await Task.Delay(2000);
+
+                                sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, "END_STIMULI", DateTime.Now, image.IdIaps, ImagePhase.IAP_TYPE));
                             }
                         });
 
@@ -175,10 +180,14 @@ namespace ProyectoCapturaDePantalla
 
                         foreach (DEVO video in videoPhase.Videos)
                         {
+                            sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, "INIT_STIMULI", DateTime.Now, video.Id, VideoPhase.DEVO_TYPE));
+
                             videoPlayer = new VideoDisplay(ConfigurationManager.AppSettings["devo-path"]);
                             videoPlayer.WindowState = FormWindowState.Maximized;
                             videoPlayer.play(string.Concat(video.Id, ".mp4"));
                             videoPlayer.ShowDialog();
+
+                            sessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, "END_STIMULI", DateTime.Now, video.Id, VideoPhase.DEVO_TYPE));
                         }
                     }
 
@@ -374,21 +383,50 @@ namespace ProyectoCapturaDePantalla
             }
 
             ParserService parserService = new ParserService();
+            SkinMeasurement skinMeasurement;
             try
             {
-                SkinMeasurement skinMeasurement = parserService.ParseCsvSkinMeasurement(SkinMeasurement.PATH, SkinMeasurement.FILE_NAME, SkinMeasurement.CSV_KEY);
+                skinMeasurement = parserService.ParseCsvSkinMeasurement(SkinMeasurement.PATH, SkinMeasurement.FILE_NAME, SkinMeasurement.CSV_KEY);
                 SkinDao skinDao = new SkinDao();
                 skinDao.SaveSkinMeasurement(skinMeasurement, section);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
+            PulseMeasurement pulseMeasurement;
             try
             {
-                PulseMeasurement pulseMeasurement = parserService.ParseCsvPulseMeasurement(PulseMeasurement.PATH, PulseMeasurement.FILE_NAME, PulseMeasurement.CSV_KEY);
+                pulseMeasurement = parserService.ParseCsvPulseMeasurement(PulseMeasurement.PATH, PulseMeasurement.FILE_NAME, PulseMeasurement.CSV_KEY);
                 PulseDao pulseDao = new PulseDao();
                 pulseDao.SavePulseMeasurement(pulseMeasurement, section);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+            createHrSkinAndArousalMesurement(pulseMeasurement, skinMeasurement);
+        }
+
+        private void createHrSkinAndArousalMesurement(PulseMeasurement pulseMeasurement, SkinMeasurement skinMeasurement)
+        {
+            //TODO: GET arousal values
+            List<BiometricModelData> biometricsModelData = mergeListAWithListB(pulseMeasurement.PulseStatistics, skinMeasurement.SkinStatistics);
+
+            throw new NotImplementedException();
+        }
+
+        private List<BiometricModelData> mergeListAWithListB(List<PulseStatistic> pulseStatistics, List<SkinStatistic> skinStatistics)
+        {
+            int i = 0;
+            List<BiometricModelData> biometricsModelData = new List<BiometricModelData>();
+            foreach (PulseStatistic pulseStatistic in pulseStatistics)
+            {
+                while ((i < skinStatistics.Count - 2) && (skinStatistics[i].AbsoluteTime.CompareTo(pulseStatistic.AbsoluteTime) > 0))
+                {
+                    i++;
+                }
+
+                biometricsModelData.Add(new BiometricModelData(pulseStatistic.AbsoluteTime, pulseStatistic.HR, pulseStatistic.RR, pulseStatistic.HRV, skinStatistics[i].MicroSiemens, skinStatistics[i].SCR, skinStatistics[i].SCR_MIN));
+            }
+
+            return biometricsModelData;
         }
     }
 }

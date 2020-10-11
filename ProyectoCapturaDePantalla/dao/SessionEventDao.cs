@@ -18,13 +18,15 @@ namespace ProyectoCapturaDePantalla.dao
             command.Connection = dbConnection;
             command.CommandType = CommandType.Text;
 
-            command.CommandText = "INSERT into SESSION_EVENT (SESSION_ID, TEST_NAME, TEST_EVENT, EVENT_DATE) " +
-                "output INSERTED.ID VALUES (@session_id, @test_name, @test_event, @event_date)";
+            command.CommandText = "INSERT into SESSION_EVENT (SESSION_ID, TEST_NAME, TEST_EVENT, EVENT_DATE, STIMULI_ID, STIMULI_TYPE) " +
+                "output INSERTED.ID VALUES (@session_id, @test_name, @test_event, @event_date, @stimuli_id, @stimuli_type)";
             command.Parameters.AddWithValue("@session_id", sessionEvent.SessionId);
             command.Parameters.AddWithValue("@test_name", sessionEvent.TestName);
             command.Parameters.AddWithValue("@test_event", sessionEvent.TestEvent);
             command.Parameters.AddWithValue("@event_date", sessionEvent.EventDate);
-
+            command.Parameters.AddWithValue("@stimuli_id", (sessionEvent.StimulId == 0f) ? (Object)DBNull.Value : sessionEvent.StimulId);
+            command.Parameters.AddWithValue("@stimuli_type", string.IsNullOrEmpty(sessionEvent.StimuliType) ? (Object)DBNull.Value : sessionEvent.StimuliType);
+            //param.Value = !string.IsNullOrEmpty(activity.StaffId) ? activity.StaffId : (object)DBNull.Value;
             try
             {
                 dbConnection.Open();
