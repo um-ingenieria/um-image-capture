@@ -111,13 +111,10 @@
     <Compile Include="dao\SkinDao.cs" />
     <Compile Include="Domain\BiometricModelData.cs" />
     <Compile Include="Domain\DimentionalMesurement.cs" />
-    <Compile Include="Domain\Phase\ImagePhase.cs" />
     <Compile Include="Domain\Phase\Phase.cs" />
-    <Compile Include="Domain\Phase\PhaseBase.cs" />
     <Compile Include="Domain\Phase\stimulus\DEVO.cs" />
     <Compile Include="Domain\Phase\stimulus\DimensionalStimuli.cs" />
     <Compile Include="Domain\Phase\stimulus\IAP.cs" />
-    <Compile Include="Domain\Phase\VideoPhase.cs" />
     <Compile Include="Domain\Pulse\PulseMeasurement.cs" />
     <Compile Include="Domain\Pulse\PulseMeasurementMap.cs" />
     <Compile Include="Domain\Pulse\PulseStatistic.cs" />

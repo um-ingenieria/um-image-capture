@@ -2,6 +2,7 @@
 using ProyectoCapturaDePantalla.utils;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
@@ -41,7 +42,7 @@ namespace ProyectoCapturaDePantalla.dao
         private void saveBiometricModelDataToCsv(List<BiometricModelData> model)
         {
             CsvExport<BiometricModelData> csv = new CsvExport<BiometricModelData>(model);
-            csv.ExportToFile("..\\..\\..\\resources\\data\\biometrics.csv");
+            csv.ExportToFile(string.Concat(ConfigurationManager.AppSettings["data-path"],"\\biometrics.csv"));
         }
     }
 }

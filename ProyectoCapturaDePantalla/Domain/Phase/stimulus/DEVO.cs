@@ -9,6 +9,7 @@ namespace ProyectoCapturaDePantalla.Domain.Phase.stimulus
     public class DEVO : DimensionalStimuli
     {
         public const string ALL_SUBJECTS = "DEVO_ALL_SUBJECTS";
+        public const string DEVO_TYPE = "DEVO_TYPE";
 
         private float lengthInMs;
         private string title;
@@ -24,13 +25,13 @@ namespace ProyectoCapturaDePantalla.Domain.Phase.stimulus
             this.Description = description;
             this.ImpactMean = impactMean;
             this.ImpactSD = impactStandardDerivation;
-            this.type = VideoPhase.DEVO_TYPE;
+            this.type = DEVO_TYPE;
         }
 
         public DEVO(float id, float valenceMean, float valenceStandardDerivation, float arousalMean, float arousalStandardDerivation)
             : base(id, arousalMean, arousalStandardDerivation, valenceMean, valenceStandardDerivation)
         {
-            this.type = VideoPhase.DEVO_TYPE;
+            this.type = DEVO_TYPE;
         }
 
         public float LengthInMs { get => lengthInMs; set => lengthInMs = value; }

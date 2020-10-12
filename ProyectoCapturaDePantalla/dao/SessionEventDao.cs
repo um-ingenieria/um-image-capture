@@ -118,11 +118,11 @@ namespace ProyectoCapturaDePantalla.dao
 
                     DimensionalStimuli stimuli = null;
 
-                    if (stimuliType == ImagePhase.IAP_TYPE)
+                    if (stimuliType == IAP.IAP_TYPE)
                     {
                         int setId = int.Parse(Convert.ToString(dr["set_id"]));
                         stimuli = new IAP(stimuliId, setId, valenceMean, valenceSD, arousalMean, arousalSD);
-                    } else if (stimuliType == VideoPhase.DEVO_TYPE)
+                    } else if (stimuliType == DEVO.DEVO_TYPE)
                     {
                         stimuli = new DEVO(stimuliId, valenceMean, valenceSD, arousalMean, arousalSD);
                     }

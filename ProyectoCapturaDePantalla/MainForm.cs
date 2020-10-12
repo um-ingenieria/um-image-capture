@@ -127,49 +127,11 @@ namespace ProyectoCapturaDePantalla
 
                 TestSet testSet = TestSetDao.GetTestSet(defaultTestSet);
 
-                foreach (PhaseBase phase in testSet.Phases)
+                foreach (Phase phase in testSet.Phases)
                 {
                     SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("INIT_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
 
-                    if (phase.StimuliType == ImagePhase.IAP_TYPE)
-                    {
-                        var imagePhase = (ImagePhase)phase;
-                        imagePlayer = new ImageDisplay(ConfigurationManager.AppSettings["iaps-path"]);
-                        imagePlayer.WindowState = FormWindowState.Maximized;
-                        imagePlayer.Show();
-
-                        await Task.Run(async () =>
-                        {
-                            foreach (IAP image in imagePhase.Iaps)
-                            {
-                                SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, "INIT_STIMULI", DateTime.Now, image));
-
-                                imagePlayer.ChangeImage(string.Concat(image.Id, ".jpg"));
-                                await Task.Delay(2000);
-
-                                SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, "END_STIMULI", DateTime.Now, image));
-                            }
-                        });
-
-                        imagePlayer.Close();
-                    }
-
-                    if (phase.StimuliType == VideoPhase.DEVO_TYPE)
-                    {
-                        var videoPhase = (VideoPhase)phase;
-
-                        foreach (DEVO video in videoPhase.Videos)
-                        {
-                            SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, "INIT_STIMULI", DateTime.Now, video));
-
-                            videoPlayer = new VideoDisplay(ConfigurationManager.AppSettings["devo-path"]);
-                            videoPlayer.WindowState = FormWindowState.Maximized;
-                            videoPlayer.play(string.Concat(video.Id, ".mp4"));
-                            videoPlayer.ShowDialog();
-
-                            SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, "END_STIMULI", DateTime.Now, video));
-                        }
-                    }
+                    await showStimulis(phase);
 
                     SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("END_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
 
@@ -177,6 +139,39 @@ namespace ProyectoCapturaDePantalla
                     SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.ValenceArrousalQuadrant), DateTime.Now));
                 }
             }
+        }
+
+        private async Task showStimulis(Phase phase)
+        {
+            imagePlayer = new ImageDisplay(ConfigurationManager.AppSettings["iaps-path"]);
+            imagePlayer.WindowState = FormWindowState.Maximized;
+
+            foreach (DimensionalStimuli stimuli in phase.Stimulis)
+            {
+                if (stimuli.Type == IAP.IAP_TYPE)
+                {
+                    imagePlayer.Show();
+
+                    await Task.Run(async () =>
+                    {
+                        SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, "INIT_STIMULI", DateTime.Now, stimuli));
+                        imagePlayer.ChangeImage(string.Concat(stimuli.Id, ".jpg"));
+                        await Task.Delay(2000);
+                        SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, "END_STIMULI", DateTime.Now, stimuli));
+                    });
+                }
+                else if (stimuli.Type == DEVO.DEVO_TYPE)
+                {
+                    SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, "INIT_STIMULI", DateTime.Now, stimuli));
+                    videoPlayer = new VideoDisplay(ConfigurationManager.AppSettings["devo-path"]);
+                    videoPlayer.WindowState = FormWindowState.Maximized;
+                    videoPlayer.play(string.Concat(stimuli.Id, ".mp4"));
+                    videoPlayer.ShowDialog();
+                    SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, "END_STIMULI", DateTime.Now, stimuli));
+                }
+            }
+
+            imagePlayer.Close();
         }
 
         private SAM requestSAM()
