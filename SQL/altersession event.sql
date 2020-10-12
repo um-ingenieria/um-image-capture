@@ -1,0 +1,1 @@
+ALTER TABLE [dbo].[SESSION] ADD test_set int;

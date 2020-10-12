@@ -9,7 +9,7 @@ namespace ProyectoCapturaDePantalla.Images
     public class FaceImage
     {
         private int id;
-        private int section;
+        private int sessionId;
         private DateTime date;
         private string name;
         private string path;
@@ -19,7 +19,7 @@ namespace ProyectoCapturaDePantalla.Images
         public FaceImage(int id, int section, DateTime date ,string name, string path)
         {
             this.id = id;
-            this.Section = section; 
+            this.SessionId = section; 
             this.date = date; 
             this.name = name;
             this.path = path;
@@ -29,6 +29,6 @@ namespace ProyectoCapturaDePantalla.Images
         public int Id { get => id; set => id = value; }
         public DateTime Date { get => date; set => date = value; }
         public string Path { get => path; set => path = value; }
-        public int Section { get => section; set => section = value; }
+        public int SessionId { get => sessionId; set => sessionId = value; }
     }
 }

@@ -10,14 +10,18 @@ namespace ProyectoCapturaDePantalla.Domain.Session
     {
         private int id;
         private string testName;
+        private int testSet;
 
-        public Session(string testName)
+
+        public Session(string testName, int testSet)
         {
             TestName = testName;
+            TestSet = testSet;
         }
 
         public int Id { get => id; set => id = value; }
         public string TestName { get => testName; set => testName = value; }
+        public int TestSet { get => testSet; set => testSet = value; }
     }
 }
 

@@ -31,21 +31,21 @@ namespace ProyectoCapturaDePantalla.dao
             }
         }
 
-        public static void SaveEmotion(Emotion emotion, int seccion, int id, double valence)
+        public static void SaveEmotion(Emotion emotion, int sessionId, int id, double valence)
         {
-            Instance.saveEmotion(emotion, seccion, id, valence);
+            Instance.saveEmotion(emotion, sessionId, id, valence);
         }
 
-        public void saveEmotion(Emotion emotion, int seccion, int id, double valence)
+        public void saveEmotion(Emotion emotion, int sessionId, int id, double valence)
         {
             SqlConnection dbConnection = DbConnection.GetConnection();
             SqlCommand command = new SqlCommand();
             command.Connection = dbConnection;          
             command.CommandType = CommandType.Text;
-            command.CommandText = "INSERT into FACE_EMOTION (SECCION , IDENTIFICADOR , ANGER, CONTEMPT, DISGUST, FEAR, HAPPINESS, NEUTRAL, SADNESS, SURPRISE, VALENCE) " +
-                "VALUES (@id , @seccion, @anger, @contempt, @disgust, @fear, @happiness, @neutral, @sadness, @surprise, @valence)";
+            command.CommandText = "INSERT into FACE_EMOTION (session_id , image_id , ANGER, CONTEMPT, DISGUST, FEAR, HAPPINESS, NEUTRAL, SADNESS, SURPRISE, VALENCE) " +
+                "VALUES (@id , @session_id, @anger, @contempt, @disgust, @fear, @happiness, @neutral, @sadness, @surprise, @valence)";
             command.Parameters.AddWithValue("@id", id);
-            command.Parameters.AddWithValue("@seccion", seccion);
+            command.Parameters.AddWithValue("@session_id", sessionId);
             command.Parameters.AddWithValue("@anger", emotion.Anger);
             command.Parameters.AddWithValue("@contempt", emotion.Contempt);
             command.Parameters.AddWithValue("@disgust", emotion.Disgust);
