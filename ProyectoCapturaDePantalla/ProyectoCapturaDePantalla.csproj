@@ -96,6 +96,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="dao\BiometricModelDataDao.cs" />
     <Compile Include="dao\DbConnection.cs" />
     <Compile Include="dao\DEVODao.cs" />
     <Compile Include="dao\EmotionsDao.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="SAMForm.Designer.cs">
       <DependentUpon>SAMForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="utils\csvExport.cs" />
     <Compile Include="utils\DatesHelper.cs" />
     <Compile Include="utils\EventTypes.cs" />
     <Compile Include="VideoDisplay.cs">

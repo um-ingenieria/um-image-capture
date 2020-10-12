@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoCapturaDePantalla.Domain
 {
-    class BiometricModelData
+    public class BiometricModelData
     {
         private DateTime timeStamp;
         private float hR;
