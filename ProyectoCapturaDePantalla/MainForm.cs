@@ -403,9 +403,13 @@ namespace ProyectoCapturaDePantalla
 
         private void createHrSkinAndArousalMesurement(int section, PulseMeasurement pulseMeasurement, SkinMeasurement skinMeasurement)
         {
+            // Juntamos los eventos de inicio y fin de estimulo, asociados a su nivel de valence y arousal
             List<SessionEvent> sessionEvents = SessionEventDao.GetStimuliEventsBySessionId(section);
+
+            // Unificamos los registris de HR y Skin en una misma marca de tiempo
             List<BiometricModelData> biometricsModelData = mergeListAWithListB(pulseMeasurement.PulseStatistics, skinMeasurement.SkinStatistics);
 
+            // A cada medicion de HR y SKIN entre un par de eventos INIT_STIMULI y END_STIMULI, le asignamos el valor de valence-arousal del estimulo asociado a esos eventos.
             for (int i = 0; i < sessionEvents.Count; i+=2)
             {
                 if(!(sessionEvents[i].TestEvent == "INIT_STIMULI" && sessionEvents[i+1].TestEvent == "END_STIMULI"))
@@ -415,11 +419,13 @@ namespace ProyectoCapturaDePantalla
 
                 SetArousalAndValenceInInterval(biometricsModelData, sessionEvents[i].EventDate, sessionEvents[i + 1].EventDate, sessionEvents[i].Stimuli);
             }
-            
-            /* TODO: 
-             * Limpiar outliers (arousal y valence 0)
-             * Guardar en BBDD biometricsModelData (entrada del modelo de ML)
-             */
+
+            // TODO: Limpiar outliers (arousal y valence)
+
+            // Save model to csv
+            BiometricModelDataDao.SaveBiometricModelDataToCsv(biometricsModelData);
+
+            // Go to Python...
         }
 
         private void SetArousalAndValenceInInterval(List<BiometricModelData> biometrics, DateTime dateSince, DateTime dateTo, DimensionalStimuli stimuli)
