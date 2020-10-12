@@ -162,6 +162,7 @@ namespace ProyectoCapturaDePantalla
                 }
                 else if (stimuli.Type == DEVO.DEVO_TYPE)
                 {
+                    imagePlayer.ClearImage();
                     SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, "INIT_STIMULI", DateTime.Now, stimuli));
                     videoPlayer = new VideoDisplay(ConfigurationManager.AppSettings["devo-path"]);
                     videoPlayer.WindowState = FormWindowState.Maximized;
