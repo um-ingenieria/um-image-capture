@@ -178,7 +178,7 @@ namespace ProyectoCapturaDePantalla.face
                     Emotion emotion = face.FaceAttributes.Emotion;
                     string emotionType = GetEmotionType(emotion);
                     //TODO: pasar id y section
-                    EmotionsDao.SaveEmotion(emotion, image.Section, image.Id, CalculateValence(emotion));
+                    EmotionsDao.SaveEmotion(emotion, image.SessionId, image.Id, CalculateValence(emotion));
                 }
             }
         }

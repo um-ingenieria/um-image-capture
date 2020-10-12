@@ -35,7 +35,6 @@ namespace ProyectoCapturaDePantalla
         SqlConnection Conexion = DbConnection.GetConnection();
         Session currentSession;
         int contador = 0;
-        int Seccion;
         int imageId = 0;
         AForge.Video.DirectShow.VideoCaptureDevice VideoSource;
         AForge.Video.DirectShow.FilterInfoCollection VideoSources;
@@ -82,23 +81,6 @@ namespace ProyectoCapturaDePantalla
             }
 
             buttonTerminar.Enabled = false;
-
-            try {
-                Conexion.Open();
-
-                SqlCommand cmd = new SqlCommand("select max(SECCION) AS SECCION from [NEUROSKY_IMAGENES]", Conexion);
-                SqlDataReader dr = cmd.ExecuteReader();
-
-                if (dr.Read())
-                {
-                    int.TryParse(Convert.ToString(dr["SECCION"]), out this.Seccion);
-                    Seccion++;
-                }
-                Conexion.Close();
-            } catch(Exception e) {
-                Console.WriteLine("Fallo la conexion a la base");
-                Console.WriteLine(e.Message);
-            }
         }
 
         private async void buttonEmpezar_Click(object sender, EventArgs e)
@@ -203,7 +185,7 @@ namespace ProyectoCapturaDePantalla
             SAMForm.ShowDialog();
             SAM response = SAMForm.getSAMResponse();
             ValenceAndArousalDao excitementAndArousalDao = new ValenceAndArousalDao();
-            excitementAndArousalDao.InsertExcitementAndArousal(currentSession.TestName, EventTypes.INITIAL_SAM, response.Valence, response.Arousal, this.Seccion);
+            excitementAndArousalDao.InsertExcitementAndArousal(currentSession.TestName, EventTypes.INITIAL_SAM, response.Valence, response.Arousal, currentSession.Id);
             return response;
         }
 
@@ -243,24 +225,23 @@ namespace ProyectoCapturaDePantalla
                 pictureBoxWebCam.Image.Save(webcamPicture, ImageFormat.Png);
 
                 ImagesDao imagesDao = new ImagesDao();
-                imagesDao.InsertImages(currentSession.TestName, this.Seccion, this.imageId, desktopScreenshot, webcamPicture);
+                imagesDao.InsertImages(currentSession.TestName, currentSession.Id, this.imageId, desktopScreenshot, webcamPicture);
 
                 timerCaptura.Stop();
             }
             contador++;
         }
 
-        private async void CerrarSeccion()
+        private async void CloseSession()
         {
             DialogResult dialogResult = MessageBox.Show("Desea iniciar el proceso de reconocimiento facial ahora?", "Confirmación", MessageBoxButtons.YesNo);
 
             if (dialogResult == DialogResult.Yes)
             {
                 Enabled = false;
-                await InitFaceRecognition(Seccion);
+                await InitFaceRecognition(currentSession.Id);
                 Enabled = true;
             }
-            Seccion++;
             imageId = 0;
         }
 
@@ -270,7 +251,7 @@ namespace ProyectoCapturaDePantalla
 
             timerLapso.Stop();
             //this.CallSP();
-            CerrarSeccion();
+            CloseSession();
             buttonTerminar.Enabled = false;
             comboBoxPantallas.Enabled = true;
             comboBoxWebCam.Enabled = true;
@@ -324,20 +305,20 @@ namespace ProyectoCapturaDePantalla
         private async Task emotionButton_ClickAsync(object sender, EventArgs e)
         {
             string promptValue = new Prompt("Reconocimiento facial", "Ingrese el número de sección de la prueba de la que desea hacer el reconocimiento").show();
-            if (int.TryParse(promptValue, out int section))
+            if (int.TryParse(promptValue, out int sessionId))
             {
                 Enabled = false;
-                await InitFaceRecognition(section);
+                await InitFaceRecognition(sessionId);
                 Enabled = true;
             }
         }
 
-        private async Task InitFaceRecognition(int section)
+        private async Task InitFaceRecognition(int sessionId)
         {
             FaceService faceService = new FaceService();
             try
             {
-                await faceService.DetectFacesEmotionByBulk(this.GetImages(section, 1));
+                await faceService.DetectFacesEmotionByBulk(this.GetImages(sessionId, 1));
                 MessageBox.Show("El proceso de detección de imagenes finalizó!");
             }
             catch (Exception ex)
@@ -349,14 +330,14 @@ namespace ProyectoCapturaDePantalla
         }
 
         //If bulkLimit is 0, get all images
-        private List<FaceImage> GetImages(int section, int bulkLimit)
+        private List<FaceImage> GetImages(int sessionId, int bulkLimit)
         {
             List<FaceImage> images = new List<FaceImage>();
 
             try
             {
                 ImagesDao imagesDao = new ImagesDao();
-                images = imagesDao.GetImages(section);
+                images = imagesDao.GetImages(sessionId);
 
                 if (images.Count > 0 && bulkLimit > 0)
                 {
@@ -374,7 +355,7 @@ namespace ProyectoCapturaDePantalla
         private void biometricsBtn_Click(object sender, EventArgs e)
         {
             string promptValue = new Prompt("Procesamiento biometrico", "Ingrese el número de sección de la prueba de la que desea hacer el procesamiento de datos biometricos").show();
-            if (!int.TryParse(promptValue, out int section))
+            if (!int.TryParse(promptValue, out int sessionId))
             {
                 throw new Exception("Error al intentar parsear el número de seccción. Verifique que los datos sean correctos");
             }
@@ -385,7 +366,7 @@ namespace ProyectoCapturaDePantalla
             {
                 skinMeasurement = parserService.ParseCsvSkinMeasurement(SkinMeasurement.PATH, SkinMeasurement.FILE_NAME, SkinMeasurement.CSV_KEY);
                 SkinDao skinDao = new SkinDao();
-                skinDao.SaveSkinMeasurement(skinMeasurement, section);
+                skinDao.SaveSkinMeasurement(skinMeasurement, sessionId);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
@@ -394,16 +375,16 @@ namespace ProyectoCapturaDePantalla
             {
                 pulseMeasurement = parserService.ParseCsvPulseMeasurement(PulseMeasurement.PATH, PulseMeasurement.FILE_NAME, PulseMeasurement.CSV_KEY);
                 PulseDao pulseDao = new PulseDao();
-                pulseDao.SavePulseMeasurement(pulseMeasurement, section);
+                pulseDao.SavePulseMeasurement(pulseMeasurement, sessionId);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
-            createHrSkinAndArousalMesurement(section, pulseMeasurement, skinMeasurement);
+            createHrSkinAndArousalMesurement(sessionId, pulseMeasurement, skinMeasurement);
         }
 
-        private void createHrSkinAndArousalMesurement(int section, PulseMeasurement pulseMeasurement, SkinMeasurement skinMeasurement)
+        private void createHrSkinAndArousalMesurement(int sessionId, PulseMeasurement pulseMeasurement, SkinMeasurement skinMeasurement)
         {
-            List<SessionEvent> sessionEvents = SessionEventDao.GetStimuliEventsBySessionId(section);
+            List<SessionEvent> sessionEvents = SessionEventDao.GetStimuliEventsBySessionId(sessionId);
             List<BiometricModelData> biometricsModelData = mergeListAWithListB(pulseMeasurement.PulseStatistics, skinMeasurement.SkinStatistics);
 
             for (int i = 0; i < sessionEvents.Count; i+=2)
