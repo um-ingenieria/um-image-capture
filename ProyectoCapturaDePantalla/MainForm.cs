@@ -94,7 +94,7 @@ namespace ProyectoCapturaDePantalla
             else
             {
                 SessionDao sessionDao = new SessionDao();
-                currentSession = new Session(testName);
+                currentSession = new Session(testName, defaultTestSet);
 
                 try
                 {
