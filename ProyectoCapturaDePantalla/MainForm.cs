@@ -350,7 +350,7 @@ namespace ProyectoCapturaDePantalla
 
         private void biometricsBtn_Click(object sender, EventArgs e)
         {
-            string promptValue = new Prompt("Procesamiento biometrico", "Ingrese el número de sección de la prueba de la que desea hacer el procesamiento de datos biometricos").show();
+            string promptValue = new Prompt("Procesamiento biometrico", "Ingrese el número de session de la prueba de la que desea hacer el procesamiento de datos biometricos").show();
             if (!int.TryParse(promptValue, out int sessionId))
             {
                 throw new Exception("Error al intentar parsear el número de seccción. Verifique que los datos sean correctos");
@@ -362,16 +362,18 @@ namespace ProyectoCapturaDePantalla
             {
                 skinMeasurement = parserService.ParseCsvSkinMeasurement(SkinMeasurement.PATH, SkinMeasurement.FILE_NAME, SkinMeasurement.CSV_KEY);
                 SkinDao skinDao = new SkinDao();
-                skinDao.SaveSkinMeasurement(skinMeasurement, sessionId);
+                //skinDao.SaveSkinMeasurement(skinMeasurement, sessionId);
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
 
             PulseMeasurement pulseMeasurement = null;
             try
             {
                 pulseMeasurement = parserService.ParseCsvPulseMeasurement(PulseMeasurement.PATH, PulseMeasurement.FILE_NAME, PulseMeasurement.CSV_KEY);
                 PulseDao pulseDao = new PulseDao();
-                pulseDao.SavePulseMeasurement(pulseMeasurement, sessionId);
+                //pulseDao.SavePulseMeasurement(pulseMeasurement, sessionId);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
@@ -427,7 +429,7 @@ namespace ProyectoCapturaDePantalla
             List<BiometricModelData> biometricsModelData = new List<BiometricModelData>();
             foreach (PulseStatistic pulseStatistic in pulseStatistics)
             {
-                while ((i < skinStatistics.Count - 2) && (skinStatistics[i].AbsoluteTime.CompareTo(pulseStatistic.AbsoluteTime) > 0))
+                while ((i < skinStatistics.Count - 2) && (skinStatistics[i].AbsoluteTime.CompareTo(pulseStatistic.AbsoluteTime) <= 0))
                 {
                     i++;
                 }

@@ -99,7 +99,7 @@ namespace ProyectoCapturaDePantalla.dao
                     LEFT JOIN IAPS_ALL_SUBJECTS iaps on se.STIMULI_ID = iaps.id_iaps
                     LEFT JOIN DEVO_ALL_SUBJECTS devo on se.STIMULI_ID = devo.id
                     WHERE se.session_id = {sessionId}
-                    AND se.test_event in ('INIT_STIMULI', 'END_STIMULI')", dbConnection);
+                    AND se.test_event in ('INIT_STIMULI', 'END_STIMULI') order by se.event_date ASC", dbConnection);
 
                 SqlDataReader dr = cmd.ExecuteReader();
 

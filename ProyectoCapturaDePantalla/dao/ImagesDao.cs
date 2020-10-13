@@ -19,7 +19,7 @@ namespace ProyectoCapturaDePantalla.dao
             try
             {
                 dbConnection.Open();
-                SqlCommand cmd = new SqlCommand($"SELECT [session_id], [id], [DATE], [IMAGENWEBCAM] FROM NEUROSKY_IMAGENES WHERE SECCION = {sessionId}", dbConnection);
+                SqlCommand cmd = new SqlCommand($"SELECT [session_id], [id], [DATE], [IMAGENWEBCAM] FROM NEUROSKY_IMAGENES WHERE session_id = {sessionId}", dbConnection);
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 while (dr.Read())
