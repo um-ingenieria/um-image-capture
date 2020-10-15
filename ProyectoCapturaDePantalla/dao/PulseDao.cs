@@ -40,9 +40,9 @@ namespace ProyectoCapturaDePantalla.dao
             SqlCommand command = new SqlCommand();
             command.Connection = dbConnection;
             command.CommandType = CommandType.Text;
-            command.CommandText = "INSERT into PULSE_STATISTIC (secction , relative_time, hr, rr, hrv, uniformity, absolute_time, score) " +
-                        "VALUES (@secction, @relative_time, @hr, @rr, @hrv, @uniformity, @absolute_time, @score)";
-            command.Parameters.AddWithValue("@secction", sessionId);
+            command.CommandText = "INSERT into PULSE_STATISTIC (session_id , relative_time, hr, rr, hrv, uniformity, absolute_time, score) " +
+                        "VALUES (@session_id, @relative_time, @hr, @rr, @hrv, @uniformity, @absolute_time, @score)";
+            command.Parameters.AddWithValue("@session_id", sessionId);
             command.Parameters.AddWithValue("@relative_time", pulseStatistic.RelativeTime);
             command.Parameters.AddWithValue("@hr", pulseStatistic.HR);
             command.Parameters.AddWithValue("@rr", pulseStatistic.RR);

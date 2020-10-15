@@ -41,10 +41,10 @@ namespace ProyectoCapturaDePantalla.dao
             {
                 Connection = dbConnection,
                 CommandType = CommandType.Text,
-                CommandText = "INSERT into SKIN_STATISTIC (secction, relative_time, micro_siemens, absolute_time, scr, scr_min) " +
-                        "VALUES (@secction, @relative_time, @micro_siemens, @absolute_time, @scr, @scr_min)"
+                CommandText = "INSERT into SKIN_STATISTIC (session_id, relative_time, micro_siemens, absolute_time, scr, scr_min) " +
+                        "VALUES (@session_id, @relative_time, @micro_siemens, @absolute_time, @scr, @scr_min)"
             };
-            command.Parameters.AddWithValue("@secction", sessionId);
+            command.Parameters.AddWithValue("@session_id", sessionId);
             command.Parameters.AddWithValue("@relative_time", skinStatistic.RelativeTime);
             command.Parameters.AddWithValue("@micro_siemens", skinStatistic.MicroSiemens);
             command.Parameters.AddWithValue("@absolute_time", skinStatistic.AbsoluteTime);
