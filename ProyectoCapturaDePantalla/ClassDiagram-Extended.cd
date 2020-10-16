@@ -1,0 +1,507 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="ProyectoCapturaDePantalla.dao.BiometricModelDataDao" Collapsed="true">
+    <Position X="10.75" Y="11" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAABBAAAAAQAAAAAAAAAE=</HashCode>
+      <FileName>dao\BiometricModelDataDao.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CsvExport" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.dao.DEVODao" Collapsed="true">
+    <Position X="20.5" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAACAAAAAAAAAAAAAAAAAAABAQAAAQEAAAAAAAAA=</HashCode>
+      <FileName>dao\DEVODao.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="DEVO" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.dao.EmotionsDao" Collapsed="true">
+    <Position X="24.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>dao\EmotionsDao.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.dao.IAPSDao" Collapsed="true">
+    <Position X="13.75" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAIAAAAABAAAAAQAAAIAAAAAA=</HashCode>
+      <FileName>dao\IAPSDao.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="IAP" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.dao.ImagesDao" Collapsed="true">
+    <Position X="21.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAQAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>dao\ImagesDao.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="FaceImage" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.dao.PhaseDao" Collapsed="true">
+    <Position X="22" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABEAAAARAAAAAAABAA=</HashCode>
+      <FileName>dao\PhaseDao.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Phase" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.dao.PulseDao" Collapsed="true">
+    <Position X="5.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAABAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>dao\PulseDao.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PulseMeasurement" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.dao.SessionDao" Collapsed="true">
+    <Position X="17" Y="9.75" Width="1.5" />
+    <AssociationLine Name="Session" Type="ProyectoCapturaDePantalla.Domain.Session.Session" FixedFromPoint="true">
+      <Path>
+        <Point X="17.75" Y="9.75" />
+        <Point X="17.75" Y="8.812" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>dao\SessionDao.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Session" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.dao.SessionEventDao" Collapsed="true">
+    <Position X="16" Y="11.75" Width="1.5" />
+    <AssociationLine Name="SessionEvent" Type="ProyectoCapturaDePantalla.Domain.Session.SessionEvent" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="16" Y="12.031" />
+        <Point X="14.812" Y="12.031" />
+        <Point X="14.812" Y="10.812" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAQQAAAAEAAAAAAABAAAABQAAAAAAAAAA=</HashCode>
+      <FileName>dao\SessionEventDao.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SessionEvent" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.dao.SkinDao" Collapsed="true">
+    <Position X="5.5" Y="12.25" Width="1.5" />
+    <AssociationLine Name="SkinMeasurement" Type="ProyectoCapturaDePantalla.Domain.SkinMeasurement" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.25" Y="12.25" />
+        <Point X="6.25" Y="11.875" />
+        <Point X="6.938" Y="11.875" />
+        <Point X="6.938" Y="11.062" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAQAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>dao\SkinDao.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SkinMeasurement" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.dao.TestSetDao" Collapsed="true">
+    <Position X="22" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAQBQAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>dao\TestSetDao.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TestSet" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.dao.ValenceAndArousalDao" Collapsed="true">
+    <Position X="13.25" Y="8" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>dao\ValenceAndArousalDao.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SAM" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.Domain.BiometricModelData" Collapsed="true">
+    <Position X="10.75" Y="9.25" Width="1.75" />
+    <AssociationLine Name="BiometricModelDataDao" Type="ProyectoCapturaDePantalla.dao.BiometricModelDataDao" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="11.688" Y="9.812" />
+        <Point X="11.688" Y="10.187" />
+        <Point X="11.75" Y="10.187" />
+        <Point X="11.75" Y="11" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BoABAACAAAAAEAAAABAAAAQAQYAFAEGgAQAAAAIAAQA=</HashCode>
+      <FileName>Domain\BiometricModelData.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="BiometricModelDataDao" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.Domain.PulseMeasurement" Collapsed="true">
+    <Position X="6.5" Y="9.5" Width="1.75" />
+    <AssociationLine Name="BiometricModelData" Type="ProyectoCapturaDePantalla.Domain.BiometricModelData" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="9.687" />
+        <Point X="8.625" Y="9.687" />
+        <Point X="8.625" Y="9.625" />
+        <Point X="10.75" Y="9.625" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>QAAAAACAAAAQAAAAAAAIAAAAAAAAAAAAAAAAAEiAAAA=</HashCode>
+      <FileName>Domain\Pulse\PulseMeasurement.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PulseStatistic" />
+      <Property Name="BiometricModelData" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.Domain.PulseStatistic" Collapsed="true">
+    <Position X="7.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgIAAAgAAAAQAABAAAAQAAAIAAAAAA=</HashCode>
+      <FileName>Domain\Pulse\PulseStatistic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.Domain.PulseStatisticMap" Collapsed="true">
+    <Position X="0.5" Y="10.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Domain\Pulse\PulseStatisticMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.Domain.SkinMeasurement" Collapsed="true">
+    <Position X="6.5" Y="10.5" Width="1.5" />
+    <AssociationLine Name="SkinStatistic" Type="ProyectoCapturaDePantalla.Domain.Skin.SkinStatistic" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.438" Y="11.062" />
+        <Point X="7.438" Y="11.437" />
+        <Point X="8" Y="11.437" />
+        <Point X="8" Y="12.25" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="BiometricModelData" Type="ProyectoCapturaDePantalla.Domain.BiometricModelData" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8" Y="10.812" />
+        <Point X="9.924" Y="10.812" />
+        <Point X="9.924" Y="10.142" />
+        <Point X="11.062" Y="10.142" />
+        <Point X="11.062" Y="9.812" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAQAAAAAAACAAAAAggAAAAEQAAAAAiAAAA=</HashCode>
+      <FileName>Domain\Skin\SkinMeasurement.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SkinStatistic" />
+      <Property Name="BiometricModelData" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.Domain.Phase.Phase" Collapsed="true">
+    <Position X="19.75" Y="12" Width="1.5" />
+    <AssociationLine Name="DimensionalStimuli" Type="ProyectoCapturaDePantalla.Domain.Phase.stimulus.DimensionalStimuli" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.5" Y="12.562" />
+        <Point X="20.5" Y="13.25" />
+        <Point X="18.5" Y="13.25" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAICACAAAAAgAIAAIAAAAAQAAAAEAAAAAgAAAAAAAgA=</HashCode>
+      <FileName>Domain\Phase\Phase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="DimensionalStimuli" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.Domain.Phase.stimulus.DEVO" Collapsed="true">
+    <Position X="18.25" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAACRAAgBEAAIAAAAAAAAAAAEAAAAAIAAAAEAEA=</HashCode>
+      <FileName>Domain\Phase\stimulus\DEVO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.Domain.Phase.stimulus.DimensionalStimuli" Collapsed="true">
+    <Position X="17" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgADAAAAAAAAAAAAAAAAAAAAAYABAAGAAQAAAAIAAwA=</HashCode>
+      <FileName>Domain\Phase\stimulus\DimensionalStimuli.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.Domain.Phase.stimulus.IAP" Collapsed="true">
+    <Position X="15.75" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAIAAAACAAAAAAAIAAAAAAAAAAAAAQAQA=</HashCode>
+      <FileName>Domain\Phase\stimulus\IAP.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.Domain.SAM.SAM" Collapsed="true">
+    <Position X="11" Y="8" Width="1.5" />
+    <AssociationLine Name="BiometricModelData" Type="ProyectoCapturaDePantalla.Domain.BiometricModelData" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="11.625" Y="8.562" />
+        <Point X="11.625" Y="9.25" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQgAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Domain\SAM\SAM.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="BiometricModelData" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.Domain.Session.Session" Collapsed="true">
+    <Position X="17" Y="8.25" Width="1.5" />
+    <AssociationLine Name="SessionEvent" Type="ProyectoCapturaDePantalla.Domain.Session.SessionEvent" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="17" Y="8.531" />
+        <Point X="15.752" Y="8.531" />
+        <Point X="15.752" Y="9.875" />
+        <Point X="14.375" Y="9.875" />
+        <Point X="14.375" Y="10.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.279" Y="0.236" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="TestSet1" Type="ProyectoCapturaDePantalla.Domain.TestSet.TestSet" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="18.375" Y="8.812" />
+        <Point X="18.375" Y="9.187" />
+        <Point X="20.5" Y="9.187" />
+        <Point X="20.5" Y="10.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAIACAQCAAAAAAAAAAQAAAAEAAAAAAAAAAgg=</HashCode>
+      <FileName>Domain\Session\Session.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SessionEvent" />
+      <Property Name="TestSet1" />
+      <Property Name="MainForm" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.Domain.Session.SessionEvent" Collapsed="true">
+    <Position X="13.75" Y="10.25" Width="1.5" />
+    <AssociationLine Name="DimensionalStimuli" Type="ProyectoCapturaDePantalla.Domain.Phase.stimulus.DimensionalStimuli" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="14.5" Y="10.812" />
+        <Point X="14.5" Y="13.312" />
+        <Point X="17" Y="13.312" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="EventTypes" Type="ProyectoCapturaDePantalla.utils.EventTypes" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15.188" Y="10.812" />
+        <Point X="15.188" Y="11.281" />
+        <Point X="16" Y="11.281" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="BiometricModelData" Type="ProyectoCapturaDePantalla.Domain.BiometricModelData" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.75" Y="10.531" />
+        <Point X="13.375" Y="10.531" />
+        <Point X="13.375" Y="9.75" />
+        <Point X="12.5" Y="9.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAICAAACAIBQAgCAQAgAAAAIAAAAAAAAAkAAAABAAgA=</HashCode>
+      <FileName>Domain\Session\SessionEvent.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="DimensionalStimuli" />
+      <Property Name="EventTypes" />
+      <Property Name="BiometricModelData" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.Domain.Skin.SkinStatistic" Collapsed="true">
+    <Position X="7.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAEAAIAAAgAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Skin\SkinStatistic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.Domain.Skin.SkinStatisticMap" Collapsed="true">
+    <Position X="0.5" Y="9.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Skin\SkinStatisticMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.Domain.TestSet.TestSet" Collapsed="true">
+    <Position X="19.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAAIAAAAAAAAAAAAAAAAAAEAAAABgA=</HashCode>
+      <FileName>Domain\TestSet\TestSet.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Phase" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.face.FaceService" Collapsed="true">
+    <Position X="24.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAEAAABQAAEAEAAAIJQAAAAAAQ4AAABAAAAAA=</HashCode>
+      <FileName>face\FaceService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="EmotionsDao" />
+      <Property Name="FaceImage" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.MainForm" Collapsed="true">
+    <Position X="17" Y="6.25" Width="1.5" />
+    <AssociationLine Name="VideoDisplay" Type="ProyectoCapturaDePantalla.VideoDisplay" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="18.062" Y="6.25" />
+        <Point X="18.062" Y="5.191" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="ImageDisplay" Type="ProyectoCapturaDePantalla.ImageDisplay" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="17.375" Y="6.25" />
+        <Point X="17.375" Y="5.566" />
+        <Point X="15.75" Y="5.566" />
+        <Point X="15.75" Y="5.191" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>CpCAAZgqA6UEAQoEEIKAAAESAAIAICAAQACJAYgKASQ=</HashCode>
+      <FileName>MainForm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="VideoDisplay" />
+      <Property Name="ImageDisplay" />
+      <Property Name="LoadingView" />
+      <Property Name="SAMForm" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.parser.ParserService" Collapsed="true">
+    <Position X="4" Y="10" Width="1.5" />
+    <AssociationLine Name="SkinMeasurement" Type="ProyectoCapturaDePantalla.Domain.SkinMeasurement" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.5" Y="10.375" />
+        <Point X="5.875" Y="10.375" />
+        <Point X="5.875" Y="10.75" />
+        <Point X="6.5" Y="10.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="PulseMeasurement" Type="ProyectoCapturaDePantalla.Domain.PulseMeasurement" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.5" Y="10.188" />
+        <Point X="6.221" Y="10.188" />
+        <Point X="6.221" Y="9.812" />
+        <Point X="6.5" Y="9.812" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="SkinStatisticMap" Type="ProyectoCapturaDePantalla.Domain.Skin.SkinStatisticMap">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.216" Y="0.374" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AACAAAAAIEAAAgAAQAAAAIAAAEAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>parser\ParserService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SkinMeasurement" />
+      <Property Name="SkinStatisticMap" />
+      <Property Name="PulseStatisticMap" />
+      <Property Name="PulseMeasurement" />
+      <Property Name="DateHelper" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.ImageDisplay" Collapsed="true">
+    <Position X="15" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAACAAAAAAAACDAAACACAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>ImageDisplay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.LoadingView" Collapsed="true">
+    <Position X="19.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAQACAAAAAAAACAAAAKAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LoadingView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.SAMForm" Collapsed="true">
+    <Position X="11" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>WABAIhAAACACARgAAICAQAACAIAAAAQAQAAgAABAAAg=</HashCode>
+      <FileName>SAMForm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SAM" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.VideoDisplay" Collapsed="true">
+    <Position X="17.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIACAAAAIAAACEAAACAACAAAAAAAAAAEAAAAQ=</HashCode>
+      <FileName>VideoDisplay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.Images.FaceImage" Collapsed="true">
+    <Position X="21.5" Y="7.5" Width="1.5" />
+    <AssociationLine Name="Session" Type="ProyectoCapturaDePantalla.Domain.Session.Session" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="21.5" Y="7.781" />
+        <Point X="18.188" Y="7.781" />
+        <Point X="18.188" Y="8.25" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAQIAAAgCAAQIAAAEAAABAAAAAQAAAgA=</HashCode>
+      <FileName>Images\FaceImage.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Session" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.utils.CsvExport&lt;T&gt;" Collapsed="true">
+    <Position X="11" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgABAQAAAAAAAEAAAAAAAAABAA=</HashCode>
+      <FileName>utils\csvExport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.utils.DateHelper" Collapsed="true">
+    <Position X="0.75" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>utils\DatesHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProyectoCapturaDePantalla.utils.EventTypes" Collapsed="true">
+    <Position X="16" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAgAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>utils\EventTypes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
