@@ -199,19 +199,10 @@
   </Class>
   <Class Name="ProyectoCapturaDePantalla.face.FaceService" Collapsed="true">
     <Position X="20" Y="9.5" Width="1.5" />
-    <AssociationLine Name="FaceImage" Type="ProyectoCapturaDePantalla.Images.FaceImage" FixedFromPoint="true">
-      <Path>
-        <Point X="20.688" Y="9.5" />
-        <Point X="20.688" Y="8.812" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAQAAAAEAAABQAAEAEAAAIJQAAAAAAQ4AAABAAAAAA=</HashCode>
+      <HashCode>AAAQAAAAAAAABQAAEAEAAAIJQAAAAAAQYAAABAAAAAA=</HashCode>
       <FileName>face\FaceService.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="FaceImage" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="ProyectoCapturaDePantalla.MainForm" Collapsed="true">
     <Position X="17" Y="6.25" Width="1.5" />
@@ -301,21 +292,10 @@
   </Class>
   <Class Name="ProyectoCapturaDePantalla.Images.FaceImage" Collapsed="true">
     <Position X="20" Y="8.25" Width="1.5" />
-    <AssociationLine Name="Session" Type="ProyectoCapturaDePantalla.Domain.Session.Session" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="20" Y="8.531" />
-        <Point X="19.625" Y="8.531" />
-        <Point X="19.625" Y="8.562" />
-        <Point X="18.5" Y="8.562" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAQIAAAgCAAQIAAAEAAABAAAAAQAAAgA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAIAAAgCAAQIAAAEAAABAAAAAQAAAgA=</HashCode>
       <FileName>Images\FaceImage.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Session" />
-    </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
