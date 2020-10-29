@@ -17,7 +17,8 @@ namespace ProyectoCapturaDePantalla.Domain
             Map(m => m.RR).Name("RR");
             Map(m => m.HRV).Name("AMPLITUD HRV");
             Map(m => m.Uniformity).Name("UNIFORMIDAD");
-            Map(m => m.LF_HF).Name("LF + HF").ConvertUsing(NullFloatParser);
+            // Salteamos LF + HF porque de repente dejo de venir en el csv que exporta la app. 
+            //Map(m => m.LF_HF).Name("LF + HF").ConvertUsing(NullFloatParser);
             Map(m => m.AbsoluteTime).Name("MARCAS DE TIEMPO").ConvertUsing(NullDateParser);
             Map(m => m.Score).Name("MARCADOR").ConvertUsing(NullIntParser);
         }
