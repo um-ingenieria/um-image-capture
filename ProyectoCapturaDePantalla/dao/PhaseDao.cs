@@ -29,12 +29,12 @@ namespace ProyectoCapturaDePantalla.dao
             }
         }
 
-        public static PhaseBase GetPhase(int phaseId)
+        public static Phase GetPhase(int phaseId)
         {
             return Instance.getPhase(phaseId);
         }
 
-        private PhaseBase getPhase(int phaseId)
+        private Phase getPhase(int phaseId)
         {
             SqlConnection dbConnection = DbConnection.GetConnection();
             int id = 0;
@@ -42,24 +42,33 @@ namespace ProyectoCapturaDePantalla.dao
             string name = "";
             string phaseType = "";
             string valenceArousalQuadrant = "";
-            List<float> stimulusIds;
+            
+            List<float> iapsIds;
+            List<float> devoIds;
 
             try
             {
                 dbConnection.Open();
-                SqlCommand cmd = new SqlCommand($"SELECT [ID], [DESCRIPTION], [NAME], [PHASE_TYPE], [VALENCE_AROUSAL_QUARDRANT], [STIMULI_ID] FROM PHASE WHERE ID = {phaseId}", dbConnection);
+                SqlCommand cmd = new SqlCommand($"SELECT [ID], [DESCRIPTION], [NAME], [STIMULI_TYPE], [VALENCE_AROUSAL_QUARDRANT], [STIMULI_ID] FROM PHASE WHERE ID = {phaseId}", dbConnection);
                 SqlDataReader dr = cmd.ExecuteReader();
 
-                stimulusIds = new List<float>();
+                iapsIds = new List<float>();
+                devoIds = new List<float>();
 
                 while (dr.Read())
                 {
                     id = int.Parse(Convert.ToString(dr["ID"]));
                     description = Convert.ToString(dr["DESCRIPTION"]);
                     name = Convert.ToString(dr["NAME"]);
-                    phaseType = Convert.ToString(dr["PHASE_TYPE"]);
                     valenceArousalQuadrant = Convert.ToString(dr["VALENCE_AROUSAL_QUARDRANT"]);
-                    stimulusIds.Add(float.Parse(Convert.ToString(dr["STIMULI_ID"])));
+                    
+                    if (Convert.ToString(dr["STIMULI_TYPE"]) == IAP.IAP_TYPE)
+                    {
+                        iapsIds.Add(float.Parse(Convert.ToString(dr["STIMULI_ID"])));
+                    } else if (Convert.ToString(dr["STIMULI_TYPE"]) == DEVO.DEVO_TYPE)
+                    {
+                        devoIds.Add(float.Parse(Convert.ToString(dr["STIMULI_ID"])));
+                    }
                 }
             }
             catch (Exception e)
@@ -73,19 +82,14 @@ namespace ProyectoCapturaDePantalla.dao
                 dbConnection.Close();
             }
 
-            PhaseBase phaseBase;
-            switch (phaseType)
+            Phase phaseBase = new Phase(id, name, description, valenceArousalQuadrant);
+            if (iapsIds.Count > 0)
             {
-                case ImagePhase.IAP_TYPE:
-                    List<IAP> iapsList = IAPSDao.GetIAPS(stimulusIds, IAP.ALL_SUBJECTS);
-                    phaseBase = new ImagePhase(id, name, description, valenceArousalQuadrant, iapsList);
-                    break;
-                case VideoPhase.DEVO_TYPE:
-                    List<DEVO> videos = DEVODao.GetVideos(stimulusIds, DEVO.ALL_SUBJECTS);
-                    phaseBase = new VideoPhase(id, name, description, valenceArousalQuadrant, videos);
-                    break;
-                default:
-                    throw new TypeUnloadedException("Tipo de fase no definido");
+                phaseBase.Stimulis.AddRange(IAPSDao.GetIAPS(iapsIds, IAP.ALL_SUBJECTS));
+            }
+            if (devoIds.Count > 0)
+            {
+                phaseBase.Stimulis.AddRange(DEVODao.GetVideos(devoIds, DEVO.ALL_SUBJECTS));
             }
 
             return phaseBase;

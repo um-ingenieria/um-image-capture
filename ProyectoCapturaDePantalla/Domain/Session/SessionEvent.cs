@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoCapturaDePantalla.Domain.Phase.stimulus;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace ProyectoCapturaDePantalla.Domain.Session
         private string testName;
         private string testEvent;
         private DateTime eventDate;
+        private DimensionalStimuli stimuli;
 
 
         public SessionEvent(int sessionId, string testName, string testEvent, DateTime eventDate)
@@ -23,11 +25,21 @@ namespace ProyectoCapturaDePantalla.Domain.Session
             this.EventDate = eventDate;
         }
 
+        public SessionEvent(int sessionId, string testName, string testEvent, DateTime eventDate, DimensionalStimuli stimuli)
+        {
+            this.SessionId = sessionId;
+            this.TestName = testName;
+            this.TestEvent = testEvent;
+            this.EventDate = eventDate;
+            this.stimuli = stimuli;
+        }
+
         public int Id { get => id; set => id = value; }
         public int SessionId { get => sessionId; set => sessionId = value; }
         public string TestName { get => testName; set => testName = value; }
         public string TestEvent { get => testEvent; set => testEvent = value; }
         public DateTime EventDate { get => eventDate; set => eventDate = value; }
+        public DimensionalStimuli Stimuli { get => stimuli; set => stimuli = value; }
     }
 }
  

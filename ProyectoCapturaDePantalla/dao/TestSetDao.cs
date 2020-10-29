@@ -65,7 +65,7 @@ namespace ProyectoCapturaDePantalla.dao
                 dbConnection.Close();
             }
 
-            List<PhaseBase> phases = new List<PhaseBase>();
+            List<Phase> phases = new List<Phase>();
             foreach (int phaseId in phasesIds)
             {
                 phases.Add(PhaseDao.GetPhase(phaseId));

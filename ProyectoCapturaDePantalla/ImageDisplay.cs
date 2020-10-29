@@ -26,6 +26,11 @@ namespace ProyectoCapturaDePantalla
             SetPictureLocation(iaps_id);
         }
 
+        public void ClearImage()
+        {
+            pictureBox.Image = null;
+        }
+
         private void SetPictureLocation(string fileName)
         {
             pictureBox.ImageLocation = string.Concat(path, "/", fileName);

@@ -11,9 +11,9 @@ namespace ProyectoCapturaDePantalla.Domain.TestSet
     {
         private int id;
         private string description;
-        private List<PhaseBase> phases;
+        private List<Phase.Phase> phases;
 
-        public TestSet(int id, string description, List<PhaseBase> phases)
+        public TestSet(int id, string description, List<Phase.Phase> phases)
         {
             this.id = id;
             this.description = description;
@@ -22,6 +22,6 @@ namespace ProyectoCapturaDePantalla.Domain.TestSet
 
         public int Id { get => id; set => id = value; }
         public string Description { get => description; set => description = value; }
-        public List<PhaseBase> Phases { get => phases; set => phases = value; }
+        public List<Phase.Phase> Phases { get => phases; set => phases = value; }
     }
 }

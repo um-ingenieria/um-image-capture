@@ -14,8 +14,8 @@ namespace ProyectoCapturaDePantalla
     public partial class SAMForm : Form
     {
 
-        int arousal = 0;
-        int valence = 0;
+        int arousal = 5;
+        int valence = 5;
 
         public SAMForm()
         {   

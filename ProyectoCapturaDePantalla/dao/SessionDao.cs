@@ -18,9 +18,10 @@ namespace ProyectoCapturaDePantalla.dao
             command.Connection = dbConnection;
             command.CommandType = CommandType.Text;
 
-            command.CommandText = "INSERT into SESSION (TEST_NAME) " +
-                "output INSERTED.ID VALUES (@test_name)";
+            command.CommandText = "INSERT into SESSION (TEST_NAME, test_set) " +
+                "output INSERTED.ID VALUES (@test_name, @test_set)";
             command.Parameters.AddWithValue("@test_name", session.TestName);
+            command.Parameters.AddWithValue("@test_set", session.TestSet);
 
             try
             {

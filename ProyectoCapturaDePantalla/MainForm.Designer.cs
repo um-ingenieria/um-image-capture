@@ -47,6 +47,7 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWebCam)).BeginInit();
             this.SuspendLayout();
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             // 
             // pictureBoxImg
             // 

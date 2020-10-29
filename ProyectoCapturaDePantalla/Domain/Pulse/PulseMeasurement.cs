@@ -12,12 +12,14 @@ namespace ProyectoCapturaDePantalla.Domain
         public static string FILE_NAME = "ePulse-min.csv";
         public static string CSV_KEY = "ESTADÍSTICAS";
 
-        public List<PulseStatistic> pulseStatistics;
+        private List<PulseStatistic> pulseStatistics;
 
         public PulseMeasurement()
         {
             pulseStatistics = new List<PulseStatistic>();
         }
+
+        public List<PulseStatistic> PulseStatistics { get => pulseStatistics; set => pulseStatistics = value; }
 
         public void AddPulseStatistic(PulseStatistic pulseStatistic)
         {

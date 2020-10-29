@@ -11,16 +11,16 @@ namespace ProyectoCapturaDePantalla.dao
 {
     public class PulseDao
     {
-        public void SavePulseMeasurement(PulseMeasurement pulseMeasurement, int seccion)
+        public void SavePulseMeasurement(PulseMeasurement pulseMeasurement, int sessionId)
         {
             SqlConnection dbConnection = DbConnection.GetConnection();
 
             try
             {
                 dbConnection.Open(); //TODO: ver si es transacional
-                foreach (PulseStatistic pulseStatistic in pulseMeasurement.pulseStatistics)
+                foreach (PulseStatistic pulseStatistic in pulseMeasurement.PulseStatistics)
                 {
-                    SqlCommand command = createCommandForRecord(seccion, dbConnection, pulseStatistic);
+                    SqlCommand command = createCommandForRecord(sessionId, dbConnection, pulseStatistic);
                     int recordsAffected = command.ExecuteNonQuery();
                 }
             }
@@ -35,14 +35,14 @@ namespace ProyectoCapturaDePantalla.dao
             }
         }
 
-        private static SqlCommand createCommandForRecord(int seccion, SqlConnection dbConnection, PulseStatistic pulseStatistic)
+        private static SqlCommand createCommandForRecord(int sessionId, SqlConnection dbConnection, PulseStatistic pulseStatistic)
         {
             SqlCommand command = new SqlCommand();
             command.Connection = dbConnection;
             command.CommandType = CommandType.Text;
-            command.CommandText = "INSERT into PULSE_STATISTIC (secction , relative_time, hr, rr, hrv, uniformity, absolute_time, score) " +
-                        "VALUES (@secction, @relative_time, @hr, @rr, @hrv, @uniformity, @absolute_time, @score)";
-            command.Parameters.AddWithValue("@secction", seccion);
+            command.CommandText = "INSERT into PULSE_STATISTIC (session_id , relative_time, hr, rr, hrv, uniformity, absolute_time, score) " +
+                        "VALUES (@session_id, @relative_time, @hr, @rr, @hrv, @uniformity, @absolute_time, @score)";
+            command.Parameters.AddWithValue("@session_id", sessionId);
             command.Parameters.AddWithValue("@relative_time", pulseStatistic.RelativeTime);
             command.Parameters.AddWithValue("@hr", pulseStatistic.HR);
             command.Parameters.AddWithValue("@rr", pulseStatistic.RR);
