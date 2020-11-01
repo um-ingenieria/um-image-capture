@@ -113,7 +113,7 @@ namespace ProyectoCapturaDePantalla
                 SessionEvent sessionStart = new SessionEvent(currentSession.Id, currentSession.TestName, EventTypes.SESSION_START, DateTime.Now);
                 SessionEventDao.SaveSessionEvent(sessionStart);
 
-                requestSAM();
+                requestSAM(EventTypes.INITIAL_SAM);
 
                 SessionEvent initialSAM = new SessionEvent(currentSession.Id, currentSession.TestName, EventTypes.INITIAL_SAM, DateTime.Now);
                 SessionEventDao.SaveSessionEvent(initialSAM);
@@ -129,13 +129,13 @@ namespace ProyectoCapturaDePantalla
 
                 foreach (Phase phase in testSet.Phases)
                 {
-                    SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("INIT_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
+                    SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("INIT_", phase.ValenceArrousalQuadrant), DateTime.Now));
 
                     await showStimulis(phase);
 
-                    SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("END_", phase.ValenceArrousalQuadrant, "_", phase.Id.ToString()), DateTime.Now));
+                    SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("END_", phase.ValenceArrousalQuadrant), DateTime.Now));
 
-                    requestSAM();
+                    requestSAM(string.Concat("SAM_", phase.ValenceArrousalQuadrant));
                     SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, string.Concat("SAM_", phase.ValenceArrousalQuadrant), DateTime.Now));
                 }
             }
@@ -175,13 +175,13 @@ namespace ProyectoCapturaDePantalla
             imagePlayer.Close();
         }
 
-        private SAM requestSAM()
+        private SAM requestSAM(string samType)
         {
             SAMForm SAMForm = new SAMForm();
             SAMForm.ShowDialog();
             SAM response = SAMForm.getSAMResponse();
             ValenceAndArousalDao excitementAndArousalDao = new ValenceAndArousalDao();
-            excitementAndArousalDao.InsertExcitementAndArousal(currentSession.TestName, EventTypes.INITIAL_SAM, response.Valence, response.Arousal, currentSession.Id);
+            excitementAndArousalDao.InsertExcitementAndArousal(currentSession.TestName, samType, response.Valence, response.Arousal, currentSession.Id);
             return response;
         }
 
@@ -282,7 +282,15 @@ namespace ProyectoCapturaDePantalla
 
         void FinalFrame_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-            pictureBoxWebCam.Image = (Bitmap)eventArgs.Frame.Clone();
+            try
+            {
+                pictureBoxWebCam.Image = (Bitmap)eventArgs.Frame.Clone();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error");
+            }
+            
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -385,26 +393,66 @@ namespace ProyectoCapturaDePantalla
             // Juntamos los eventos de inicio y fin de estimulo, asociados a su nivel de valence y arousal
             List<SessionEvent> sessionEvents = SessionEventDao.GetStimuliEventsBySessionId(sessionId);
 
-            // Unificamos los registris de HR y Skin en una misma marca de tiempo
+            // Filtrmamos los eventos de SAM
+            List<SessionEvent> samEvents = sessionEvents.FindAll(item => item.TestEvent.Contains("SAM_"));
+
+            // Filtramos eventos de estimulos
+            List<SessionEvent> stimuliEvents = sessionEvents.FindAll(item => item.TestEvent.Contains("STIMULI"));
+
+            // Unificamos los registris de HR y Skin en una misma linea de tiempo
             List<BiometricModelData> biometricsModelData = mergeListAWithListB(pulseMeasurement.PulseStatistics, skinMeasurement.SkinStatistics);
 
             // A cada medicion de HR y SKIN entre un par de eventos INIT_STIMULI y END_STIMULI, le asignamos el valor de valence-arousal del estimulo asociado a esos eventos.
-            for (int i = 0; i < sessionEvents.Count; i+=2)
+            for (int i = 0; i < stimuliEvents.Count; i+=2)
             {
-                if(!(sessionEvents[i].TestEvent == "INIT_STIMULI" && sessionEvents[i+1].TestEvent == "END_STIMULI"))
+                if(!(stimuliEvents[i].TestEvent == "INIT_STIMULI" && stimuliEvents[i+1].TestEvent == "END_STIMULI"))
                 {
                     throw new Exception("Los tipos de evento no son los correctos");
                 }
 
-                SetArousalAndValenceInInterval(biometricsModelData, sessionEvents[i].EventDate, sessionEvents[i + 1].EventDate, sessionEvents[i].Stimuli);
+                SetArousalAndValenceInInterval(biometricsModelData, stimuliEvents[i].EventDate, stimuliEvents[i + 1].EventDate, stimuliEvents[i].Stimuli);
             }
 
-            // TODO: Limpiar outliers (arousal y valence)
+            // Etiquetar fases
+            for (int i = 0; i < samEvents.Count; i++)
+            {
+                string phaseName = samEvents[i].TestEvent.Replace("SAM_", "");
+                SetPhaseNameInInterval(biometricsModelData, samEvents[i].EventDate, samEvents[i+1].EventDate, phaseName);
+            }
+
+            // Descartar mediciones de fases que no coincidan con el SAM
+            ValenceAndArousalDao valenceArousalDao = new ValenceAndArousalDao();
+            List<SAM> samList = valenceArousalDao.GetSAMsBySessionId(sessionId);
+
+            //foreach(SAM sam in samList)
+            //{
+            //    if (sam.samMatchesPhaseValenceAndArousal())
+            //    {
+
+            //    }
+            //}
 
             // Save model to csv
             BiometricModelDataDao.SaveBiometricModelDataToCsv(biometricsModelData);
 
-            // Go to Python...
+            // Informe final
+            MessageBox.Show("Mostrar informe final");
+            // SAM descartadas, cantidad de registros procesados / descartados, errores, success...
+        }
+
+        
+
+        private void SetPhaseNameInInterval(List<BiometricModelData> biometrics, DateTime dateSince, DateTime dateTo, string phaseName)
+        {
+            int i = 0;
+            while (i < biometrics.Count - 1 && biometrics[i].TimeStamp.CompareTo(dateTo) < 0)
+            {
+                if (biometrics[i].TimeStamp.CompareTo(dateSince) > 0)
+                {
+                    biometrics[i].PhaseName = phaseName;
+                }
+                i++;
+            }
         }
 
         private void SetArousalAndValenceInInterval(List<BiometricModelData> biometrics, DateTime dateSince, DateTime dateTo, DimensionalStimuli stimuli)
