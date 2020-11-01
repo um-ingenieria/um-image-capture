@@ -403,9 +403,9 @@ namespace ProyectoCapturaDePantalla
             List<BiometricModelData> biometricsModelData = mergeListAWithListB(pulseMeasurement.PulseStatistics, skinMeasurement.SkinStatistics);
 
             // A cada medicion de HR y SKIN entre un par de eventos INIT_STIMULI y END_STIMULI, le asignamos el valor de valence-arousal del estimulo asociado a esos eventos.
-            for (int i = 0; i < stimuliEvents.Count; i+=2)
+            for (int i = 0; i < stimuliEvents.Count; i += 2)
             {
-                if(!(stimuliEvents[i].TestEvent == "INIT_STIMULI" && stimuliEvents[i+1].TestEvent == "END_STIMULI"))
+                if (!(stimuliEvents[i].TestEvent == "INIT_STIMULI" && stimuliEvents[i + 1].TestEvent == "END_STIMULI"))
                 {
                     throw new Exception("Los tipos de evento no son los correctos");
                 }
@@ -417,21 +417,20 @@ namespace ProyectoCapturaDePantalla
             for (int i = 0; i < samEvents.Count; i++)
             {
                 string phaseName = samEvents[i].TestEvent.Replace("SAM_", "");
-                SetPhaseNameInInterval(biometricsModelData, samEvents[i].EventDate, samEvents[i+1].EventDate, phaseName);
+                DateTime? sinceDate = null;
+                if (i > 0)
+                {
+                    sinceDate = samEvents[i - 1].EventDate;
+                }
+                
+                SetPhaseNameInInterval(biometricsModelData, sinceDate, samEvents[i].EventDate, phaseName);
             }
 
             // Descartar mediciones de fases que no coincidan con el SAM
             ValenceAndArousalDao valenceArousalDao = new ValenceAndArousalDao();
             List<SAM> samList = valenceArousalDao.GetSAMsBySessionId(sessionId);
 
-            //foreach(SAM sam in samList)
-            //{
-            //    if (sam.samMatchesPhaseValenceAndArousal())
-            //    {
-
-            //    }
-            //}
-
+            markSamOutliers(biometricsModelData, samList);
             // Save model to csv
             BiometricModelDataDao.SaveBiometricModelDataToCsv(biometricsModelData);
 
@@ -440,14 +439,32 @@ namespace ProyectoCapturaDePantalla
             // SAM descartadas, cantidad de registros procesados / descartados, errores, success...
         }
 
-        
+        private static void markSamOutliers(List<BiometricModelData> biometricsModelData, List<SAM> samList)
+        {
+            foreach (SAM sam in samList)
+            {
+                if (!sam.samMatchesPhaseValenceAndArousal())
+                {
+                    string type = sam.Type.Replace("SAM_", "");
+                    foreach (BiometricModelData biometric in biometricsModelData)
+                    {
+                        //Si phase es igual a NULL es porque son datos posteriores a que termine la prueba, los amrcamos como false apra despues descartarlos
+                        if (biometric.PhaseName == null || biometric.PhaseName.Equals(type))
+                        {
+                            biometric.MatchesSam = false;
+                        }
+                    }
+                }
+            }
+        }
 
-        private void SetPhaseNameInInterval(List<BiometricModelData> biometrics, DateTime dateSince, DateTime dateTo, string phaseName)
+
+        private void SetPhaseNameInInterval(List<BiometricModelData> biometrics, DateTime? dateSince, DateTime dateTo, string phaseName)
         {
             int i = 0;
-            while (i < biometrics.Count - 1 && biometrics[i].TimeStamp.CompareTo(dateTo) < 0)
+            while ( (i < biometrics.Count - 1) && biometrics[i].TimeStamp.CompareTo(dateTo) < 0)
             {
-                if (biometrics[i].TimeStamp.CompareTo(dateSince) > 0)
+                if (dateSince == null || biometrics[i].TimeStamp.CompareTo(dateSince) > 0)
                 {
                     biometrics[i].PhaseName = phaseName;
                 }

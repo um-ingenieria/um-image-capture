@@ -32,17 +32,13 @@ namespace ProyectoCapturaDePantalla.Domain.SAM
             switch(Type)
             {
                 case "SAM_HA_PV":
-                    return Valence >= MIN_HIGH_AROUSAL && Arousal >= MIN_HIGH_AROUSAL;
-                    break;
+                    return /*Valence >= MIN_HIGH_AROUSAL &&*/ Arousal >= MIN_HIGH_AROUSAL;
                 case "SAM_LA_PV":
-                    return Valence <= MIN_HIGH_AROUSAL && Arousal >= MIN_HIGH_AROUSAL;
-                    break;
+                    return /*Valence <= MIN_HIGH_AROUSAL &&*/ Arousal <= MIN_HIGH_AROUSAL;
                 case "SAM_HA_NV":
-                    return Valence >= MIN_HIGH_AROUSAL && Arousal <= MIN_HIGH_AROUSAL;
-                    break;
+                    return /*Valence >= MIN_HIGH_AROUSAL &&*/ Arousal >= MIN_HIGH_AROUSAL;
                 case "SAM_LA_NV":
-                    return Valence <= MIN_HIGH_AROUSAL && Arousal <= MIN_HIGH_AROUSAL;
-                    break;
+                    return /*Valence <= MIN_HIGH_AROUSAL &&*/ Arousal <= MIN_HIGH_AROUSAL;
                 default:
                     return false;
             }
