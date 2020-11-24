@@ -206,5 +206,3 @@ VALUES
 INSERT INTO PHASE
 VALUES
   (8, 'Low Arousal - Negative Valence', 'Fase 8', 'DEVO_TYPE', 'LA_NV', 111.2);
-
-
