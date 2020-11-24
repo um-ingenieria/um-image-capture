@@ -89,17 +89,19 @@ namespace ProyectoCapturaDePantalla.dao
             {
                 dbConnection.Open();
                 
-                SqlCommand cmd = new SqlCommand($@"SELECT se.event_date, se.test_name, se.STIMULI_ID, se.STIMULI_TYPE, se.test_event,
-                    CASE WHEN se.STIMULI_TYPE = 'IAP_TYPE' THEN iaps.arousal_mean ELSE devo.arousal_mean END as arousal_mean,
-                    CASE WHEN se.STIMULI_TYPE = 'IAP_TYPE' THEN iaps.arousal_sd ELSE devo.arousal_sd END as arousal_sd,
-                    CASE WHEN se.STIMULI_TYPE = 'IAP_TYPE' THEN iaps.valence_mean ELSE devo.valence_mean END as valence_mean,
-                    CASE WHEN se.STIMULI_TYPE = 'IAP_TYPE' THEN iaps.valence_sd ELSE devo.valence_sd END as valence_sd,
-                    CASE WHEN se.STIMULI_TYPE = 'IAP_TYPE' THEN iaps.set_id  ELSE NULL END as set_id
+                SqlCommand cmd = new SqlCommand($@"SELECT se.event_date, se.test_name, se.test_event,
+					CASE WHEN se.STIMULI_TYPE = 'IAP_TYPE' THEN iaps.arousal_mean WHEN se.STIMULI_TYPE = 'DEVO_TYPE' THEN devo.arousal_mean ELSE 0 END as arousal_mean,
+                    CASE WHEN se.STIMULI_TYPE = 'IAP_TYPE' THEN iaps.arousal_sd WHEN se.STIMULI_TYPE = 'DEVO_TYPE' THEN devo.arousal_sd ELSE 0 END as arousal_sd,
+                    CASE WHEN se.STIMULI_TYPE = 'IAP_TYPE' THEN iaps.valence_mean  WHEN se.STIMULI_TYPE = 'DEVO_TYPE' THEN devo.valence_mean ELSE 0 END as valence_mean,
+                    CASE WHEN se.STIMULI_TYPE = 'IAP_TYPE' THEN iaps.valence_sd  WHEN se.STIMULI_TYPE = 'DEVO_TYPE' THEN devo.valence_sd ELSE 0 END as valence_sd,
+                    CASE WHEN se.STIMULI_TYPE = 'IAP_TYPE' THEN iaps.set_id ELSE '' END as set_id,
+					CASE WHEN se.test_event like 'SAM_%' THEN '' else se.STIMULI_TYPE END as STIMULI_TYPE,
+					CASE WHEN se.test_event like 'SAM_%' THEN 0 else se.STIMULI_ID END as STIMULI_ID
                     FROM SESSION_EVENT se
                     LEFT JOIN IAPS_ALL_SUBJECTS iaps on se.STIMULI_ID = iaps.id_iaps
                     LEFT JOIN DEVO_ALL_SUBJECTS devo on se.STIMULI_ID = devo.id
                     WHERE se.session_id = {sessionId}
-                    AND se.test_event in ('INIT_STIMULI', 'END_STIMULI') order by se.event_date ASC", dbConnection);
+                    AND (se.test_event in ('INIT_STIMULI', 'END_STIMULI') OR se.test_event LIKE '%SAM_%') order by se.event_date ASC", dbConnection);
 
                 SqlDataReader dr = cmd.ExecuteReader();
 
