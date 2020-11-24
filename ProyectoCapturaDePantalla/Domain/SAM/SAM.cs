@@ -29,19 +29,27 @@ namespace ProyectoCapturaDePantalla.Domain.SAM
         public string Type { get; set; }
 
         public bool samMatchesPhaseValenceAndArousal() {
-            switch(Type)
+            if (Type.Contains("SAM_HA_PV"))
             {
-                case "SAM_HA_PV":
-                    return /*Valence >= MIN_HIGH_AROUSAL &&*/ Arousal >= MIN_HIGH_AROUSAL;
-                case "SAM_LA_PV":
-                    return /*Valence <= MIN_HIGH_AROUSAL &&*/ Arousal <= MIN_HIGH_AROUSAL;
-                case "SAM_HA_NV":
-                    return /*Valence >= MIN_HIGH_AROUSAL &&*/ Arousal >= MIN_HIGH_AROUSAL;
-                case "SAM_LA_NV":
-                    return /*Valence <= MIN_HIGH_AROUSAL &&*/ Arousal <= MIN_HIGH_AROUSAL;
-                default:
-                    return false;
+                return /*Valence >= MIN_HIGH_AROUSAL &&*/ Arousal >= MIN_HIGH_AROUSAL;
             }
+
+            if (Type.Contains("SAM_LA_PV"))
+            {
+                return /*Valence <= MIN_HIGH_AROUSAL &&*/ Arousal <= MIN_HIGH_AROUSAL;
+            }
+
+            if (Type.Contains("SAM_HA_NV"))
+            {
+                return /*Valence >= MIN_HIGH_AROUSAL &&*/ Arousal >= MIN_HIGH_AROUSAL;
+            }
+
+            if (Type.Contains("SAM_LA_NV"))
+            {
+                return /*Valence <= MIN_HIGH_AROUSAL &&*/ Arousal <= MIN_HIGH_AROUSAL;
+            }
+
+            return false;
         }
     }
 }

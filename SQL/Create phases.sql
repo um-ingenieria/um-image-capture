@@ -51,10 +51,10 @@ INSERT INTO [dbo].[PHASE] (ID, DESCRIPTION, NAME, STIMULI_TYPE, VALENCE_AROUSAL_
 VALUES (1, 'High Arousal - Positive Valence', 'Fase 1', 'IAP_TYPE', 'HA_PV', 8163);
 
 INSERT INTO PHASE VALUES (1, 'High Arousal - Positive Valence', 'Fase 1', 'DEVO_TYPE', 'HA_PV', 55.2);
-INSERT INTO PHASE VALUES (1, 'High Arousal - Positive Valence', 'Fase 1', 'DEVO_TYPE', 'LA_NV', 49.2);
-INSERT INTO PHASE VALUES (1, 'High Arousal - Positive Valence', 'Fase 1', 'DEVO_TYPE', 'LA_NV', 36.5);
-INSERT INTO PHASE VALUES (1, 'High Arousal - Positive Valence', 'Fase 1', 'DEVO_TYPE', 'LA_NV', 36.2);
-INSERT INTO PHASE VALUES (1, 'High Arousal - Positive Valence', 'Fase 1', 'DEVO_TYPE', 'LA_NV', 28.1);
+INSERT INTO PHASE VALUES (1, 'High Arousal - Positive Valence', 'Fase 1', 'DEVO_TYPE', 'HA_PV', 49.2);
+INSERT INTO PHASE VALUES (1, 'High Arousal - Positive Valence', 'Fase 1', 'DEVO_TYPE', 'HA_PV', 36.5);
+INSERT INTO PHASE VALUES (1, 'High Arousal - Positive Valence', 'Fase 1', 'DEVO_TYPE', 'HA_PV', 36.2);
+INSERT INTO PHASE VALUES (1, 'High Arousal - Positive Valence', 'Fase 1', 'DEVO_TYPE', 'HA_PV', 28.1);
 
 INSERT INTO [dbo].[PHASE] (ID, DESCRIPTION, NAME, STIMULI_TYPE, VALENCE_AROUSAL_QUARDRANT, STIMULI_ID)
 VALUES (2, 'Low Arousal - Positive Valence', 'Fase 2', 'IAP_TYPE', 'LA_PV', 2340);
