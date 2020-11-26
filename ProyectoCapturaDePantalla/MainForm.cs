@@ -39,7 +39,7 @@ namespace ProyectoCapturaDePantalla
         AForge.Video.DirectShow.VideoCaptureDevice VideoSource;
         AForge.Video.DirectShow.FilterInfoCollection VideoSources;
         Screen[] screens2;
-        int defaultTestSet = 2;
+        int defaultTestSet = 3;
 
         VideoDisplay videoPlayer;
         ImageDisplay imagePlayer;
@@ -141,12 +141,14 @@ namespace ProyectoCapturaDePantalla
             }
         }
 
+
         private async Task showStimulis(Phase phase)
         {
             imagePlayer = new ImageDisplay(ConfigurationManager.AppSettings["iaps-path"]);
             imagePlayer.WindowState = FormWindowState.Maximized;
+            List<DimensionalStimuli> listOfThings = phase.Stimulis.OrderBy(i => Guid.NewGuid()).ToList();
 
-            foreach (DimensionalStimuli stimuli in phase.Stimulis)
+            foreach (DimensionalStimuli stimuli in listOfThings)
             {
                 if (stimuli.Type == IAP.IAP_TYPE)
                 {
