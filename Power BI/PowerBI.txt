@@ -1,0 +1,1 @@
+Date = DISTINCT (UNION (SELECTCOLUMNS (PULSE_STATISTIC,"absolute_time",PULSE_STATISTIC[absolute_time]),SELECTCOLUMNS (SKIN_STATISTIC,"absolute_time",SKIN_STATISTIC[absolute_time]),SELECTCOLUMNS (SESSION_EVENT,"absolute_time",SESSION_EVENT[event_date])))
