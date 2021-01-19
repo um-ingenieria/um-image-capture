@@ -95,13 +95,13 @@ namespace ProyectoCapturaDePantalla.dao
                     CASE WHEN se.STIMULI_TYPE = 'IAP_TYPE' THEN iaps.valence_mean  WHEN se.STIMULI_TYPE = 'DEVO_TYPE' THEN devo.valence_mean ELSE 0 END as valence_mean,
                     CASE WHEN se.STIMULI_TYPE = 'IAP_TYPE' THEN iaps.valence_sd  WHEN se.STIMULI_TYPE = 'DEVO_TYPE' THEN devo.valence_sd ELSE 0 END as valence_sd,
                     CASE WHEN se.STIMULI_TYPE = 'IAP_TYPE' THEN iaps.set_id ELSE '' END as set_id,
-					CASE WHEN se.test_event like 'SAM_%' THEN '' else se.STIMULI_TYPE END as STIMULI_TYPE,
-					CASE WHEN se.test_event like 'SAM_%' THEN 0 else se.STIMULI_ID END as STIMULI_ID
+					CASE WHEN se.test_event like '%SAM%' THEN '' else se.STIMULI_TYPE END as STIMULI_TYPE,
+					CASE WHEN se.test_event like '%SAM%' THEN 0 else se.STIMULI_ID END as STIMULI_ID
                     FROM SESSION_EVENT se
                     LEFT JOIN IAPS_ALL_SUBJECTS iaps on se.STIMULI_ID = iaps.id_iaps
                     LEFT JOIN DEVO_ALL_SUBJECTS devo on se.STIMULI_ID = devo.id
                     WHERE se.session_id = {sessionId}
-                    AND (se.test_event in ('INIT_STIMULI', 'END_STIMULI') OR se.test_event LIKE '%SAM_%') order by se.event_date ASC", dbConnection);
+                    AND (se.test_event in ('INIT_STIMULI', 'END_STIMULI') OR se.test_event LIKE '%SAM%') order by se.event_date ASC", dbConnection);
 
                 SqlDataReader dr = cmd.ExecuteReader();
 

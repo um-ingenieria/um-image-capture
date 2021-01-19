@@ -372,7 +372,7 @@ namespace ProyectoCapturaDePantalla
             {
                 skinMeasurement = parserService.ParseCsvSkinMeasurement(SkinMeasurement.PATH, SkinMeasurement.FILE_NAME, SkinMeasurement.CSV_KEY);
                 SkinDao skinDao = new SkinDao();
-                skinDao.SaveSkinMeasurement(skinMeasurement, sessionId);
+                //skinDao.SaveSkinMeasurement(skinMeasurement, sessionId);
             }
             catch (Exception ex) {
                 MessageBox.Show(ex.Message);
@@ -383,7 +383,7 @@ namespace ProyectoCapturaDePantalla
             {
                 pulseMeasurement = parserService.ParseCsvPulseMeasurement(PulseMeasurement.PATH, PulseMeasurement.FILE_NAME, PulseMeasurement.CSV_KEY);
                 PulseDao pulseDao = new PulseDao();
-                pulseDao.SavePulseMeasurement(pulseMeasurement, sessionId);
+                //pulseDao.SavePulseMeasurement(pulseMeasurement, sessionId);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
@@ -396,7 +396,7 @@ namespace ProyectoCapturaDePantalla
             List<SessionEvent> sessionEvents = SessionEventDao.GetStimuliEventsBySessionId(sessionId);
 
             // Filtrmamos los eventos de SAM
-            List<SessionEvent> samEvents = sessionEvents.FindAll(item => item.TestEvent.Contains("SAM_"));
+            List<SessionEvent> samEvents = sessionEvents.FindAll(item => item.TestEvent.Contains("SAM"));
 
             // Filtramos eventos de estimulos
             List<SessionEvent> stimuliEvents = sessionEvents.FindAll(item => item.TestEvent.Contains("STIMULI"));
@@ -415,8 +415,8 @@ namespace ProyectoCapturaDePantalla
                 SetArousalAndValenceInInterval(biometricsModelData, stimuliEvents[i].EventDate, stimuliEvents[i + 1].EventDate, stimuliEvents[i].Stimuli);
             }
 
-            // Etiquetar fases
-            for (int i = 0; i < samEvents.Count; i++)
+            // Etiquetar fases. Empieza desde el índice = 1 para saltear el evento "INITIAL_SAM"
+            for (int i = 1; i < samEvents.Count; i++)
             {
                 string phaseName = samEvents[i].TestEvent.Replace("SAM_", "");
                 DateTime? sinceDate = null;
