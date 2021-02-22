@@ -365,7 +365,7 @@ namespace ProyectoCapturaDePantalla
             FaceService faceService = new FaceService();
             try
             {
-                await faceService.DetectFacesEmotionByBulk(this.GetImages(sessionId, imagesName, 10));
+                await faceService.DetectFacesEmotionByBulk(this.GetImages(sessionId, imagesName, 50));
                 MessageBox.Show("El proceso de detección de imagenes finalizó!");
             }
             catch (Exception ex)
