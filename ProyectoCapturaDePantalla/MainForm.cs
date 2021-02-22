@@ -233,12 +233,27 @@ namespace ProyectoCapturaDePantalla
         private async void CloseSession()
         {
             DialogResult dialogResult = MessageBox.Show("Desea iniciar el proceso de reconocimiento facial ahora?", "Confirmación", MessageBoxButtons.YesNo);
-
             if (dialogResult == DialogResult.Yes)
             {
-                Enabled = false;
-                await InitFaceRecognition(currentSession.Id);
-                Enabled = true;
+                string imagesNamePrompt = new Prompt("Reconocimiento emocional facial", "Ingrese el listado de nombres de imaegenes separados por una coma(,) (sin dejar espacios)").show();
+                if (imagesNamePrompt != "")
+                {
+                    try
+                    {
+                        Enabled = false;
+                        await InitFaceRecognition(currentSession.Id, castImgesNames(imagesNamePrompt));
+                        Enabled = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("Error este campo no puede estar vacio");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Error este campo no puede estar vacio");
+                }
             }
             imageId = 0;
         }
@@ -310,21 +325,47 @@ namespace ProyectoCapturaDePantalla
 
         private async Task emotionButton_ClickAsync(object sender, EventArgs e)
         {
+            int selectedSessionId;
             string promptValue = new Prompt("Reconocimiento facial", "Ingrese el número de sección de la prueba de la que desea hacer el reconocimiento").show();
-            if (int.TryParse(promptValue, out int sessionId))
+            if (int.TryParse(promptValue, out selectedSessionId))
             {
-                Enabled = false;
-                await InitFaceRecognition(sessionId);
-                Enabled = true;
+                string imagesNamePrompt = new Prompt("Reconocimiento emocional facial", "Ingrese el listado de nombres de imaegenes separados por una coma(,) (sin dejar espacios)").show();
+                if (imagesNamePrompt != "")
+                {
+                    try
+                    {
+                        Enabled = false;
+                        await InitFaceRecognition(selectedSessionId, castImgesNames(imagesNamePrompt));
+                        Enabled = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("Error este campo no puede estar vacio");
+                    }
+                } else
+                {
+                    MessageBox.Show("Error este campo no puede estar vacio");
+                }
+            } else
+            {
+                MessageBox.Show("Error al intentar parsear el número de seccción. Verifique que los datos sean correctos");
             }
         }
 
-        private async Task InitFaceRecognition(int sessionId)
+        private static List<string> castImgesNames(string imagesNamePrompt)
+        {
+            string imagesNameTrimmed = String.Concat(imagesNamePrompt.Where(c => !Char.IsWhiteSpace(c)));
+            string[] imagesName = imagesNameTrimmed.Split(',');
+            return imagesName.ToList();
+        }
+
+        private async Task InitFaceRecognition(int sessionId, List<string> imagesName)
         {
             FaceService faceService = new FaceService();
             try
             {
-                await faceService.DetectFacesEmotionByBulk(this.GetImages(sessionId, 1));
+                await faceService.DetectFacesEmotionByBulk(this.GetImages(sessionId, imagesName, 10));
                 MessageBox.Show("El proceso de detección de imagenes finalizó!");
             }
             catch (Exception ex)
@@ -336,16 +377,16 @@ namespace ProyectoCapturaDePantalla
         }
 
         //If bulkLimit is 0, get all images
-        private List<FaceImage> GetImages(int sessionId, int bulkLimit)
+        private List<FaceImage> GetImages(int sessionId, List<string> imagesName, int bulkLimit)
         {
             List<FaceImage> images = new List<FaceImage>();
 
             try
             {
                 ImagesDao imagesDao = new ImagesDao();
-                images = imagesDao.GetImages(sessionId);
+                images = imagesDao.GetImages(sessionId, imagesName);
 
-                if (images.Count > 0 && bulkLimit > 0)
+                if (images.Count > 0 && bulkLimit > 0 && images.Count > bulkLimit)
                 {
                     return images.GetRange(0, bulkLimit);
                 }

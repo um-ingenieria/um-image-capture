@@ -4,7 +4,7 @@ GO
 DROP TABLE [dbo].[FACE_EMOTION]
 
 CREATE TABLE [dbo].[FACE_EMOTION](
-	[SECCION] [float] NULL,
+	[session_id] [float] NULL,
 	[image_id] [float] NULL,
 	[ANGER] [float] NULL,
 	[CONTEMPT] [float] NULL,
