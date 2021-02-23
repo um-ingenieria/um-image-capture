@@ -2,6 +2,7 @@
 using ProyectoCapturaDePantalla.utils;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -11,15 +12,26 @@ namespace ProyectoCapturaDePantalla.dao
 {
     public class ImagesDao
     {
-        public List<FaceImage> GetImages(int sessionId)
+        public List<FaceImage> GetImages(int sessionId, List<string> imagesName)
         {
             List<FaceImage> images = new List<FaceImage>();
             SqlConnection dbConnection = DbConnection.GetConnection();
 
+            var sb = new StringBuilder();
+            if (imagesName.Count > 0)
+            {
+                sb.Append($"[IMAGENWEBCAM] LIKE '%{imagesName[0]}.jpg'");
+            }
+
+            foreach (String image in imagesName)
+            {
+                sb.Append($" OR [IMAGENWEBCAM] LIKE '%{image}.jpg'");
+            }
+
             try
             {
                 dbConnection.Open();
-                SqlCommand cmd = new SqlCommand($"SELECT [session_id], [id], [DATE], [IMAGENWEBCAM] FROM NEUROSKY_IMAGENES WHERE session_id = {sessionId}", dbConnection);
+                SqlCommand cmd = new SqlCommand($"SELECT [session_id], [id], [DATE], [IMAGENWEBCAM] FROM NEUROSKY_IMAGENES WHERE session_id = {sessionId} AND ({sb})", dbConnection);
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 while (dr.Read())
@@ -31,14 +43,16 @@ namespace ProyectoCapturaDePantalla.dao
                     img.Path = Convert.ToString(dr["IMAGENWEBCAM"]);
                     images.Add(img);
                 }
-
-                dbConnection.Close();
             }
             catch (Exception e)
             {
                 string message = "Error recuperando imagenes de la base de datos";
                 Console.WriteLine(message + e.Message);
                 throw e;
+            }
+            finally
+            {
+                dbConnection.Close();
             }
 
             return images;

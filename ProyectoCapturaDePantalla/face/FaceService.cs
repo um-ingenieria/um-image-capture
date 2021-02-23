@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Net.Http;
+using System.Web;
 using System.Threading.Tasks;
 using Microsoft.Azure.CognitiveServices.Vision.Face;
 using Microsoft.Azure.CognitiveServices.Vision.Face.Models;
 using ProyectoCapturaDePantalla.dao;
 using ProyectoCapturaDePantalla.Images;
+using System.Net;
 
 namespace ProyectoCapturaDePantalla.face
 {
@@ -166,6 +170,8 @@ namespace ProyectoCapturaDePantalla.face
 
                 // Detect faces with all attributes from image url.
                 FileStream file = new FileStream(image.Path, FileMode.Open);
+
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                 detectedFaces = await client.Face.DetectWithStreamAsync(file, returnFaceLandmarks: true,
                                         returnFaceAttributes: new List<FaceAttributeType> { FaceAttributeType.Emotion, },
                                         recognitionModel: recognitionModel);
