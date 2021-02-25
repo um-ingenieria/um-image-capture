@@ -404,7 +404,8 @@ namespace ProyectoCapturaDePantalla
             string promptValue = new Prompt("Procesamiento biometrico", "Ingrese el número de session de la prueba de la que desea hacer el procesamiento de datos biometricos").show();
             if (!int.TryParse(promptValue, out int sessionId))
             {
-                throw new Exception("Error al intentar parsear el número de seccción. Verifique que los datos sean correctos");
+                MessageBox.Show("Error al intentar parsear el número de seccción. Verifique que los datos sean correctos");
+                return;
             }
 
             ParserService parserService = new ParserService();
