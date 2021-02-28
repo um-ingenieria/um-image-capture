@@ -414,7 +414,7 @@ namespace ProyectoCapturaDePantalla
             {
                 skinMeasurement = parserService.ParseCsvSkinMeasurement(SkinMeasurement.PATH, SkinMeasurement.FILE_NAME, SkinMeasurement.CSV_KEY);
                 SkinDao skinDao = new SkinDao();
-                //skinDao.SaveSkinMeasurement(skinMeasurement, sessionId);
+                skinDao.SaveSkinMeasurement(skinMeasurement, sessionId);
             }
             catch (Exception ex) {
                 MessageBox.Show(ex.Message);
@@ -425,7 +425,7 @@ namespace ProyectoCapturaDePantalla
             {
                 pulseMeasurement = parserService.ParseCsvPulseMeasurement(PulseMeasurement.PATH, PulseMeasurement.FILE_NAME, PulseMeasurement.CSV_KEY);
                 PulseDao pulseDao = new PulseDao();
-                //pulseDao.SavePulseMeasurement(pulseMeasurement, sessionId);
+                pulseDao.SavePulseMeasurement(pulseMeasurement, sessionId);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
