@@ -1,4 +1,5 @@
-﻿using ProyectoCapturaDePantalla.Images;
+﻿using ProyectoCapturaDePantalla.Domain;
+using ProyectoCapturaDePantalla.Images;
 using ProyectoCapturaDePantalla.utils;
 using System;
 using System.Collections.Generic;
@@ -56,6 +57,42 @@ namespace ProyectoCapturaDePantalla.dao
             }
 
             return images;
+        }
+
+        public List<FaceValence> GetImagesNames(int sessionId, List<FaceValence> imagesValence)
+        {
+            List<FaceImage> images = new List<FaceImage>();
+            SqlConnection dbConnection = DbConnection.GetConnection();
+
+            List<int> imagesIds = imagesValence.Select(it => it.Id).ToList();
+
+            try
+            {
+                dbConnection.Open();
+                SqlCommand cmd = new SqlCommand($"SELECT [id], [IMAGENWEBCAM] , [DATE] FROM NEUROSKY_IMAGENES WHERE session_id = {sessionId} AND [id] IN ({string.Join(",", imagesValence.Select(it => it.Id).ToList())})", dbConnection);
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    int id = int.Parse(Convert.ToString(dr["id"]));
+                    String name = Convert.ToString(dr["IMAGENWEBCAM"]);
+                    string[] nameArray = name.Split('\\');
+                    imagesValence.First(it => it.Id == id).Name = nameArray[nameArray.Count() - 1];
+                    imagesValence.First(it => it.Id == id).Date = DateHelper.FormatDate((Convert.ToString(dr["DATE"])), DateHelper.FULL_DATE_HOUR_PERIOD);
+                }
+            }
+            catch (Exception e)
+            {
+                string message = "Error recuperando imagenes de la base de datos";
+                Console.WriteLine(message + e.Message);
+                throw e;
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+
+            return imagesValence;
         }
 
         public void InsertImages(string testName, int sessionId, int id, string desktopImagePath, string webcamImagePath)

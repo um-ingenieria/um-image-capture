@@ -21,6 +21,9 @@ namespace ProyectoCapturaDePantalla.Domain
         private float valenceSD;
         private string phaseName;
         private bool matchesSam;
+        private string imageName;
+        private Boolean hasValence;
+        private float valence;
 
         public DateTime TimeStamp { get => timeStamp; set => timeStamp = value; }
         public float HR { get => hR; set => hR = value; }
@@ -35,6 +38,9 @@ namespace ProyectoCapturaDePantalla.Domain
         public float ValenceSD { get => valenceSD; set => valenceSD = value; }
         public string PhaseName { get => phaseName; set => phaseName = value; }
         public bool MatchesSam { get => matchesSam; set => matchesSam = value; }
+        public string ImageName { get => imageName; set => imageName = value; }
+        public bool HasValence { get => hasValence; set => hasValence = value; }
+        public float Valence { get => valence; set => valence = value; }
 
         public BiometricModelData(DateTime timeStamp, float hR, float rR, float hRV, float microSiemens, float sCR, float sCR_MIN)
         {
