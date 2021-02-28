@@ -414,7 +414,7 @@ namespace ProyectoCapturaDePantalla
             {
                 skinMeasurement = parserService.ParseCsvSkinMeasurement(SkinMeasurement.PATH, SkinMeasurement.FILE_NAME, SkinMeasurement.CSV_KEY);
                 SkinDao skinDao = new SkinDao();
-                //skinDao.SaveSkinMeasurement(skinMeasurement, sessionId);
+                skinDao.SaveSkinMeasurement(skinMeasurement, sessionId);
             }
             catch (Exception ex) {
                 MessageBox.Show(ex.Message);
@@ -425,7 +425,7 @@ namespace ProyectoCapturaDePantalla
             {
                 pulseMeasurement = parserService.ParseCsvPulseMeasurement(PulseMeasurement.PATH, PulseMeasurement.FILE_NAME, PulseMeasurement.CSV_KEY);
                 PulseDao pulseDao = new PulseDao();
-                //pulseDao.SavePulseMeasurement(pulseMeasurement, sessionId);
+                pulseDao.SavePulseMeasurement(pulseMeasurement, sessionId);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
@@ -434,6 +434,11 @@ namespace ProyectoCapturaDePantalla
 
         private void createHrSkinAndArousalMesurement(int sessionId, PulseMeasurement pulseMeasurement, SkinMeasurement skinMeasurement)
         {
+            // Traemos los valores de las imagenes para agregarlas al csv
+            List<FaceValence> images = EmotionsDao.GetImages(sessionId);
+            ImagesDao imagesDao = new ImagesDao();
+            imagesDao.GetImagesNames(sessionId, images);
+
             // Juntamos los eventos de inicio y fin de estimulo, asociados a su nivel de valence y arousal
             List<SessionEvent> sessionEvents = SessionEventDao.GetStimuliEventsBySessionId(sessionId);
 
@@ -457,7 +462,7 @@ namespace ProyectoCapturaDePantalla
                 SetArousalAndValenceInInterval(biometricsModelData, stimuliEvents[i].EventDate, stimuliEvents[i + 1].EventDate, stimuliEvents[i].Stimuli);
             }
 
-            // Etiquetar fases. Empieza desde el índice = 1 para saltear el evento "INITIAL_SAM"
+            //// Etiquetar fases. Empieza desde el índice = 1 para saltear el evento "INITIAL_SAM"
             for (int i = 1; i < samEvents.Count; i++)
             {
                 string phaseName = samEvents[i].TestEvent.Replace("SAM_", "");
@@ -466,9 +471,12 @@ namespace ProyectoCapturaDePantalla
                 {
                     sinceDate = samEvents[i - 1].EventDate;
                 }
-                
+
                 SetPhaseNameInInterval(biometricsModelData, sinceDate, samEvents[i].EventDate, phaseName);
             }
+
+            //Agregamos los valores de las imagenes al csv
+            addImagesDataToBiometrics(biometricsModelData, images);
 
             // Descartar mediciones de fases que no coincidan con el SAM
             ValenceAndArousalDao valenceArousalDao = new ValenceAndArousalDao();
@@ -479,7 +487,7 @@ namespace ProyectoCapturaDePantalla
             BiometricModelDataDao.SaveBiometricModelDataToCsv(biometricsModelData);
 
             // Informe final
-            MessageBox.Show("Mostrar informe final");
+            MessageBox.Show("CSV correctamente creado");
             // SAM descartadas, cantidad de registros procesados / descartados, errores, success...
         }
 
@@ -548,5 +556,31 @@ namespace ProyectoCapturaDePantalla
 
             return biometricsModelData;
         }
+        private void addImagesDataToBiometrics(List<BiometricModelData> biometrics, List<FaceValence> faceValences)
+        {
+            if (faceValences == null || faceValences.Count == 0)
+            {
+                return;
+            }
+
+            int i = 0;
+            foreach (FaceValence face in faceValences)
+            {
+                while ((biometrics[i].TimeStamp.CompareTo(face.Date) <= 0))
+                {
+                    biometrics[i].ImageName = "";
+                    biometrics[i].HasValence = false;
+                    biometrics[i].Valence = 0;
+
+                    i++;
+                }
+
+                biometrics[i].ImageName = face.Name;
+                biometrics[i].HasValence = face.HasValence;
+                biometrics[i].Valence = face.Valence;
+                i++;
+            }
+        }
     }
+
 }

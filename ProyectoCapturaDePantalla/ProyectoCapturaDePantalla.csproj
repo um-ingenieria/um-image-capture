@@ -111,6 +111,7 @@
     <Compile Include="dao\SkinDao.cs" />
     <Compile Include="Domain\BiometricModelData.cs" />
     <Compile Include="Domain\DimentionalMesurement.cs" />
+    <Compile Include="Domain\FaceValence.cs" />
     <Compile Include="Domain\Phase\Phase.cs" />
     <Compile Include="Domain\Phase\stimulus\DEVO.cs" />
     <Compile Include="Domain\Phase\stimulus\DimensionalStimuli.cs" />

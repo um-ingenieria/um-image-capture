@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.CognitiveServices.Vision.Face;
 using Microsoft.Azure.CognitiveServices.Vision.Face.Models;
+using ProyectoCapturaDePantalla.Domain;
 
 namespace ProyectoCapturaDePantalla.dao
 {
@@ -29,6 +30,45 @@ namespace ProyectoCapturaDePantalla.dao
                 }
                 return instance;
             }
+        }
+
+        public static List<FaceValence> GetImages(int sessionId)
+        {
+            return Instance.getImages(sessionId);
+        }
+
+        private List<FaceValence> getImages(int sessionId)
+        {
+            SqlConnection dbConnection = DbConnection.GetConnection();
+            List<FaceValence> images = new List<FaceValence>();
+
+            try
+            {
+                dbConnection.Open();
+                SqlCommand cmd = new SqlCommand($"SELECT [image_id], [VALENCE] FROM FACE_EMOTION WHERE session_id = {sessionId}", dbConnection);
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    FaceValence img = new FaceValence();
+                    img.Id = int.Parse(Convert.ToString(dr["image_id"]));
+                    img.Valence = float.Parse(Convert.ToString(dr["VALENCE"]));
+                    img.HasValence = (img.Valence > 0.5);
+                    images.Add(img);
+                }
+            }
+            catch (Exception e)
+            {
+                string message = "Error recuperando imagenes de la base de datos";
+                Console.WriteLine(message + e.Message);
+                throw e;
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+
+            return images;
         }
 
         public static void SaveEmotion(Emotion emotion, int sessionId, int image_id, double valence)

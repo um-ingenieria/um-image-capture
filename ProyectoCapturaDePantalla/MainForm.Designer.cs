@@ -156,7 +156,7 @@
             this.buttonRunSP.Name = "buttonRunSP";
             this.buttonRunSP.Size = new System.Drawing.Size(139, 81);
             this.buttonRunSP.TabIndex = 14;
-            this.buttonRunSP.Text = "Correr proceso de carga";
+            this.buttonRunSP.Text = "Realizar proceso de carga";
             this.buttonRunSP.UseVisualStyleBackColor = true;
             this.buttonRunSP.Click += new System.EventHandler(this.buttonRunSP_Click);
             // 
@@ -167,7 +167,7 @@
             this.emotionButton.Name = "emotionButton";
             this.emotionButton.Size = new System.Drawing.Size(139, 81);
             this.emotionButton.TabIndex = 15;
-            this.emotionButton.Text = "Correr proceso de reconocimiento emocional";
+            this.emotionButton.Text = "Realizar reconocimiento de emociones faciales";
             this.emotionButton.UseVisualStyleBackColor = true;
             //this.emotionButton.Click += new System.EventHandler(this.emotionButton_Click);
             this.emotionButton.Click += async (s, e) => await this.emotionButton_ClickAsync(s, e);
@@ -180,7 +180,7 @@
             this.biometricsBtn.Name = "biometricsBtn";
             this.biometricsBtn.Size = new System.Drawing.Size(127, 78);
             this.biometricsBtn.TabIndex = 16;
-            this.biometricsBtn.Text = "Correr prosamiento de datos biométricos";
+            this.biometricsBtn.Text = "Realizar prosamiento de datos biométricos";
             this.biometricsBtn.UseVisualStyleBackColor = true;
             this.biometricsBtn.Click += new System.EventHandler(this.biometricsBtn_Click);
             // 
