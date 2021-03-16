@@ -12,6 +12,7 @@ CREATE TABLE IAPS_ALL_SUBJECTS (
   dominance_2_mean  FLOAT,
   dominance_2_standard_deviation  FLOAT,
   set_id INT NOT NULL,
+  duration INT not null default 2000,
 );
 
 CREATE TABLE IAPS_MALE_SUBJECTS (
@@ -26,6 +27,7 @@ CREATE TABLE IAPS_MALE_SUBJECTS (
   dominance_2_mean  FLOAT,
   dominance_2_standard_deviation  FLOAT,
   set_id INT NOT NULL,
+  duration INT not null default 2000,
 );
 
 CREATE TABLE IAPS_FEMALE_SUBJECTS (
@@ -40,4 +42,5 @@ CREATE TABLE IAPS_FEMALE_SUBJECTS (
   dominance_2_mean  FLOAT,
   dominance_2_standard_deviation  FLOAT,
   set_id INT NOT NULL,
+  duration INT not null default 2000,
 );

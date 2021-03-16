@@ -158,7 +158,7 @@ namespace ProyectoCapturaDePantalla
                     {
                         SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, "INIT_STIMULI", DateTime.Now, stimuli));
                         imagePlayer.ChangeImage(string.Concat(stimuli.Id, ".jpg"));
-                        await Task.Delay(2000);
+                        await Task.Delay((stimuli as IAP).DurationInMs);
                         SessionEventDao.SaveSessionEvent(new SessionEvent(currentSession.Id, currentSession.TestName, "END_STIMULI", DateTime.Now, stimuli));
                     });
                 }
