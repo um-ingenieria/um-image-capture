@@ -123,7 +123,7 @@ namespace ProyectoCapturaDePantalla.dao
                     if (stimuliType == IAP.IAP_TYPE)
                     {
                         int setId = int.Parse(Convert.ToString(dr["set_id"]));
-                        stimuli = new IAP(stimuliId, setId, valenceMean, valenceSD, arousalMean, arousalSD);
+                        stimuli = new IAP(stimuliId, setId, valenceMean, valenceSD, arousalMean, arousalSD, 3000);
                     } else if (stimuliType == DEVO.DEVO_TYPE)
                     {
                         stimuli = new DEVO(stimuliId, valenceMean, valenceSD, arousalMean, arousalSD);

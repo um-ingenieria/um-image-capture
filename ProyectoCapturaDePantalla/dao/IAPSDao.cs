@@ -54,8 +54,9 @@ namespace ProyectoCapturaDePantalla.dao
                     float arousalMean = float.Parse(Convert.ToString(dr["arousal_mean"]));
                     float arousalStandardDeviation = float.Parse(Convert.ToString(dr["valence_sd"]));
                     int setId = int.Parse(Convert.ToString(dr["set_id"]));
+                    int duration = int.Parse(Convert.ToString(dr["duration"]));
 
-                    iapsList.Add(new IAP(id, setId, valenceMean, valenceStandardDeviation, arousalMean, arousalStandardDeviation));
+                    iapsList.Add(new IAP(id, setId, valenceMean, valenceStandardDeviation, arousalMean, arousalStandardDeviation, duration));
                 }
             }
             catch (Exception e)
