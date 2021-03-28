@@ -61,6 +61,10 @@ namespace ProyectoCapturaDePantalla.dao
 
         public List<FaceValence> GetImagesNames(int sessionId, List<FaceValence> imagesValence)
         {
+            if(imagesValence.Count == 0)
+            {
+                return imagesValence;
+            }
             List<FaceImage> images = new List<FaceImage>();
             SqlConnection dbConnection = DbConnection.GetConnection();
 

@@ -271,14 +271,12 @@ namespace ProyectoCapturaDePantalla
             buttonEmpezar.Enabled = true;
         }
 
-        public int CallSP(string SP)
+        public int CallSP(string SP, string testName)
         {
-            string NombreQuery = currentSession.TestName;
-
             Conexion.Open();
             SqlCommand cmd = new SqlCommand(SP, Conexion);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@Name", SqlDbType.NVarChar).Value = NombreQuery;
+            cmd.Parameters.Add("@Name", SqlDbType.NVarChar).Value = testName;
             int resultado = cmd.ExecuteNonQuery();
             Conexion.Close();
 
@@ -318,9 +316,18 @@ namespace ProyectoCapturaDePantalla
 
         private void buttonRunSP_Click(object sender, EventArgs e)
         {
+            String testName = "";
+            if(currentSession == null)
+            {
+                testName = new Prompt("Proceso de carga", "Ingrese el nombre de la prueba").show();
+            } else
+            {
+                testName = currentSession.TestName;
+            }
+            
             //this.CallSP();
-            MessageBox.Show("El numero de registros afectados en la tabla general fueron: " + this.CallSP("SP_CargarDatos"));
-            MessageBox.Show("El numero de registros afectados en la tabla Excitacion-Valencia fueron: " + this.CallSP("SP_CargarDatos_Excitacion_Valencia"));
+            MessageBox.Show("El numero de registros afectados en la tabla general fueron: " + this.CallSP("SP_CargarDatos", testName));
+            MessageBox.Show("El numero de registros afectados en la tabla Excitacion-Valencia fueron: " + this.CallSP("SP_CargarDatos_Excitacion_Valencia", testName));
         }
 
         private async Task emotionButton_ClickAsync(object sender, EventArgs e)
@@ -365,7 +372,7 @@ namespace ProyectoCapturaDePantalla
             FaceService faceService = new FaceService();
             try
             {
-                await faceService.DetectFacesEmotionByBulk(this.GetImages(sessionId, imagesName, 50));
+                await faceService.DetectFacesEmotionByBulk(this.GetImages(sessionId, imagesName, 100));
                 MessageBox.Show("El proceso de detección de imagenes finalizó!");
             }
             catch (Exception ex)
