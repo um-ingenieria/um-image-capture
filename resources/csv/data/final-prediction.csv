@@ -1,0 +1,8 @@
+Phase,Arousal,Valence,Type
+"HA_PV",7,7,"Stimuly1"
+"HA_NV",5,3,"SAM1"
+"LA_PV",1,8,"SAM2"
+"LA_NV",3,2,"SAM3"
+"HA_NV",4,3,"SAM4"
+"LA_PV",2,8,"Stimuly2"
+"LA_NV",3,6,"Stimuly3"

@@ -41,7 +41,7 @@ namespace ProyectoCapturaDePantalla.dao
             try
             {
                 dbConnection.Open();
-                SqlCommand cmd = new SqlCommand($"SELECT TOP (10) [id_iaps], [valence_mean], [valence_sd], [arousal_mean], [arousal_sd], [set_id] FROM {gender} WHERE id_iaps in ({string.Join(",", iapsIds.Select(n => n.ToString()).ToArray())})", dbConnection);
+                SqlCommand cmd = new SqlCommand($"SELECT TOP (10) [id_iaps], [valence_mean], [valence_sd], [arousal_mean], [arousal_sd], [set_id], [duration] FROM {gender} WHERE id_iaps in ({string.Join(",", iapsIds.Select(n => n.ToString()).ToArray())})", dbConnection);
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 iapsList = new List<IAP>();
