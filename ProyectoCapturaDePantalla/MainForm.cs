@@ -39,7 +39,7 @@ namespace ProyectoCapturaDePantalla
         AForge.Video.DirectShow.VideoCaptureDevice VideoSource;
         AForge.Video.DirectShow.FilterInfoCollection VideoSources;
         Screen[] screens2;
-        int defaultTestSet = 3;
+        int defaultTestSet = 1;
 
         VideoDisplay videoPlayer;
         ImageDisplay imagePlayer;
