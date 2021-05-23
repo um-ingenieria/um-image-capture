@@ -1,13 +1,6 @@
-Phase,Arousal,Valence,Type
-"INIT",6,6,"INITIAL_SAM"
-"HA_PV_9",8,9,"SAM_HA_PV_9"
-"LA_PV_10",2,7,"SAM_LA_PV_10"
-"LA_NV_11",2,2,"SAM_LA_NV_11"
-"HA_NV_12",8,1,"SAM_HA_NV_12"
-"HA_PV_13",8,9,"SAM_HA_PV_13"
-"LA_PV_14",2,7,"SAM_LA_PV_14"
-"LA_NV_15",2,2,"SAM_LA_NV_15"
-"HA_NV_16",9,1,"SAM_HA_NV_16"
-"HA_PV",7.27,1.8,"WebCam-637522206654353272.jpg"
-"LA_PV",3.96,8.6,"WebCam-637522206654353222.jpg"
-"LA_NV",7.44,1.4,"WebCam-637522206654357891.jpg"
+Phase(Quadrant),Arousal,Valence,Type
+INITIAL (No stimuly),7,6,INITIAL_SAM (No stimuly)
+HA_PV (1),7,7,SAM_HA_PV (1). Coincide con cuadrante: SI
+LA_PV (4),3,7,SAM_LA_PV (4). Coincide con cuadrante: SI
+LA_NV (3),7,3,SAM_LA_NV (3). Coincide con cuadrante: SI
+HA_NV (2),8,2,SAM_HA_NV (4). Coincide con cuadrante: SI

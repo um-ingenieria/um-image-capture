@@ -18,7 +18,7 @@ namespace ProyectoCapturaDePantalla.face
     public class FaceService
     {
         public static int BULK_LIMIT = 10;
-        public static string SUBSCRIPTION_KEY = "968cb12edb324b7b87678753e6537f03";
+        public static string SUBSCRIPTION_KEY = "1aeb9b84a6524658a470b1754ce07440";
         public static string SUBSCRIPTION_ENDPOINT = "https://emotion-recognition-api.cognitiveservices.azure.com/";
         public static int NO_BULK_LMIT = 0;
 

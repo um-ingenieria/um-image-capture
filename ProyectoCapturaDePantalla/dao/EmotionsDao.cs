@@ -53,7 +53,7 @@ namespace ProyectoCapturaDePantalla.dao
                     FaceValence img = new FaceValence();
                     img.Id = int.Parse(Convert.ToString(dr["image_id"]));
                     img.Valence = float.Parse(Convert.ToString(dr["VALENCE"]));
-                    img.HasValence = (img.Valence > 0.5);
+                    img.HasValence = ((img.Valence > 0.225) || (img.Valence < -0.225));
                     images.Add(img);
                 }
             }
